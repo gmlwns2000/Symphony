@@ -50,7 +50,7 @@
         <StackPanel UseLayoutRounding="True" Orientation="Vertical" Grid.Row="2" Margin="24,0,0,0">
             <TextBlock Style="{StaticResource GradientEmbosedText}" Grid.Row="2" Margin="0,2" Text="{DynamicResource Lang_Setting_Project_Text}" FontFamily="NanumBarunGothic Light" FontSize="12"/>
             <TextBlock Style="{StaticResource GradientEmbosedText}" Grid.Row="2" Margin="0,2" Text="Made by AinL, JinkwaN" FontFamily="NanumBarunGothic Light" FontSize="12"/>
-            <TextBlock Style="{StaticResource GradientEmbosedText}" Grid.Row="2" Margin="0,2" Text="Copyright 2014 - 2016" FontFamily="NanumBarunGothic Light" FontSize="12"/>
+            <TextBlock Style="{StaticResource GradientEmbosedText}" Grid.Row="2" Margin="0,2" Text="Copyright 2014 - 2017" FontFamily="NanumBarunGothic Light" FontSize="12"/>
         </StackPanel>
     </Grid>
 </UserControl>
