@@ -44,18 +44,21 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AssimpNet">
-      <HintPath>..\libs\assimp.net\AssimpNet.dll</HintPath>
+    <Reference Include="AssimpNet, Version=3.2.0.0, Culture=neutral, PublicKeyToken=7c35138f0d61254b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\AssimpNet.dll</HintPath>
     </Reference>
     <Reference Include="BulletSharp, Version=2.83.7.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\BulletSharp.dll</HintPath>
     </Reference>
-    <Reference Include="NiWrapper.Net">
-      <HintPath>..\Kinnect\NiWrapper.NiTE.Net x86\NiWrapper.Net.dll</HintPath>
+    <Reference Include="NiWrapper.Net, Version=2.2.0.30, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\NiWrapper.Net.dll</HintPath>
     </Reference>
-    <Reference Include="NiWrapper.NiTE.Net">
-      <HintPath>..\Kinnect\NiWrapper.NiTE.Net x86\NiWrapper.NiTE.Net.dll</HintPath>
+    <Reference Include="NiWrapper.NiTE.Net, Version=2.2.0.5, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\NiWrapper.NiTE.Net.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -65,9 +68,9 @@
     <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.87.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+    <Reference Include="System.Data.SQLite, Version=1.0.88.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SQLite\System.Data.SQLite.dll</HintPath>
+      <HintPath>.\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.88.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -78,9 +81,6 @@
     <Reference Include="System.Xaml" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TargaImage">
-      <HintPath>..\Targa\Release\TargaImage.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -364,6 +364,10 @@
       <Project>{3df05446-6065-4ebb-9bcc-075a0d91dda0}</Project>
       <Name>MMDFileParser</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TargaImage\TargaImage.csproj">
+      <Project>{56f4bd87-2404-4263-80d5-6fa2161eb0a4}</Project>
+      <Name>TargaImage</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -374,11 +378,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BulletSharp.dll" />
     <Content Include="Resource\Shader\debugDot.fx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="System.Data.SQLite.Linq.dll" />
     <None Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
