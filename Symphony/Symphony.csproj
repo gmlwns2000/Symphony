@@ -776,15 +776,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Language\English.xaml">
+    <None Include="Language\English.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Page Include="Language\Korean.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Include="UI\Settings\General\SettingLanguage.xaml">
       <SubType>Designer</SubType>
