@@ -446,12 +446,6 @@ namespace Symphony.UI
                 if (!string.IsNullOrWhiteSpace(item.FileName))
                 {
                     Lb_Title.Text = item.FileName;
-                    Lb_FileName.Text = item.FileName;
-                }
-
-                if (!string.IsNullOrWhiteSpace(item.FilePath))
-                {
-                    Lb_FilePath.Text = item.FilePath;
                 }
 
                 //LANGSUP
@@ -463,6 +457,16 @@ namespace Symphony.UI
                 {
                     Lb_Artist.Text = "사용할 수 없음";
                 }
+            }
+
+            if (!string.IsNullOrWhiteSpace(item.FileName))
+            {
+                Lb_FileName.Text = item.FileName;
+            }
+
+            if (!string.IsNullOrWhiteSpace(item.FilePath))
+            {
+                Lb_FilePath.Text = item.FilePath;
             }
         }
 

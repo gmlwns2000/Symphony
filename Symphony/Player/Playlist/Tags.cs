@@ -202,9 +202,11 @@ namespace Symphony.Player
 
             tag.Artist = vi.Author;
 
+            tag.Album = vi.OriginalUrl;
+
             tag.Duration = vi.Length;
 
-            if (vi.ThumbnailUri != null)
+            if (vi.ThumbnailUrl != null)
             {
                 if (tag.Pictures == null)
                     tag.Pictures = new List<TagImage>();
@@ -212,7 +214,7 @@ namespace Symphony.Player
 
                 Task t = Util.LimitedTaskScheduler.Factory.StartNew(delegate
                 {
-                    byte[] buffer = DownloadData(vi.ThumbnailUri, 0);
+                    byte[] buffer = DownloadData(vi.ThumbnailUrl, 0);
 
                     if (buffer != null)
                     {

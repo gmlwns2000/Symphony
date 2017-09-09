@@ -199,7 +199,9 @@ namespace Symphony.Player.Youtube
         /// </summary>
         public VideoType VideoType { get; private set; }
 
-        public string ThumbnailUri { get; internal set; }
+        public string ThumbnailUrl { get; internal set; }
+
+        public string OriginalUrl { get; internal set; }
 
         public string Author { get; internal set; }
 

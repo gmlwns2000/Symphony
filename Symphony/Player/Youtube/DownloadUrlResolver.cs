@@ -94,7 +94,7 @@ namespace Symphony.Player.Youtube
 
                 IEnumerable<ExtractionInfo> downloadUrls = ExtractDownloadUrls(json);
 
-                IEnumerable<VideoInfo> infos = GetVideoInfos(downloadUrls, videoTitle, videoThumb, videoAuthor, videoLength).ToList();
+                IEnumerable<VideoInfo> infos = GetVideoInfos(downloadUrls, videoTitle, videoThumb, videoAuthor, videoLength, videoUrl).ToList();
 
                 string htmlPlayerVersion = GetHtml5PlayerVersion(json);
 
@@ -245,7 +245,7 @@ namespace Symphony.Player.Youtube
             return streamMapString;
         }
 
-        private static IEnumerable<VideoInfo> GetVideoInfos(IEnumerable<ExtractionInfo> extractionInfos, string videoTitle, string thumbUri, string author, double length)
+        private static IEnumerable<VideoInfo> GetVideoInfos(IEnumerable<ExtractionInfo> extractionInfos, string videoTitle, string thumbUri, string author, double length, string originalUri)
         {
             var downLoadInfos = new List<VideoInfo>();
 
@@ -263,10 +263,11 @@ namespace Symphony.Player.Youtube
                     {
                         DownloadUrl = extractionInfo.Uri.ToString(),
                         Title = videoTitle,
-                        ThumbnailUri = thumbUri,
+                        ThumbnailUrl = thumbUri,
                         Author = author,
                         Length = TimeSpan.FromSeconds(length),
-                        RequiresDecryption = extractionInfo.RequiresDecryption
+                        RequiresDecryption = extractionInfo.RequiresDecryption,
+                        OriginalUrl = originalUri,
                     };
                 }
 
@@ -274,7 +275,8 @@ namespace Symphony.Player.Youtube
                 {
                     info = new VideoInfo(formatCode)
                     {
-                        DownloadUrl = extractionInfo.Uri.ToString()
+                        DownloadUrl = extractionInfo.Uri.ToString(),
+                        OriginalUrl = originalUri
                     };
                 }
 
