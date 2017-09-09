@@ -84,3 +84,5 @@ Anime meets real life
 * Save / load visualizers
 
 * Custom visualizer (maybe with lua)
+
+* Soundcloud support
