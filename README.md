@@ -59,6 +59,8 @@ Anime meets real life
 
 ### Short Term Dev Task
 
+* Youtube streaming opt (network usage, etc)
+
 * Add setting options (default behavior when add file (add to playlist or start play too))
 
 * When open music from explorer, show toast massage
