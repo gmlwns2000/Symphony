@@ -22,13 +22,13 @@ namespace Symphony
 
         private static PlayerLogger logger = new PlayerLogger("Symphony Global");
 #if DEBUG
-        private static bool IsDebug = true;
+        private const bool IsDebug = true;
 #else
-        private static bool IsDebug = false;
+        private const bool IsDebug = false;
 #endif
 
-        private static string LineSpliterThick = "======================================================";
-        private static string LineSpliterThin =  "------------------------------------------------------";
+        private const string LineSpliterThick = "======================================================";
+        private const string LineSpliterThin =  "------------------------------------------------------";
 
         static Logger()
         {
@@ -41,6 +41,8 @@ namespace Symphony
         {
             return logger.GetString();
         }
+
+#pragma warning disable CS0162 // Unreachable code detected
 
         public static void Error(string msg)
         {
@@ -137,5 +139,8 @@ namespace Symphony
                 }));
             }
         }
+
+#pragma warning restore CS0162 // Unreachable code detected
+
     }
 }
