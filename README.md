@@ -55,6 +55,8 @@ Anime meets real life
 
 * Speech to text commands
 
+* Lua plugin system
+
 ### Short Term Dev Task
 
 * Add setting options (default behavior when add file (add to playlist or start play too))
