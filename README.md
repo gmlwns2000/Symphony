@@ -14,9 +14,7 @@ Anime meets real life
 
 * Particles on visualizer
 
-* 
-
-Audio streamer
+* Audio streamer
 
 * Play queue priorities
 
@@ -36,14 +34,11 @@ Audio streamer
 
 * Support jpeg2000
 
-* Audio recog. visualizer
-
-  \- Recog. kick, some effectss
-
+* Audio recog. visualizer\
+  \- Recog. kick, some effectss\
   \- Autogen dance (OpenPose \+ 3D recontruction)
 
-* Add part of video on playlist
-  \
+* Add part of video on playlist\
   \- Use for anime OP, ED
 
 * Playlist search (with filters (size, name, language etc))
@@ -74,14 +69,12 @@ Audio streamer
 
 * Playlist orderbys
 
-* Earphone(?) button behavior
-  (이어폰 일시정지 길게누르면 팝업 표시>정보보기, 등등등)\
+* Earphone(?) button behavior (이어폰 일시정지 길게누르면 팝업 표시>정보보기, 등등등)\
   \- Show popup when press long
 
 * Show lua DSPs that in library on DSP list
 
-* Lyric editor
-  \
+* Lyric editor\
   \- Drag lyric object
 
 * Add DSP item context menu (add note, add nickname, toggle use, remove)
