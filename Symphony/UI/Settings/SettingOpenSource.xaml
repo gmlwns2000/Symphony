@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Symphony.UI.Settings.SettingOpenSource"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI.Settings"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" FontFamily="NanumBarunGothic">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <TextBlock Style="{StaticResource GradientEmbosedText}" Text="{DynamicResource Lang_Setting_OpenSource_Title}" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <TextBox x:Name="licenseLabel" Margin="12,42,12,12" Foreground="#FF4F4F4F" VerticalScrollBarVisibility="Visible" Background="{x:Null}" VerticalContentAlignment="Stretch" TextWrapping="Wrap" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AllowDrop="False" BorderThickness="0" BorderBrush="{x:Null}">
+            <TextBox.Effect>
+                <DropShadowEffect BlurRadius="0" Color="White" Direction="270" ShadowDepth="1" Opacity="1"/>
+            </TextBox.Effect>
+        </TextBox>
+    </Grid>
+</UserControl>

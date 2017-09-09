@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="Symphony.UI.Settings.SettingEqualizer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI.Settings"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" Width="595.58" Height="280" MinWidth="660" MinHeight="280" MaxHeight="280">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultCheckBox.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultButton.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/CircleTrackBar.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Orientation="Horizontal" x:Name="Stack_Bands" Width="594" Height="280" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Slider Maximum="1" Value="1" x:Name="Sld_Amp" Orientation="Vertical" HorizontalAlignment="Right" Margin="0,0,36,75" ValueChanged="Sld_Amp_ValueChanged" LargeChange="0.1" SmallChange="0.03" Style="{StaticResource CircleTrackBar}"/>
+        <Slider Maximum="1" Value="1" x:Name="Sld_Opacity" Orientation="Vertical" HorizontalAlignment="Right" Margin="0,0,6,75" ValueChanged="Sld_Opacity_ValueChanged" SmallChange="0.03" LargeChange="0.1" Style="{StaticResource CircleTrackBar}"/>
+        <TextBlock ToolTip="앰프 크기입니다" Style="{StaticResource GradientEmbosedText}" Text="앰프" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="34,52"/>
+        <TextBlock ToolTip="이퀄라이저가 적용되는 정도를 조정할수있습니다" Style="{StaticResource GradientEmbosedText}" Text="볼륨" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4,52"/>
+        <CheckBox x:Name="Chk_On" IsChecked="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="12,32" Content="사용" Unchecked="Chk_On_Unchecked" Checked="Chk_On_Checked" FontFamily="NanumBarunGothic Light" Style="{DynamicResource DefaultCheckBox}" Foreground="#FF7A7A7A"/>
+        <Button Style="{StaticResource DefaultButton}" Content="초기화" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="3,7" Width="52" Click="Button_Click" FontFamily="NanumBarunGothic Light"/>
+    </Grid>
+</UserControl>

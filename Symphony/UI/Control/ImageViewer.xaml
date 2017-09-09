@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="Symphony.UI.ImageViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" PreviewMouseWheel="UserControl_PreviewMouseWheel">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <ControlTemplate x:Key="ScrollViewerControlTemplate1" TargetType="{x:Type ScrollViewer}">
+                <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+                    <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="0" Margin="{TemplateBinding Padding}" Grid.Row="0"/>
+                    <ScrollBar HorizontalAlignment="Right" Margin="0,14" x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}"/>
+                    <ScrollBar VerticalAlignment="Bottom" Margin="14,0" x:Name="PART_HorizontalScrollBar" AutomationProperties.AutomationId="HorizontalScrollBar" Cursor="Arrow" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Orientation="Horizontal" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}"/>
+                </Grid>
+            </ControlTemplate>
+            <ContextMenu x:Key="Ct_Image">
+                <MenuItem Header="{DynamicResource Lang_ImageViewer_Zoom_FitToScreen}" x:Name="Ct_Image_FitToScreen" Click="Ct_Image_FitToScreen_Click"/>
+                <MenuItem Header="{DynamicResource Lang_ImageViewer_Zoom_Bigger}" x:Name="Ct_Image_Bigger" Click="Ct_Image_Bigger_Click"/>
+                <MenuItem Header="{DynamicResource Lang_ImageViewer_Zoom_Smaller}" x:Name="Ct_Image_Smaller" Click="Ct_Image_Smaller_Click"/>
+                <MenuItem Header="200%" x:Name="Ct_Image_200p" Click="Ct_Image_200p_Click"/>
+                <MenuItem Header="100%" x:Name="Ct_Image_100p" Click="Ct_Image_100p_Click"/>
+                <MenuItem Header="50%" x:Name="Ct_Image_50p" Click="Ct_Image_50p_Click"/>
+            </ContextMenu>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid PreviewMouseLeftButtonDown="UserControl_MouseLeftButtonDown" ContextMenu="{DynamicResource Ct_Image}">
+        <ScrollViewer x:Name="Sv" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Template="{StaticResource ScrollViewerControlTemplate1}">
+            <Image x:Name="Img" ClipToBounds="True" Stretch="None" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="Fant" RenderOptions.CachingHint="Cache" >
+                <Image.LayoutTransform>
+                    <ScaleTransform x:Name="Img_St"/>
+                </Image.LayoutTransform>
+                <Image.CacheMode>
+                    <BitmapCache/>
+                </Image.CacheMode>
+            </Image>
+            <ScrollViewer.CacheMode>
+                <BitmapCache/>
+            </ScrollViewer.CacheMode>
+        </ScrollViewer>
+        <StackPanel>
+            <TextBlock x:Name="Tb_Info" HorizontalAlignment="Left" VerticalAlignment="Top" Text="줌: 100% - Kimi ga shiranai monogatari.flac" FontFamily="NanumBarunGothic" Foreground="White" Margin="12,12,0,7" TextWrapping="Wrap">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="5"/>
+                </TextBlock.Effect>
+                <TextBlock.CacheMode>
+                    <BitmapCache EnableClearType="False" SnapsToDevicePixels="True"/>
+                </TextBlock.CacheMode>
+            </TextBlock>
+            <TextBlock x:Name="Tb_Meta" HorizontalAlignment="Left" VerticalAlignment="Top" Text="줌: 100% - Kimi ga shiranai monogatari.flac" FontFamily="NanumBarunGothic" Foreground="White" Margin="12,0" TextWrapping="Wrap">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="5"/>
+                </TextBlock.Effect>
+                <TextBlock.CacheMode>
+                    <BitmapCache SnapsToDevicePixels="True" EnableClearType="False"/>
+                </TextBlock.CacheMode>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DSP>
+	<Version>1</Version>
+	<DSPs>
+		<EQ Use="True" Opacity="0.814" PreAmp="0.780">
+			<Band Bandwidth="0.350" Frequency="31.0" Gain="-0.862" />
+			<Band Bandwidth="0.350" Frequency="62.0" Gain="1.552" />
+			<Band Bandwidth="0.350" Frequency="150.0" Gain="-0.345" />
+			<Band Bandwidth="0.350" Frequency="240.0" Gain="0.517" />
+			<Band Bandwidth="0.350" Frequency="420.0" Gain="-2.241" />
+			<Band Bandwidth="0.750" Frequency="650.0" Gain="-5.517" />
+			<Band Bandwidth="0.750" Frequency="900.0" Gain="-10.000" />
+			<Band Bandwidth="0.750" Frequency="1200.0" Gain="-2.931" />
+			<Band Bandwidth="0.750" Frequency="1500.0" Gain="-2.586" />
+			<Band Bandwidth="0.750" Frequency="2200.0" Gain="-2.293" />
+			<Band Bandwidth="0.750" Frequency="3400.0" Gain="-2.776" />
+			<Band Bandwidth="0.750" Frequency="4600.0" Gain="-2.500" />
+			<Band Bandwidth="0.750" Frequency="6000.0" Gain="-2.948" />
+			<Band Bandwidth="0.750" Frequency="7800.0" Gain="-2.586" />
+			<Band Bandwidth="0.750" Frequency="9000.0" Gain="-2.897" />
+			<Band Bandwidth="0.750" Frequency="12000.0" Gain="-3.155" />
+			<Band Bandwidth="0.750" Frequency="16000.0" Gain="-2.931" />
+			<Band Bandwidth="0.750" Frequency="20000.0" Gain="-4.621" />
+		</EQ>
+		<Echo Use="True" Factor="0.07165716" Length="10007" />
+		<Limiter Use="True" Limit="0.9482759" Strength="0" />
+		<EQ Use="True" Opacity="0.763" PreAmp="1.000">
+			<Band Bandwidth="0.350" Frequency="31.0" Gain="0.000" />
+			<Band Bandwidth="0.350" Frequency="62.0" Gain="0.000" />
+			<Band Bandwidth="0.350" Frequency="150.0" Gain="0.000" />
+			<Band Bandwidth="0.350" Frequency="240.0" Gain="0.000" />
+			<Band Bandwidth="0.350" Frequency="420.0" Gain="0.000" />
+			<Band Bandwidth="0.750" Frequency="650.0" Gain="0.000" />
+			<Band Bandwidth="0.750" Frequency="900.0" Gain="0.000" />
+			<Band Bandwidth="0.750" Frequency="1200.0" Gain="-1.000" />
+			<Band Bandwidth="0.750" Frequency="1500.0" Gain="-1.000" />
+			<Band Bandwidth="0.750" Frequency="2200.0" Gain="0.000" />
+			<Band Bandwidth="0.750" Frequency="3400.0" Gain="0.707" />
+			<Band Bandwidth="0.750" Frequency="4600.0" Gain="2.155" />
+			<Band Bandwidth="0.750" Frequency="6000.0" Gain="3.121" />
+			<Band Bandwidth="0.750" Frequency="7800.0" Gain="2.276" />
+			<Band Bandwidth="0.750" Frequency="9000.0" Gain="3.776" />
+			<Band Bandwidth="0.750" Frequency="12000.0" Gain="2.776" />
+			<Band Bandwidth="0.750" Frequency="16000.0" Gain="3.034" />
+			<Band Bandwidth="0.750" Frequency="20000.0" Gain="1.707" />
+		</EQ>
+		<Limiter Use="True" Limit="1" Strength="0" />
+	</DSPs>
+</DSP>

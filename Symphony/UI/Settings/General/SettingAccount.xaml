@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="Symphony.UI.Settings.SettingAccount"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI.Settings"
+             mc:Ignorable="d" 
+             d:DesignHeight="480" d:DesignWidth="650" UseLayoutRounding="True">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Storyboard x:Key="LoginHover">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tb_ID_Hint">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="{Binding ElementName=Tb_ID_Hint, Path=Opacity, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="1" KeySpline="0,0,0,1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tb_ID">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Tb_ID, Path=Opacity, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.15" Value="0" KeySpline="0,0,1,0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Elipse_LoginInfo">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Elipse_LoginInfo, Path=Opacity, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="0.88" KeySpline="0,0,1,0"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="LoginLeave">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Elipse_LoginInfo">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Elipse_LoginInfo, Path=Opacity, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="1" KeySpline="0,0,1,0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tb_ID">
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.15" Value="{Binding ElementName=Tb_ID, Path=Opacity, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.30" Value="1" KeySpline="0,0,0,1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Tb_ID_Hint">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Tb_ID_Hint, Path=Opacity, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.15" Value="0" KeySpline="0,0,1,0"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="LoginClick">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_LoginInfo">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Grid_LoginInfo, Path=Opacity, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.15" Value="0.88" KeySpline="0,0,1,0"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="LoginUp">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_LoginInfo">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Grid_LoginInfo, Path=Opacity, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.15" Value="1" KeySpline="0,0,0,1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="InfoOn">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="Grid_EditAccount">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Grid_EditAccount, Path=ActualHeight, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="89" KeySpline="0.15,0.05,0.04,0.76"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="InfoOff">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="Grid_EditAccount">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Grid_EditAccount, Path=ActualHeight, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="0" KeySpline="0.5,0.15,0.5,0.86"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="RegisterOn">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="Grid_NewAccount">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Grid_NewAccount, Path=ActualHeight, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="35" KeySpline="0.16,0.07,0.66,1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="RegisterOff">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="Grid_NewAccount">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Grid_NewAccount, Path=ActualHeight, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="0" KeySpline="0.28,0.06,0.57,0.91"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="Elipse_LoginInfo">
+            <BeginStoryboard x:Name="LoginHover_BeginStoryboard" Storyboard="{StaticResource LoginHover}"/>
+            <StopStoryboard BeginStoryboardName="LoginLeave_BeginStoryboard1"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="Elipse_LoginInfo">
+            <BeginStoryboard x:Name="LoginLeave_BeginStoryboard1" Storyboard="{StaticResource LoginLeave}"/>
+            <StopStoryboard BeginStoryboardName="LoginHover_BeginStoryboard"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown" SourceName="Elipse_LoginInfo">
+            <BeginStoryboard x:Name="LoginClick_BeginStoryboard" Storyboard="{StaticResource LoginClick}"/>
+            <StopStoryboard BeginStoryboardName="LoginUp_BeginStoryboard1"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeftButtonUp" SourceName="Elipse_LoginInfo">
+            <BeginStoryboard x:Name="LoginUp_BeginStoryboard1" Storyboard="{StaticResource LoginUp}"/>
+            <StopStoryboard BeginStoryboardName="LoginClick_BeginStoryboard"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard x:Name="LoginLeave_BeginStoryboard" Storyboard="{StaticResource LoginLeave}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid>
+        <TextBlock Style="{StaticResource GradientEmbosedText}" Text="{DynamicResource Lang_Setting_General_Account_Title}" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <Grid Margin="12,42,12,12" >
+            <StackPanel Width="220" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid x:Name="Grid_LoginInfo" Height="180" Width="180">
+                    <Ellipse Fill="#55000000" x:Name="Elipse_LoginInfo" MouseLeftButtonUp="Elipse_LoginInfo_MouseLeftButtonUp"/>
+                    <TextBlock TextAlignment="Center" x:Name="Tb_ID" Text="{DynamicResource Lang_Setting_General_Account_PleaseLogin}" TextWrapping="Wrap" IsHitTestVisible="False" Margin="35" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="24" FontFamily="NanumBarunGothic Light"/>
+                    <TextBlock TextAlignment="Center" Text="{DynamicResource Lang_Setting_General_Account_Login}" x:Name="Tb_ID_Hint" Opacity="1.00" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="36" FontFamily="NanumBarunGothic UltraLight"/>
+                </Grid>
+                <Grid x:Name="Grid_EditAccount" IsHitTestVisible="True" Height="89">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource GradientEmbosedText}" x:Name="Tb_Email" Text="gmlwns5176@gmail.com" TextAlignment="Center" Margin="0,15,0,0"/>
+                        <Button Style="{StaticResource DefaultButton}" Width="150" Content="{DynamicResource Lang_Setting_General_Account_Unregister}" x:Name="Bt_Unregister" Margin="0,15,0,0" Click="Bt_Unregister_Click"/>
+                        <Button Style="{StaticResource DefaultButton}" Width="150" Content="{DynamicResource Lang_Setting_General_Account_EditAccount}" Margin="0,5,0,0" x:Name="Bt_EditAccountInfo" Click="Bt_EditAccountInfo_Click"/>
+                    </StackPanel>
+                </Grid>
+                <Grid x:Name="Grid_NewAccount" IsHitTestVisible="True" Height="35">
+                    <Button Style="{StaticResource DefaultButton}" Width="150" Content="{DynamicResource Lang_Setting_General_Account_Register}" Click="Bt_NewAccount_Click" Margin="0,15,0,0" x:Name="Bt_NewAccount"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

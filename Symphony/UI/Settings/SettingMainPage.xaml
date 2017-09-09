@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Symphony.UI.Settings.SettingMainPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI.Settings"
+             mc:Ignorable="d" Height="373" Width="577">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid MinHeight="230" MinWidth="230" MaxHeight="373" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.618*"/>
+            <RowDefinition Height="1.618*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Width="360" Height="52" Margin="0,-7">
+            <Rectangle.Fill>
+                <RadialGradientBrush GradientOrigin="0.8,0.5" Center="0.8,0.5">
+                    <GradientStop Color="#4400FFFF" Offset="0"/>
+                    <GradientStop Color="#005EDAFF" Offset="1"/>
+                </RadialGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Width="330" Height="42" Margin="-30,35,0,0">
+            <Rectangle.Fill>
+                <RadialGradientBrush GradientOrigin="0.8,0.5" Center="0.8,0.5">
+                    <GradientStop Color="#4400FFFF" Offset="0"/>
+                    <GradientStop Color="#005EDAFF" Offset="1"/>
+                </RadialGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <TextBlock Text="Symphony" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,24,0" Grid.Row="1" FontFamily="NanumBarunGothic UltraLight" FontSize="36">
+            <TextBlock.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF212121" Offset="0"/>
+                    <GradientStop Color="#FF9B9B9B" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+            <TextBlock.Effect>
+                <DropShadowEffect BlurRadius="0" Direction="270" Opacity="0.66" ShadowDepth="1" Color="White"/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock Style="{StaticResource GradientEmbosedText}" Text="{DynamicResource Lang_Setting_Title_Text}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,48,35,0" Grid.Row="1" FontFamily="NanumBarunGothic Light" FontSize="16"/>
+        <!--내가 만들고 이렇지만.. 심포니 Moeeeeee-->
+        <StackPanel UseLayoutRounding="True" Orientation="Vertical" Grid.Row="2" Margin="24,0,0,0">
+            <TextBlock Style="{StaticResource GradientEmbosedText}" Grid.Row="2" Margin="0,2" Text="{DynamicResource Lang_Setting_Project_Text}" FontFamily="NanumBarunGothic Light" FontSize="12"/>
+            <TextBlock Style="{StaticResource GradientEmbosedText}" Grid.Row="2" Margin="0,2" Text="Made by AinL, JinkwaN" FontFamily="NanumBarunGothic Light" FontSize="12"/>
+            <TextBlock Style="{StaticResource GradientEmbosedText}" Grid.Row="2" Margin="0,2" Text="Copyright 2014 - 2016" FontFamily="NanumBarunGothic Light" FontSize="12"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,222 @@
+﻿<Window x:Class="Symphony.Dancer.DanceMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Symphony.Dancer"
+        xmlns:UI="clr-namespace:Symphony.UI"
+        mc:Ignorable="d"
+        Title="Symphony - 춤 에디터" WindowState="Normal" WindowStartupLocation="Manual" MinHeight="87" Activated="Window_Activated" StateChanged="Window_StateChanged" MinWidth="295" Height="459" Width="295" Visibility="Visible" AllowsTransparency="True" WindowStyle="None" Background="{x:Null}" FontFamily="NanumBarunGothic Light" MouseMove="Window_MouseMove" MouseLeftButtonDown="Window_MouseLeftButtonDown" Icon="/Symphony;component/Images/sym_icon_256.ico" >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/ImageButton.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/ImageItem.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultScrollBar.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultMenu.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <local:Ms2Detail x:Key="Ms2Detail"/>
+            <BitmapImage x:Key="Img_Play" UriSource="/Symphony;component/Images/sym3_control_buttons_play.png" />
+            <BitmapImage x:Key="Img_Pause" UriSource="/Symphony;component/Images/sym3_control_buttons_pause.png"/>
+            <ImageBrush x:Key="Brush_Play" ImageSource="/Symphony;component/Images/sym3_control_buttons_play.png" Stretch="Uniform"/>
+            <ImageBrush x:Key="Brush_Pause" ImageSource="/Symphony;component/Images/sym3_control_buttons_pause.png" Stretch="Uniform"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo x:Name="Bar_Info" ThumbnailClipMargin="13" Description="Symphony" >
+            <TaskbarItemInfo.ThumbButtonInfos>
+                <ThumbButtonInfoCollection>
+                    <ThumbButtonInfo x:Name="Bar_Previous"
+                                     DismissWhenClicked="False"
+                                     Description="뒤로 조금 이동"
+                                     ImageSource="/Symphony;component/Images/sym3_control_buttons_previous.png"/>
+                    <ThumbButtonInfo x:Name="Bar_PreSkip"
+                                     DismissWhenClicked="False"
+                                     Description="뒤로 이동" 
+                                     ImageSource="/Symphony;component/Images/sym3_control_buttons_preskip.png"/>
+                    <ThumbButtonInfo x:Name="Bar_Play"
+                                     DismissWhenClicked="False"
+                                     Description="재생" 
+                                     ImageSource="/Symphony;component/Images/sym3_control_buttons_play.png" />
+                    <ThumbButtonInfo x:Name="Bar_NextSkip"
+                                     DismissWhenClicked="False"
+                                     Description="앞으로 이동" 
+                                     ImageSource="/Symphony;component/Images/sym3_control_buttons_nextskip.png" />
+                    <ThumbButtonInfo x:Name="Bar_Next"
+                                     DismissWhenClicked="False"
+                                     Description="앞으로 조금 이동" 
+                                     ImageSource="/Symphony;component/Images/sym3_control_buttons_next.png" />
+                </ThumbButtonInfoCollection>
+            </TaskbarItemInfo.ThumbButtonInfos>
+        </TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
+    <Grid>
+        <UI:WindowShadow/>
+        <Grid x:Name="Grid_Background" Margin="12">
+            <Grid Margin="0,0,0,63" ClipToBounds="True" Background="DarkGray">
+                <ListBox x:Name="Lst_Data" SelectionMode="Extended" Background="#FF535353" Margin="-1,-1,-1,23" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch" >
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}" >
+                            <EventSetter Event="MouseDoubleClick" Handler="Lst_ItemDoubleClick"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Grid SnapsToDevicePixels="True">
+                                            <ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Stretch" Margin="6,4"/>
+                                            <Rectangle Height="1" Fill="White" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="true" />
+                                        <Condition Property="Selector.IsSelectionActive" Value="true" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                <Grid>
+                                                    <Rectangle Fill="#42000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,1"/>
+                                                    <ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Stretch" Margin="6,4"/>
+                                                    <Rectangle Height="1" Fill="#FF44C1FF" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </MultiTrigger>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                <Grid>
+                                                    <Rectangle Fill="#3D000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,1"/>
+                                                    <ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Stretch" Margin="6,4"/>
+                                                    <Rectangle Height="1" Fill="#FF5CFFD2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,4" HorizontalAlignment="Stretch">
+                                <TextBlock Text="{Binding Name}" FontFamily="NanumBarunGothic">
+                                    <TextBlock.Foreground>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFEAEAEA" Offset="0"/>
+                                            <GradientStop Color="#FFE6E6E6" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                                <TextBlock Text="{Binding StartPosition, Converter={StaticResource Ms2Detail}}" HorizontalAlignment="Right" FontFamily="NanumBarunGothic">
+                                    <TextBlock.Foreground>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFEAEAEA" Offset="0"/>
+                                            <GradientStop Color="#FFE6E6E6" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Grid Height="24" VerticalAlignment="Bottom">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFF2F2F2" Offset="1"/>
+                            <GradientStop Color="#FFF9F9F9"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Grid.Effect>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="7" Direction="0" Opacity="0.66"/>
+                    </Grid.Effect>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="Bt_Add" Style="{StaticResource ImageItem}" Content="추가" Margin="5,0" Height="24" Width="44" Background="#07000000" BorderBrush="#1E000000" Click="Bt_Add_Click">
+                            <Button.Foreground>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF404040" Offset="0"/>
+                                    <GradientStop Color="#FF898989" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Foreground>
+                        </Button>
+                        <Button x:Name="Bt_Del" Style="{StaticResource ImageButton}" Content="제거" Margin="5,0" Height="24" Width="44" Background="#07000000" BorderBrush="#1E000000" Click="Bt_Del_Click">
+                            <Button.Foreground>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF404040" Offset="0"/>
+                                    <GradientStop Color="#FF898989" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Foreground>
+                        </Button>
+                        <Button x:Name="Bt_Properties" Style="{StaticResource ImageItem}" Content="속성" Margin="5,0" Height="24" Width="44" Background="#07000000" BorderBrush="#1E000000" Click="Bt_Properties_Click">
+                            <Button.Foreground>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF404040" Offset="0"/>
+                                    <GradientStop Color="#FF898989" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Foreground>
+                        </Button>
+                        <Button x:Name="Bt_Save" Style="{StaticResource ImageItem}" Content="저장" Margin="5,0" Height="24" Width="44" Background="#07000000" BorderBrush="#1E000000" Click="Bt_Save_Click">
+                            <Button.Foreground>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF404040" Offset="0"/>
+                                    <GradientStop Color="#FF898989" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Foreground>
+                        </Button>
+                        <Button x:Name="Bt_Exit" Style="{StaticResource ImageItem}" Content="종료" Margin="5,0" Height="24" Width="44" Background="#07000000" BorderBrush="#1E000000" Click="Bt_Exit_Click">
+                            <Button.Foreground>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF404040" Offset="0"/>
+                                    <GradientStop Color="#FF898989" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Foreground>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Grid x:Name="Grid_Position" Margin="0,0,0,0" Height="63" VerticalAlignment="Bottom" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFE5E5E5" Offset="0"/>
+                        <GradientStop Color="#FFDEDEDE" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Grid Height="21" VerticalAlignment="Bottom" Margin="0,0,0,30">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Width="162">
+                        <Button Click="Bt_Previous_Click" x:Name="Bt_Previous" Style="{StaticResource ImageButton}" Width="24" Height="21" Margin="0,0,0,0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Symphony;component/Images/sym3_control_buttons_previous.png" Stretch="Uniform"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Click="Bt_PreSkip_Click" x:Name="Bt_PreSkip" Style="{StaticResource ImageButton}" Width="24" Height="21" Margin="6,0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Symphony;component/Images/sym3_control_buttons_preskip.png" Stretch="Uniform"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Click="Bt_Play_Click" x:Name="Bt_Play" Style="{StaticResource ImageButton}" Width="24" Height="21" Margin="6,0" Background="{StaticResource Brush_Play}"/>
+                        <Button Click="Bt_NextSkip_Click" x:Name="Bt_NextSkip" Style="{StaticResource ImageButton}" Width="24" Height="21" Margin="6,0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Symphony;component/Images/sym3_control_buttons_nextskip.png" Stretch="Uniform"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Click="Bt_Next_Click" x:Name="Bt_Next" Style="{StaticResource ImageButton}" Width="24" Height="21" Margin="6,0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Symphony;component/Images/sym3_control_buttons_next.png" Stretch="Uniform"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <TextBlock x:Name="Lb_Time" Text="{Binding ElementName=Bar_Position, Path=Value, Converter={StaticResource Ms2Detail}}" Margin="0,11" FontSize="12px" Style="{StaticResource GradientEmbosedText}" Opacity="0.66" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                <UI:VolumeBar ValueChanged="Bar_Position_ValueChanged" x:Name="Bar_Position" Maximum="20000" WheelChange="3000" Background="#54FFFFFF" BorderBrush="#28000000" Height="5" Margin="0,0,0,5" VerticalAlignment="Bottom" Foreground="#FF1ea8ff"/>
+                <Rectangle Height="1" Fill="#FFFFFFFF" VerticalAlignment="Top"/>
+            </Grid>
+            <Border Margin="0,0,0,0" BorderThickness="1" BorderBrush="#FF474D50" d:IsLocked="True"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,100 @@
+﻿<Window x:Class="Symphony.UI.Settings.SkinEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Symphony.UI.Settings"
+        xmlns:UI="clr-namespace:Symphony.UI"
+        mc:Ignorable="d"
+        Title="{DynamicResource Lang_SkinEditor_FullTitle}" Height="600" Width="420" MinWidth="380" MinHeight="240" UseLayoutRounding="True" Background="Black" AllowsTransparency="False" WindowStyle="SingleBorderWindow" ResizeMode="CanResize" RenderOptions.CachingHint="Cache" RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Grayscale">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" CornerRadius="0" GlassFrameThickness="0" NonClientFrameEdges="None" ResizeBorderThickness="0" UseAeroCaptionButtons="False"/>
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultMenu.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultScrollBar.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultTreeView.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultScrollBar.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/ExitButton.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/ToolTip.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Storyboard x:Key="PopupShow">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_Background">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="1" KeySpline="0,0,0,1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="PopupOff">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Grid_Background">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="0" KeySpline="0,0,0,1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource PopupShow}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid x:Name="Grid_Background">
+        <Rectangle Fill="#FFF0F0F0" />
+        <Grid x:Name="titleBar" Height="31" ClipToBounds="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" MouseLeftButtonDown="titleBar_MouseLeftButtonDown">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFEFEFEF" Offset="0"/>
+                    <GradientStop Color="#FFE6E6E6" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.CacheMode>
+                <BitmapCache />
+            </Grid.CacheMode>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock IsHitTestVisible="False" x:Name="Tb_Title" Text="{DynamicResource Lang_SkinEditor_Title}" Style="{StaticResource GradientEmbosedText}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0" FontFamily="NanumBarunGothic Light" Background="{x:Null}" FontSize="15"/>
+                <Menu Margin="0,1" FontFamily="NanumBarunGothic Light" FontSize="14" Background="{x:Null}">
+                    <Menu.Foreground>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF6F6F6F" Offset="0"/>
+                            <GradientStop Color="#FF9E9E9E" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Menu.Foreground>
+                    <MenuItem Header="{DynamicResource Lang_File}" Height="29" MinWidth="48" Padding="10,5" Margin="32,0,0,0">
+                        <MenuItem Header="{DynamicResource Lang_Save}" Height="25" x:Name="Menu_Save" Click="Menu_Save_Click" Width="80"/>
+                        <MenuItem Header="{DynamicResource Lang_Close}" Height="25" x:Name="Menu_Close" Click="Menu_Close_Click"/>
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
+            <Button x:Name="Bt_Exit" Width="68" Height="68" HorizontalAlignment="Right" Margin="-14,0" VerticalAlignment="Center" RenderOptions.EdgeMode="Unspecified" Click="Bt_Exit_Click" FocusVisualStyle="{x:Null}" BorderBrush="{x:Null}" Style="{StaticResource ExitButton}" Foreground="#00484848">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Symphony;component/Images/sym3_popup_exit.png" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="None">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.75" ScaleY="0.75"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Rectangle Height="1" Fill="White" Stroke="{x:Null}" VerticalAlignment="Bottom"/>
+        </Grid>
+        <Grid Margin="0,31,0,0">
+            <ListView x:Name="lstData" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectionMode="Single" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" >
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel x:Name="vsp" IsVirtualizing="True" VirtualizationMode="Recycling"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.CacheMode>
+                    <BitmapCache/>
+                </ListView.CacheMode>
+            </ListView>
+        </Grid>
+        <Border BorderBrush="#FF474D50" BorderThickness="1" SnapsToDevicePixels="True" d:IsLocked="True"/>
+    </Grid>
+</Window>

@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Symphony.Lyrics.LyricLineRenderer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.Lyrics"
+             mc:Ignorable="d" 
+             MinHeight="135" Visibility="Visible" SnapsToDevicePixels="True" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5" MinWidth="750" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" RenderOptions.BitmapScalingMode="LowQuality">
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform x:Name="Scale" CenterX="0.5" CenterY="0.5"/>
+            <SkewTransform x:Name="Skew"/>
+            <RotateTransform x:Name="Rotate" CenterX="0.5" CenterY="0.5"/>
+            <TranslateTransform x:Name="Translate"/>
+        </TransformGroup>
+    </UserControl.RenderTransform>
+    <Grid x:Name="grid" UseLayoutRounding="True" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Fixed" TextOptions.TextRenderingMode="Grayscale">
+        <Grid x:Name="contentGrid">
+            <TextBlock Text="가사를 입력해주세요" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True" UseLayoutRounding="True" FontSize="28" Foreground="White" TextAlignment="Center" FontFamily="NanumBarunGothic"/>
+            <Grid.Effect>
+                <DropShadowEffect ShadowDepth="0"/>
+            </Grid.Effect>
+        </Grid>
+        <Grid.Effect>
+            <BlurEffect x:Name="Ef_BlurEffect" Radius="0" RenderingBias="Performance"/>
+        </Grid.Effect>
+    </Grid>
+    <UserControl.Effect>
+        <BlurEffect x:Name="Ef_AllBlur" Radius="0" RenderingBias="Performance" />
+    </UserControl.Effect>
+</UserControl>

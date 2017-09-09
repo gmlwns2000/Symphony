@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Symphony.UI.Settings.SkinLinearGradientPropertiesEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI.Settings"
+             xmlns:UI="clr-namespace:Symphony.UI"
+             mc:Ignorable="d" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="12,0">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Text="{DynamicResource Lang_StartPoint}" Margin="0,0,0,5" Style="{StaticResource GradientEmbosedText}" IsHitTestVisible="False"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="X" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}" IsHitTestVisible="False"/>
+                <Grid Margin="5,0,0,0">
+                    <UI:DoubleTextBox Width="50" Height="24" x:Name="Tb_Start_X" ValueChanged="Tb_Start_X_ValueChanged"/>
+                    <TextBlock Text="%" Margin="5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}" IsHitTestVisible="False"/>
+                </Grid>
+                <TextBlock Text="Y" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}" IsHitTestVisible="False"/>
+                <Grid Margin="5,0,0,0">
+                    <UI:DoubleTextBox Width="50" Height="24" x:Name="Tb_Start_Y" ValueChanged="Tb_Start_Y_ValueChanged"/>
+                    <TextBlock Text="%" Margin="5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}" IsHitTestVisible="False"/>
+                </Grid>
+            </StackPanel>
+            <TextBlock Text="{DynamicResource Lang_EndPoint}" Margin="0,5,0,0" Style="{StaticResource GradientEmbosedText}" IsHitTestVisible="False"/>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <TextBlock Text="X" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}" IsHitTestVisible="False"/>
+                <Grid Margin="5,0,0,0">
+                    <UI:DoubleTextBox Width="50" Height="24" x:Name="Tb_End_X" ValueChanged="Tb_End_X_ValueChanged"/>
+                    <TextBlock Text="%" Margin="5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}" IsHitTestVisible="False"/>
+                </Grid>
+                <TextBlock Text="Y" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}" IsHitTestVisible="False"/>
+                <Grid Margin="5,0,0,0">
+                    <UI:DoubleTextBox Width="50" Height="24" x:Name="Tb_End_Y" ValueChanged="Tb_End_Y_ValueChanged"/>
+                    <TextBlock Text="%" Margin="5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}" IsHitTestVisible="False"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBlock Text="{DynamicResource Lang_Opacity}" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}" MinWidth="40" IsHitTestVisible="False"/>
+                <Grid Margin="10,0,0,0">
+                    <UI:DoubleTextBox Width="70" Height="24" x:Name="Tb_Opacity" ValueChanged="Tb_Opacity_ValueChanged"/>
+                    <TextBlock Text="%" Margin="5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}" IsHitTestVisible="False"/>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+        <Grid VerticalAlignment="Center">
+            <Grid Margin="0,8,0,0" HorizontalAlignment="Right">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border x:Name="Bd_Preview" Margin="5,0,0,5" Width="100" Height="100" Grid.Column="1" BorderBrush="White" BorderThickness="1" Background="Black">
+                </Border>
+                <TextBlock IsHitTestVisible="False" Text="1" Grid.Row="0" Opacity="0.45" VerticalAlignment="Bottom" Style="{StaticResource GradientEmbosedText}"/>
+                <TextBlock IsHitTestVisible="False" Text="1" Grid.Column="1" Opacity="0.45" Grid.Row="1" HorizontalAlignment="Right" Style="{StaticResource GradientEmbosedText}"/>
+                <TextBlock IsHitTestVisible="False" Text="0" Grid.Row="1" Opacity="0.45" Grid.Column="1" VerticalAlignment="Top" Style="{StaticResource GradientEmbosedText}"/>
+                <TextBlock IsHitTestVisible="False" Text="0" VerticalAlignment="Top" Opacity="0.45" Style="{StaticResource GradientEmbosedText}"/>
+                <TextBlock IsHitTestVisible="False" Text="X" Grid.Row="1" Opacity="0.45" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}"/>
+                <TextBlock IsHitTestVisible="False" Text="Y" Grid.Row="0" Opacity="0.45" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

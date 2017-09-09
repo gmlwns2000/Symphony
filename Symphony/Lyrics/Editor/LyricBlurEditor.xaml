@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Symphony.Lyrics.LyricBlurEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.Lyrics"
+             xmlns:UI="clr-namespace:Symphony.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="130" Height="130">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/CircleTrackBar.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <UI:RoundDoubleConverter x:Key="Round"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="10,5">
+        <StackPanel Margin="0,5" VerticalAlignment="Center">
+            <Grid Margin="0,5">
+                <TextBlock Text="{DynamicResource Lang_Blur}" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding ElementName=Sld_Radius, Path=Value, Converter={StaticResource Round}}" HorizontalAlignment="Right" Style="{StaticResource GradientEmbosedText}"/>
+                    <TextBlock Text=" px" HorizontalAlignment="Right" Style="{StaticResource GradientEmbosedText}"/>
+                </StackPanel>
+            </Grid>
+            <Slider Width="130" x:Name="Sld_Radius" ValueChanged="Sld_Radius_ValueChanged" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}" SmallChange="1" LargeChange="5" Minimum="0" Maximum="40"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

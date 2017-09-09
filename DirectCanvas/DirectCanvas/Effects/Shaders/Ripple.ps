@@ -1,0 +1,64 @@
+﻿//Modified from:  http://wpffx.codeplex.com/SourceControl/changeset/view/19891#521670
+Texture2D InputTexture : register(t0);
+
+SamplerState TextureSampler : register(s0);
+
+cbuffer PSConstants : register(b0)
+{
+	float2 Center : packoffset(c0);
+};
+
+cbuffer PSConstants2 : register(b1)
+{
+	float Amplitude : packoffset(c0);
+};
+
+cbuffer PSConstants3 : register(b2)
+{
+	float Frequency : packoffset(c0);
+};
+
+cbuffer PSConstants4 : register(b3)
+{
+	float Phase : packoffset(c0);
+};
+
+cbuffer PSConstants5 : register(b4)
+{
+	float LightIntensity : packoffset(c0);
+};
+
+struct PSInput
+{
+    float4 PositionCS : SV_Position;
+    float2 TexCoord : TEXCOORD;
+};
+
+float4 RippleMain(in PSInput input) : SV_Target
+{
+	float2 center = Center;
+
+	float2 uv = input.TexCoord;
+	float2 dir = uv - center;
+  
+	float2 toPixel = uv - center; // vector from Center to pixel
+	float distance = length(toPixel);
+	float2 direction = toPixel/distance;
+	float angle = atan2(direction.y, direction.x);
+	float2 wave;
+	sincos(Frequency * distance + Phase, wave.x, wave.y);
+        
+	float falloff = saturate(1-distance);
+	falloff *= falloff;
+        
+	distance += Amplitude * wave.x * falloff;
+	sincos(angle, direction.y, direction.x);
+	float2 uv2 = center + distance * direction;
+  
+	float lighting = saturate(wave.y * falloff) * LightIntensity + 0.8;
+  
+	float4 color = InputTexture.Sample(TextureSampler, uv2);
+	color.rgb *= lighting;
+  
+	return color;
+}

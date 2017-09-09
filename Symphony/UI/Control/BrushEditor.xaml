@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Symphony.UI.BrushEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="293.821" d:DesignWidth="219.053">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <TextBlock Style="{StaticResource GradientEmbosedText}" Margin="0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Text="색상 피커"/>
+        <local:ColorEditor x:Name="colorEditor" Margin="0,20,0,0"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,24 @@
+﻿<Window x:Class="Symphony.Dancer.ComposerRender"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpf="clr-namespace:MMF.Controls.WPF;assembly=MMF"
+        xmlns:local="clr-namespace:Symphony.Dancer"
+        mc:Ignorable="d"
+        Title="ComposerRender" Topmost="True" Background="Transparent" WindowStyle="None" ShowInTaskbar="False" AllowsTransparency="True" Closing="Window_Closing" PreviewMouseDown="Window_PreviewMouseDown" MouseUp="Window_MouseUp">
+    <Grid>
+        <Rectangle x:Name="Debug_Border" Visibility="Hidden" Fill="#33FFFFFF" IsHitTestVisible="False"/>
+        <wpf:WPFRenderControl x:Name="RenderControl" Background="Transparent"/>
+        <Grid ToolTip="춤 에디터 작업 영역" Visibility="Hidden" x:Name="Grid_Edge" IsEnabled="False">
+            <Rectangle Height="2" Width="31" Fill="#FF0FCCFF" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Rectangle Height="2" Width="31" Fill="#FF0FCCFF" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+            <Rectangle Height="2" Width="31" Fill="#FF0FCCFF" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <Rectangle Height="2" Width="31" Fill="#FF0FCCFF" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <Rectangle Height="31" Width="2" Fill="#FF0FCCFF" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <Rectangle Height="31" Width="2" Fill="#FF0FCCFF" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <Rectangle Height="31" Width="2" Fill="#FF0FCCFF" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+            <Rectangle Height="31" Width="2" Fill="#FF0FCCFF" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </Grid>
+    </Grid>
+</Window>

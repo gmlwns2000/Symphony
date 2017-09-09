@@ -1,0 +1,233 @@
+﻿<Window x:Class="Symphony.UI.RemoteControllerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Symphony.UI"
+        mc:Ignorable="d"
+        x:Name="wd"
+        Title="{DynamicResource Lang_MiniController_Title}" SizeToContent="Width" PreviewKeyDown="wd_PreviewKeyDown" ResizeMode="NoResize" Height="92" PreviewMouseMove="wd_PreviewMouseMove" Topmost="True" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" AllowsTransparency="True" Background="Transparent" WindowStyle="None" UseLayoutRounding="True" SnapsToDevicePixels="True">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/ImageButton.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultButton.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <BitmapImage x:Key="Img_Play" UriSource="/Symphony;component/Images/sym3_control_buttons_play.png"/>
+            <BitmapImage x:Key="Img_Pause" UriSource="/Symphony;component/Images/sym3_control_buttons_pause.png"/>
+
+            <BitmapImage x:Key="Img_Pin_Pinned" UriSource="/Symphony;component/Images/sym3_control_pins_pinned_eff.png"/>
+            <BitmapImage x:Key="Img_Pin_UnPinned" UriSource="/Symphony;component/Images/sym3_control_pins_unpinned_eff.png"/>
+
+            <Storyboard x:Key="PopupShow" Timeline.DesiredFrameRate="24">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="wd">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding Opacity, ElementName=wd, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="0.66" KeySpline="0,0,0.3,1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="PopupOff" Timeline.DesiredFrameRate="24">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="wd">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=wd, Path=Opacity, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="0" KeySpline="0,0,0.3,1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="MouseFocus" Timeline.DesiredFrameRate="30">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="wd">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding Opacity, ElementName=wd, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="1" KeySpline="0,0,0.3,1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(Brush.Opacity)" Storyboard.TargetName="Grid_Back_AlbumArt">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Grid_Back_AlbumArt,Path=Background.Opacity}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="1" KeySpline="0,0,0.3,1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="MouseUnFocus" Timeline.DesiredFrameRate="24">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="wd">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=wd, Path=Opacity, Mode=OneWay}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:1" Value="0.66" KeySpline="0,0,0.3,1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(Brush.Opacity)" Storyboard.TargetName="Grid_Back_AlbumArt">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="{Binding ElementName=Grid_Back_AlbumArt,Path=Background.Opacity}"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="0.22" KeySpline="0,0,0.3,1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="ImageOn">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Timeline.DesiredFrameRate="20" Storyboard.TargetName="Grid_Back_AlbumArt">
+                    <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:1" Value="1" KeySpline="0.36,0.06,0,1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="Tb_Title">
+                    <SplineColorKeyFrame KeyTime="0" Value="#FF494949"/>
+                    <SplineColorKeyFrame KeyTime="0:0:1" Value="White" KeySpline="0.36,0.06,0,1"/>
+                </ColorAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="Tb_Title">
+                    <SplineColorKeyFrame KeyTime="0" Value="#FF979797"/>
+                    <SplineColorKeyFrame KeyTime="0:0:1" Value="#FFD8D8D8" KeySpline="0.36,0.06,0,1"/>
+                </ColorAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Color)" Storyboard.TargetName="titleParent">
+                    <SplineColorKeyFrame KeyTime="0:0:0.5" Value="White"/>
+                    <SplineColorKeyFrame KeyTime="0:0:1" Value="Black" KeySpline="0.36,0.06,0,1"/>
+                </ColorAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Storyboard.TargetName="titleParent">
+                    <SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.01"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:1" Value="0.66" KeySpline="0.36,0.06,0,1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Grid_Back_AlbumArt">
+                    <EasingColorKeyFrame KeyTime="0" Value="#00000000"/>
+                    <SplineColorKeyFrame KeyTime="0:0:1" Value="Black" KeySpline="0.36,0.06,0,1"/>
+                </ColorAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="ImageOff">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Timeline.DesiredFrameRate="20" Storyboard.TargetName="Grid_Back_AlbumArt">
+                    <SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <SplineDoubleKeyFrame KeySpline="1,0,1,1" KeyTime="0:0:1" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="Tb_Title">
+                    <SplineColorKeyFrame KeyTime="0" Value="White"/>
+                    <SplineColorKeyFrame KeySpline="1,0,1,1" KeyTime="0:0:1" Value="#FF494949"/>
+                </ColorAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="Tb_Title">
+                    <SplineColorKeyFrame KeyTime="0" Value="#FFD8D8D8"/>
+                    <SplineColorKeyFrame KeySpline="1,0,1,1" KeyTime="0:0:1" Value="#FF979797"/>
+                </ColorAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Color)" Storyboard.TargetName="titleParent">
+                    <SplineColorKeyFrame KeySpline="1,0,1,1" KeyTime="0:0:0.5" Value="White"/>
+                    <SplineColorKeyFrame KeyTime="0:0:1" Value="White" KeySpline="1,0,1,1"/>
+                </ColorAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Storyboard.TargetName="titleParent">
+                    <SplineDoubleKeyFrame KeyTime="0" Value="0.66"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:1" Value="1" KeySpline="1,0,1,1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Grid_Back_AlbumArt">
+                    <EasingColorKeyFrame KeyTime="0" Value="Black"/>
+                    <SplineColorKeyFrame KeyTime="0:0:1" Value="#00000000" KeySpline="1,0,1,1"/>
+                </ColorAnimationUsingKeyFrames>
+            </Storyboard>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource PopupShow}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Window.CacheMode>
+        <BitmapCache SnapsToDevicePixels="True"/>
+    </Window.CacheMode>
+    <Border BorderBrush="#FF616161" BorderThickness="1" Margin="12" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+        <Border.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF4F4F4F" Offset="0"/>
+                <GradientStop Color="#FF5B5B5B" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0" BlurRadius="12" Opacity="0.66"/>
+        </Border.Effect>
+        <StackPanel Orientation="Horizontal" ClipToBounds="True">
+            <Grid Margin="0,-1" ClipToBounds="True">
+                <Grid.CacheMode>
+                    <BitmapCache/>
+                </Grid.CacheMode>
+                <local:VolumeBar WheelChange="3" Maximum="100" Value="75" Background="#33FFFFFF" BorderBrush="#00000000" Foreground="#FF3AE5F9" Width="68" Height="8" x:Name="Sld_Volume" ValueChanged="Sld_Volume_ValueChanged">
+                    <local:VolumeBar.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </local:VolumeBar.LayoutTransform>
+                </local:VolumeBar>
+                <Rectangle Width="1" VerticalAlignment="Stretch" HorizontalAlignment="Right" Fill="#2D000000" IsHitTestVisible="False"/>
+            </Grid>
+            <Grid Width="240" ClipToBounds="True">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFEEEEEE" Offset="0"/>
+                        <GradientStop Color="Gainsboro" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Grid Background="Black" x:Name="Grid_Back_AlbumArt" Opacity="0">
+                    <Image x:Name="Img_Back_AlbumArt" Stretch="UniformToFill" Opacity="0.46" VerticalAlignment="Center" Margin="-6">
+                        <Image.Effect>
+                            <BlurEffect Radius="6"/>
+                        </Image.Effect>
+                        <Image.CacheMode>
+                            <BitmapCache/>
+                        </Image.CacheMode>
+                    </Image>
+                </Grid>
+                <StackPanel VerticalAlignment="Center" ClipToBounds="False">
+                    <Grid x:Name="titleParent" Margin="3,0" IsHitTestVisible="False" Height="16">
+                        <Grid.Effect>
+                            <DropShadowEffect x:Name="textShadow" ShadowDepth="1" Direction="270" Color="White" BlurRadius="1"/>
+                        </Grid.Effect>
+                        <Grid.OpacityMask>
+                            <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                                <GradientStop Offset="0"/>
+                                <GradientStop Offset="1"/>
+                                <GradientStop Color="White" Offset="0.04"/>
+                                <GradientStop Color="White" Offset="0.96"/>
+                            </LinearGradientBrush>
+                        </Grid.OpacityMask>
+                        <TextBlock x:Name="Tb_Title" Height="16" SnapsToDevicePixels="True" HorizontalAlignment="Center" Text="Supercell - Kimi ga shiranai monogatari" SizeChanged="Tb_Title_SizeChanged" FontFamily="NanumBarunGothic Light" IsHitTestVisible="False">
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF494949" Offset="0"/>
+                                    <GradientStop Color="#FF979797" Offset="1"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                            <TextBlock.CacheMode>
+                                <BitmapCache SnapsToDevicePixels="True" />
+                            </TextBlock.CacheMode>
+                        </TextBlock>
+                        <Grid.CacheMode>
+                            <BitmapCache SnapsToDevicePixels="True" />
+                        </Grid.CacheMode>
+                    </Grid>
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="Bt_Previous" Click="Bt_Previous_Click" Width="20" Height="20" Style="{StaticResource ImageButton}">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="/Symphony;component/Images/sym3_control_buttons_previous.png"/>
+                                </Button.Background>
+                            </Button>
+                            <Button x:Name="Bt_Play" Click="Bt_Play_Click" Width="20" Height="20" Style="{StaticResource ImageButton}" Margin="9,0">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="/Symphony;component/Images/sym3_control_buttons_play.png"/>
+                                </Button.Background>
+                            </Button>
+                            <Button x:Name="Bt_Next" Click="Bt_Next_Click" Width="20" Height="20" Style="{StaticResource ImageButton}">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="/Symphony;component/Images/sym3_control_buttons_next.png"/>
+                                </Button.Background>
+                            </Button>
+                        </StackPanel>
+                        <local:PlaymodeSelector Width="12" Height="12" x:Name="orderSelector" Margin="0,0,-20,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Grid.CacheMode>
+                            <BitmapCache/>
+                        </Grid.CacheMode>
+                    </Grid>
+                    <local:VolumeBar WheelChange="1800" Background="#33FFFFFF" BorderBrush="#2D000000" Foreground="#FF0096FF" Margin="0,-1" Height="5" VerticalAlignment="Bottom" Maximum="3000" x:Name="Sld_Position" ValueChanged="Sld_Position_ValueChanged"/>
+                </StackPanel>
+            </Grid>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                <StackPanel.CacheMode>
+                    <BitmapCache/>
+                </StackPanel.CacheMode>
+                <Button Width="15" Height="15" HorizontalAlignment="Center" x:Name="Bt_Close" Click="Bt_Close_Click" Padding="-1" Style="{StaticResource ImageButton}">
+                    <Button.Background>
+                        <ImageBrush Opacity="1" ImageSource="/Symphony;component/Images/sym3_control_buttons_exit.png"/>
+                    </Button.Background>
+                </Button>
+                <Button Width="16" Height="16" x:Name="Bt_Topmost" Click="Bt_Topmost_Click" Margin="0,5,0,0" Padding="-1" Style="{StaticResource ImageButton}">
+                    <Button.Background>
+                        <ImageBrush Opacity="1" ImageSource="{StaticResource Img_Pin_Pinned}"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

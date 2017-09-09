@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Symphony.UI.PlaymodeSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI"
+             mc:Ignorable="d" 
+             Width="12" Height="12">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/ImageButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <BitmapImage x:Key="Img_Order_Once" UriSource="/Symphony;component/Images/sym3_control_order_once.png"/>
+            <BitmapImage x:Key="Img_Order_Repeat" UriSource="/Symphony;component/Images/sym3_control_order_repeat.png"/>
+            <BitmapImage x:Key="Img_Order_Random" UriSource="/Symphony;component/Images/sym3_control_order_random.png"/>
+            <BitmapImage x:Key="Img_Order_RepeatOne" UriSource="/Symphony;component/Images/sym3_control_order_repeat_one.png"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Button Style="{StaticResource ImageButton}" x:Name="Bt" Click="Bt_Click">
+        <Button.Background>
+            <ImageBrush ImageSource="{StaticResource Img_Order_Once}"/>
+        </Button.Background>
+    </Button>
+</UserControl>

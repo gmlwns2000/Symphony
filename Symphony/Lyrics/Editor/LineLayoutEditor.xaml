@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="Symphony.Lyrics.LineLayoutEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.Lyrics"
+             xmlns:UI="clr-namespace:Symphony.UI"
+             mc:Ignorable="d" 
+             Height="130">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/CircleTrackBar.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultTextbox.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <UI:RoundDoubleConverter x:Key="Round"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Margin="10,5" Orientation="Horizontal">
+        <StackPanel VerticalAlignment="Center">
+            <StackPanel Margin="0,5">
+                <TextBlock Text="{DynamicResource Lang_HorizontalAlignment}" Margin="0,0,0,5" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}"/>
+                <ComboBox Width="130" SelectedIndex="1" x:Name="Cbb_HorizontalAlignment" SelectionChanged="Cbb_HorizontalAlignment_SelectionChanged">
+                    <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Left}"/>
+                    <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Center}"/>
+                    <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Right}"/>
+                    <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Auto}"/>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Margin="0,5">
+                <TextBlock Text="{DynamicResource Lang_VerticalAlignment}" Margin="0,5" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}"/>
+                <ComboBox Width="130" SelectedIndex="1" x:Name="Cbb_VerticalAlignment" SelectionChanged="Cbb_VerticalAlignment_SelectionChanged">
+                    <ComboBoxItem Content="{DynamicResource Lang_VerticalAlignment_Top}"/>
+                    <ComboBoxItem Content="{DynamicResource Lang_VerticalAlignment_Center}"/>
+                    <ComboBoxItem Content="{DynamicResource Lang_VerticalAlignment_Bottom}"/>
+                    <ComboBoxItem Content="{DynamicResource Lang_VerticalAlignment_Auto}"/>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+            <TextBlock Text="{DynamicResource Lang_Margin}" Style="{StaticResource GradientEmbosedText}" Margin="0,0,0,5"/>
+            <StackPanel Margin="0,0,0,5" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="{DynamicResource Lang_Margin_Top}" Margin="0,0,5,0" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center"/>
+                <UI:DoubleTextBox Width="50" Height="18" Value="10" x:Name="Tb_Margin_Top" ValueChanged="Tb_Margin_Top_ValueChanged"/>
+                <TextBlock Text="{DynamicResource Lang_Margin_Bottom}" Margin="5,0,5,0" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center"/>
+                <UI:DoubleTextBox Width="50" Height="18" Value="10" x:Name="Tb_Margin_Bottom" ValueChanged="Tb_Margin_Bottom_ValueChanged"/>
+            </StackPanel>
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="{DynamicResource Lang_Margin_Left}" Margin="0,0,5,0" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center"/>
+                <UI:DoubleTextBox Width="50" Height="18" Value="10" x:Name="Tb_Margin_Left" ValueChanged="Tb_Margin_Left_ValueChanged"/>
+                <TextBlock Text="{DynamicResource Lang_Margin_Right}" Margin="5,0,5,0" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center"/>
+                <UI:DoubleTextBox Width="50" Height="18" Value="10" x:Name="Tb_Margin_Right" ValueChanged="Tb_Margin_Right_ValueChanged"/>
+            </StackPanel>
+            <TextBlock Text="{DynamicResource Lang_MinSize}" Style="{StaticResource GradientEmbosedText}" Margin="0,0,0,5"/>
+            <StackPanel Margin="0,0,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="{DynamicResource Lang_MinSize_Width}" Margin="0,0,5,0" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center"/>
+                <UI:DoubleTextBox Width="50" Height="18" Value="10" x:Name="Tb_MinSize_Width" ValueChanged="Tb_MinSize_Width_ValueChanged"/>
+                <TextBlock Text="{DynamicResource Lang_MinSize_Height}" Margin="5,0,5,0" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center"/>
+                <UI:DoubleTextBox Width="50" Height="18" Value="10" x:Name="Tb_MinSize_Height" ValueChanged="Tb_MinSize_Height_ValueChanged"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" Margin="10,0,0,0">
+            <TextBlock Text="{DynamicResource Lang_Position}" Style="{StaticResource GradientEmbosedText}" Margin="0,0,0,10"/>
+            <StackPanel Margin="0,0,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="X" Margin="0,0,5,0" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center"/>
+                <UI:DoubleTextBox Width="50" Height="18" Value="10" x:Name="Tb_Offset_X" ValueChanged="Tb_Offset_X_ValueChanged"/>
+                <TextBlock Text="Y" Margin="5,0,5,0" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center"/>
+                <UI:DoubleTextBox Width="50" Height="18" Value="10" x:Name="Tb_Offset_Y" ValueChanged="Tb_Offset_Y_ValueChanged"/>
+            </StackPanel>
+            <Grid Margin="0,10,0,0">
+                <TextBlock Text="{DynamicResource Lang_Angle}" Style="{StaticResource GradientEmbosedText}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding ElementName=Ag_Angle, Path=Angle, Converter={StaticResource Round}}" Style="{StaticResource GradientEmbosedText}"/>
+                    <TextBlock Text="˚" Style="{StaticResource GradientEmbosedText}"/>
+                    <UI:AngleEditor Margin="-5" Width="52" Height="52" x:Name="Ag_Angle" AngleChanged="Ag_Angle_AngleChanged"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" Margin="10,0,0,0">
+            <Grid Margin="0,5">
+                <TextBlock Text="{DynamicResource Lang_Opacity}" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding ElementName=Sld_Opacity, Path=Value, Converter={StaticResource Round}}" HorizontalAlignment="Right" Style="{StaticResource GradientEmbosedText}"/>
+                    <TextBlock Text=" %" HorizontalAlignment="Right" Style="{StaticResource GradientEmbosedText}"/>
+                </StackPanel>
+            </Grid>
+            <Slider Width="130" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}" Value="100" SmallChange="5" LargeChange="10" Maximum="100" x:Name="Sld_Opacity" ValueChanged="Sld_Opacity_ValueChanged"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

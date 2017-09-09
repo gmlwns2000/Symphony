@@ -1,0 +1,1171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{211673D2-3556-4F9B-9E73-5FEFF1D0EBFD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Symphony</RootNamespace>
+    <AssemblyName>Symphony</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>게시\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>0.3.9.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\sym_icon_256.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <HintPath>..\packages\AvalonEdit.5.0.3\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>dll\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="DancerLite\Player\CameraControl.cs" />
+    <Compile Include="DancerLite\Player\DanceLiteControl.xaml.cs">
+      <DependentUpon>DanceLiteControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DancerLite\DanceLiteEditor.xaml.cs">
+      <DependentUpon>DanceLiteEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DancerLite\Player\DanceLiteRenderer.cs" />
+    <Compile Include="DancerLite\Player\DanceLiteWindow.xaml.cs">
+      <DependentUpon>DanceLiteWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DancerLite\IO\PlHelper.cs" />
+    <Compile Include="DancerLite\IO\PlLoader.cs" />
+    <Compile Include="DancerLite\IO\PlLoaderV1.cs" />
+    <Compile Include="DancerLite\IO\PlotLite.cs" />
+    <Compile Include="DancerLite\IO\PlSaver.cs" />
+    <Compile Include="DancerLite\IO\PlSearch.cs" />
+    <Compile Include="Dancer\Composer\CamaraMover.cs" />
+    <Compile Include="Dancer\Composer\ComposerRender.xaml.cs">
+      <DependentUpon>ComposerRender.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dancer\Control\MikuEditor.xaml.cs">
+      <DependentUpon>MikuEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dancer\Plot\InstanceCollection.cs" />
+    <Compile Include="Dancer\Plot\IO\IPlotLoader.cs" />
+    <Compile Include="Dancer\Plot\IO\PlotLoader.cs" />
+    <Compile Include="Dancer\Plot\IO\PlotLoaderV1.cs" />
+    <Compile Include="Dancer\Plot\IO\PlotSaver.cs" />
+    <Compile Include="Dancer\Plot\MikuInstance.cs" />
+    <Compile Include="Dancer\Plot\Plot.cs" />
+    <Compile Include="Dancer\Popup\DanceProperties.xaml.cs">
+      <DependentUpon>DanceProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DSP\Chain\DSPChainLoader.cs" />
+    <Compile Include="DSP\Chain\DSPChainLoaderV1.cs" />
+    <Compile Include="DSP\Chain\DSPChainSaver.cs" />
+    <Compile Include="DSP\Chain\IDSPChainLoader.cs" />
+    <Compile Include="DSP\DspHelper.cs" />
+    <Compile Include="DSP\DspLog.cs" />
+    <Compile Include="Lyrics\Editor\IContentEditor.cs" />
+    <Compile Include="Lyrics\Editor\IContentUpdatedArgs.cs" />
+    <Compile Include="Lyrics\Editor\ImageContentEditor.xaml.cs">
+      <DependentUpon>ImageContentEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lyrics\Editor\LineLayoutEditor.xaml.cs">
+      <DependentUpon>LineLayoutEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lyrics\Editor\LyricBlurEditor.xaml.cs">
+      <DependentUpon>LyricBlurEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lyrics\Editor\LyricDropShadowEditor.xaml.cs">
+      <DependentUpon>LyricDropShadowEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lyrics\Editor\TextContentEditor.xaml.cs">
+      <DependentUpon>TextContentEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lyrics\IO\ILyricLoader.cs" />
+    <Compile Include="Lyrics\IO\LyricLoaderV1.cs" />
+    <Compile Include="Lyrics\IO\LyricLoaderV2.cs" />
+    <Compile Include="Lyrics\IO\LyricLoaderV3.cs" />
+    <Compile Include="Lyrics\Player\Animation\AnimationKeySpline.cs" />
+    <Compile Include="Lyrics\Player\Animation\AnimationPresets.cs" />
+    <Compile Include="Lyrics\Player\Animation\AnimationTargets.cs" />
+    <Compile Include="Lyrics\Player\Animation\FadeOutMode.cs" />
+    <Compile Include="Lyrics\Player\Animation\Keyframes.cs" />
+    <Compile Include="Lyrics\Player\Control\Singer.cs" />
+    <Compile Include="Lyrics\Player\Control\SingerControl.xaml.cs">
+      <DependentUpon>SingerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lyrics\Player\Data\IContent.cs" />
+    <Compile Include="Lyrics\Player\Animation\Rotation.cs" />
+    <Compile Include="Lyrics\Player\Data\ImageContent.cs" />
+    <Compile Include="Lyrics\Player\Data\TextContent.cs" />
+    <Compile Include="Lyrics\Player\Animation\AnimationFactory.cs" />
+    <Compile Include="Lyrics\Player\Animation\ValueKeyframe.cs" />
+    <Compile Include="Lyrics\Player\Animation\ValueKeyframeCollection.cs" />
+    <Compile Include="Lyrics\Popup\LyricDownloader.xaml.cs">
+      <DependentUpon>LyricDownloader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lyrics\Editor\LyricLineEditor.xaml.cs">
+      <DependentUpon>LyricLineEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lyrics\Popup\LyricsUploader.xaml.cs">
+      <DependentUpon>LyricsUploader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lyrics\Editor\MetadataEditor.xaml.cs">
+      <DependentUpon>MetadataEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Player\Common\Crc32.cs" />
+    <Compile Include="Player\Common\Hotkey.cs" />
+    <Compile Include="Player\IO\Pathes.cs" />
+    <Compile Include="Player\IO\PlayerLog.cs" />
+    <Compile Include="Player\Common\TimeUnit.cs" />
+    <Compile Include="Player\Common\ResamplingMode.cs" />
+    <Compile Include="Player\Common\WaveformMode.cs" />
+    <Compile Include="Player\Common\WaveformReady.cs" />
+    <Compile Include="Player\DSP\CSCore\BasicSpectrumProvider.cs" />
+    <Compile Include="Player\DSP\CSCore\ISpectrumProvider.cs" />
+    <Compile Include="Player\DSP\CSCore\ScalingStrategy.cs" />
+    <Compile Include="Player\DSP\CSCore\SpectrumBase.cs" />
+    <Compile Include="Player\DSP\DSPCalcPoint.cs" />
+    <Compile Include="Player\DSP\NAudio\BiQuadFilter.cs" />
+    <Compile Include="Player\DSP\NAudio\Complex.cs" />
+    <Compile Include="Player\DSP\NAudio\Decibels.cs" />
+    <Compile Include="Player\DSP\NAudio\EnvelopeDetector.cs" />
+    <Compile Include="Player\DSP\NAudio\EnvelopeGenerator.cs" />
+    <Compile Include="Player\DSP\NAudio\FastFourierTransform.cs" />
+    <Compile Include="Player\DSP\NAudio\ImpulseResponseConvolution.cs" />
+    <Compile Include="Player\DSP\NAudio\SimpleCompressor.cs" />
+    <Compile Include="Player\DSP\NAudio\SimpleGate.cs" />
+    <Compile Include="Player\DSP\NAudio\WdlResampler.cs" />
+    <Compile Include="Player\DSP\DSPMaster.cs" />
+    <Compile Include="Player\DSP\Echo.cs" />
+    <Compile Include="Player\DSP\Equalizer.cs" />
+    <Compile Include="Player\DSP\EqBand.cs" />
+    <Compile Include="Player\DSP\Limitter.cs" />
+    <Compile Include="Player\DSP\SpectrumAnalysis.cs" />
+    <Compile Include="Player\DSP\StereoEnhancer.cs" />
+    <Compile Include="Player\DSP\SampleEndEventArgs.cs" />
+    <Compile Include="Player\DSP\SampleEventArgs.cs" />
+    <Compile Include="Player\DSP\DSPBase.cs" />
+    <Compile Include="Player\PlayerCore.cs" />
+    <Compile Include="Player\Playlist\FileItem.cs" />
+    <Compile Include="Player\Playlist\Playlist.cs" />
+    <Compile Include="Player\Playlist\PlaylistItem.cs" />
+    <Compile Include="Player\Playlist\PlaylistItemType.cs" />
+    <Compile Include="Player\Playlist\PlaylistLoader.cs" />
+    <Compile Include="Player\Playlist\PlaylistSaver.cs" />
+    <Compile Include="Player\Playlist\TagImage.cs" />
+    <Compile Include="Player\Playlist\Tags.cs" />
+    <Compile Include="Player\Playlist\PlaylistEventArgs.cs" />
+    <Compile Include="Player\Playlist\PlaylistLoaderArgs.cs" />
+    <Compile Include="Player\Playlist\PlaylistOrder.cs" />
+    <Compile Include="Player\Playlist\YoutubeItem.cs" />
+    <Compile Include="Player\Youtube\YoutubeStream.cs" />
+    <Compile Include="Player\Youtube\AacAudioExtractor.cs" />
+    <Compile Include="Player\Youtube\AdaptiveType.cs" />
+    <Compile Include="Player\Youtube\AudioDownloader.cs" />
+    <Compile Include="Player\Youtube\AudioExtractionException.cs" />
+    <Compile Include="Player\Youtube\AudioType.cs" />
+    <Compile Include="Player\Youtube\BigEndianBitConverter.cs" />
+    <Compile Include="Player\Youtube\BitHelper.cs" />
+    <Compile Include="Player\Youtube\Decipherer.cs" />
+    <Compile Include="Player\Youtube\Downloader.cs" />
+    <Compile Include="Player\Youtube\DownloadUrlResolver.cs" />
+    <Compile Include="Player\Youtube\FlvFile.cs" />
+    <Compile Include="Player\Youtube\HttpHelper.cs" />
+    <Compile Include="Player\Youtube\IAudioExtractor.cs" />
+    <Compile Include="Player\Youtube\Mp3AudioExtractor.cs" />
+    <Compile Include="Player\Youtube\ProgressEventArgs.cs" />
+    <Compile Include="Player\Youtube\VideoDownloader.cs" />
+    <Compile Include="Player\Youtube\VideoInfo.cs" />
+    <Compile Include="Player\Youtube\VideoNotAvailableException.cs" />
+    <Compile Include="Player\Youtube\VideoType.cs" />
+    <Compile Include="Player\Youtube\YoutubeParseException.cs" />
+    <Compile Include="Server\Data\PostAndGet.cs" />
+    <Compile Include="Server\Lyric\LyricDownloader.cs" />
+    <Compile Include="Server\Util\Connection.cs" />
+    <Compile Include="Server\Util\ExceptionText.cs" />
+    <Compile Include="Server\Lyric\LyricUploader.cs" />
+    <Compile Include="Server\Lyric\LyricWeb.cs" />
+    <Compile Include="Server\Plot\PlotUploader.cs" />
+    <Compile Include="Server\Plot\PlotWeb.cs" />
+    <Compile Include="Server\Song\MusicMetadata.cs" />
+    <Compile Include="UI\Control\AngleEditor.xaml.cs">
+      <DependentUpon>AngleEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Control\DoubleTextBox.xaml.cs">
+      <DependentUpon>DoubleTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Control\GraphEditor.xaml.cs">
+      <DependentUpon>GraphEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Control\BrushEditor.xaml.cs">
+      <DependentUpon>BrushEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Control\ColorEditor.xaml.cs">
+      <DependentUpon>ColorEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Control\PlaymodeSelector.xaml.cs">
+      <DependentUpon>PlaymodeSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Popups\RemoteControllerWindow.xaml.cs">
+      <DependentUpon>RemoteControllerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\General\SettingPlayerControl.xaml.cs">
+      <DependentUpon>SettingPlayerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SkinBrushEditor.xaml.cs">
+      <DependentUpon>SkinBrushEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SkinColorEditor.xaml.cs">
+      <DependentUpon>SkinColorEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SkinGradientEditor.xaml.cs">
+      <DependentUpon>SkinGradientEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SkinGradientStopEditor.xaml.cs">
+      <DependentUpon>SkinGradientStopEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SkinGradientStopPinEditor.xaml.cs">
+      <DependentUpon>SkinGradientStopPinEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SkinImageBrushEditor.xaml.cs">
+      <DependentUpon>SkinImageBrushEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SkinLinearGradientPropertiesEditor.xaml.cs">
+      <DependentUpon>SkinLinearGradientPropertiesEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SkinShadowEditor.xaml.cs">
+      <DependentUpon>SkinShadowEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SkinSolidColorBrushEditor.xaml.cs">
+      <DependentUpon>SkinSolidColorBrushEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SkinValueEditor.xaml.cs">
+      <DependentUpon>SkinValueEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Util\Hsv2Rgb.cs" />
+    <Compile Include="Dancer\Popup\SpriteEditor\RoundConverter.cs" />
+    <Compile Include="Dancer\DanceMain.xaml.cs">
+      <DependentUpon>DanceMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dancer\Composer\Composer.cs" />
+    <Compile Include="Dancer\Plot\Instance.cs" />
+    <Compile Include="Dancer\Plot\PlotHelper.cs" />
+    <Compile Include="Dancer\Plot\PlotSearchResult.cs" />
+    <Compile Include="Dancer\Plot\Ratio.cs" />
+    <Compile Include="Dancer\UI\Ms2Detail.cs" />
+    <Compile Include="Dancer\UI\Ms2String.cs" />
+    <Compile Include="Dancer\Plot\Value.cs" />
+    <Compile Include="DSP\DspAPI.cs" />
+    <Compile Include="DSP\DspWrapper.cs" />
+    <Compile Include="Lyrics\IO\LyricHelper.cs" />
+    <Compile Include="Lyrics\IO\LyricLoader.cs" />
+    <Compile Include="Lyrics\IO\LyricSaver.cs" />
+    <Compile Include="Lyrics\IO\LyricSearchResult.cs" />
+    <Compile Include="Lyrics\LyricsEditor.xaml.cs">
+      <DependentUpon>LyricsEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lyrics\Player\Animation\FadeInMode.cs" />
+    <Compile Include="Lyrics\Player\Data\Lyric.cs" />
+    <Compile Include="Lyrics\Player\Data\LyricLine.cs" />
+    <Compile Include="Lyrics\Player\Control\LyricLineRenderer.xaml.cs">
+      <DependentUpon>LyricLineRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lyrics\Player\Control\SingerWindow.xaml.cs">
+      <DependentUpon>SingerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Server\Data\ProgressStopArgs.cs" />
+    <Compile Include="Server\Data\ProgressUpdatedArgs.cs" />
+    <Compile Include="Server\Song\ScoredSearcher.cs" />
+    <Compile Include="Server\Song\SongSearcher.cs" />
+    <Compile Include="Server\Data\DataUploader.cs" />
+    <Compile Include="Server\User\Account.cs" />
+    <Compile Include="Server\User\EditAccountWindow.xaml.cs">
+      <DependentUpon>EditAccountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Server\User\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Server\User\RegisterWindow.xaml.cs">
+      <DependentUpon>RegisterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Server\User\Session.cs" />
+    <Compile Include="Server\Data\DataSearcher.cs" />
+    <Compile Include="UI\Control\AlignableWrapPanel.cs" />
+    <Compile Include="UI\Control\ImageViewer.xaml.cs">
+      <DependentUpon>ImageViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Control\ShadowedTextBlock.cs" />
+    <Compile Include="UI\Util\IObjectEditor.cs" />
+    <Compile Include="UI\Visualizer\AudioGridProvider.cs" />
+    <Compile Include="UI\Visualizer\BarRenderTypes.cs" />
+    <Compile Include="UI\Visualizer\IVisualizer.cs" />
+    <Compile Include="UI\Visualizer\DebugOsiloscopeVisualization.cs" />
+    <Compile Include="UI\Control\ShadowWindow.xaml.cs">
+      <DependentUpon>ShadowWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Visualizer\OsiloscopeVisualization.cs" />
+    <Compile Include="UI\Visualizer\SpectrumAnalysisVisualization.cs" />
+    <Compile Include="UI\Data\DragAdorner.cs" />
+    <Compile Include="UI\Data\FIleCopy.cs" />
+    <Compile Include="UI\Popups\ImageViewerPopup.xaml.cs">
+      <DependentUpon>ImageViewerPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Popups\ProgressReporter.cs" />
+    <Compile Include="UI\Popups\ProgressWindow.xaml.cs">
+      <DependentUpon>ProgressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Popups\SplashWindow.xaml.cs">
+      <DependentUpon>SplashWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Popups\UserControlHostWindow.xaml.cs">
+      <DependentUpon>UserControlHostWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\General\SettingAlbumArt.xaml.cs">
+      <DependentUpon>SettingAlbumArt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\General\SettingGeneralPlayer.xaml.cs">
+      <DependentUpon>SettingGeneralPlayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\General\SettingLanguage.xaml.cs">
+      <DependentUpon>SettingLanguage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Sound\IDspEditor.cs" />
+    <Compile Include="UI\Settings\Sound\LuaCompletionData.cs" />
+    <Compile Include="UI\Settings\Sound\LuaFoldingStragey.cs" />
+    <Compile Include="UI\Settings\Sound\LvDspItem.cs" />
+    <Compile Include="UI\Settings\Sound\SettingDspWrapper.xaml.cs">
+      <DependentUpon>SettingDspWrapper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Sound\SettingSoundGeneral.xaml.cs">
+      <DependentUpon>SettingSoundGeneral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Sound\SettingStereoEnhancer.xaml.cs">
+      <DependentUpon>SettingStereoEnhancer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Visualzier\SettingVisualizerOsilo.xaml.cs">
+      <DependentUpon>SettingVisualizerOsilo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Visualzier\SettingVisualizerSpec.xaml.cs">
+      <DependentUpon>SettingVisualizerSpec.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Visualzier\SettingVisualizerVU.xaml.cs">
+      <DependentUpon>SettingVisualizerVU.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Visualizer\MultiThreadVisualizerParent.cs" />
+    <Compile Include="UI\Visualizer\VuVisualization.cs" />
+    <Compile Include="Util\Decibels.cs" />
+    <Compile Include="Util\IO.cs" />
+    <Compile Include="Util\IRemovable.cs" />
+    <Compile Include="Util\LanguageHelper.cs" />
+    <Compile Include="Util\LimitedTaskScheduler.cs" />
+    <Compile Include="Util\LogBlock.cs" />
+    <Compile Include="Util\Logger.cs" />
+    <Compile Include="Server\Util\QueryResult.cs" />
+    <Compile Include="UI\Visualizer\VisualizerParent.cs" />
+    <Compile Include="UI\Control\WindowShadow.xaml.cs">
+      <DependentUpon>WindowShadow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Popups\AskMerge.xaml.cs">
+      <DependentUpon>AskMerge.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Popups\DialogMessage.xaml.cs">
+      <DependentUpon>DialogMessage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Popups\DialogText.xaml.cs">
+      <DependentUpon>DialogText.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Popups\MessagePopup.xaml.cs">
+      <DependentUpon>MessagePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Popups\MusicInfo.xaml.cs">
+      <DependentUpon>MusicInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Popups\MusicLoading.xaml.cs">
+      <DependentUpon>MusicLoading.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Data\LvItemPlaylist.cs" />
+    <Compile Include="UI\Data\LvItemPlaylistItem.cs" />
+    <Compile Include="UI\Popups\NewPlaylist.xaml.cs">
+      <DependentUpon>NewPlaylist.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Control\PlaylistItemViewer.xaml.cs">
+      <DependentUpon>PlaylistItemViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Control\PlaylistsViewer.xaml.cs">
+      <DependentUpon>PlaylistsViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Popups\PopupTemplate.xaml.cs">
+      <DependentUpon>PopupTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\General\SettingAccount.xaml.cs">
+      <DependentUpon>SettingAccount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SettingSkin.xaml.cs">
+      <DependentUpon>SettingSkin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Skin\SkinEditor.xaml.cs">
+      <DependentUpon>SkinEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Sound\SettingEcho.xaml.cs">
+      <DependentUpon>SettingEcho.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Sound\SettingEqualizer.xaml.cs">
+      <DependentUpon>SettingEqualizer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Sound\SettingEqualizerBand.xaml.cs">
+      <DependentUpon>SettingEqualizerBand.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Sound\SettingLimiter.xaml.cs">
+      <DependentUpon>SettingLimiter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\SettingMainPage.xaml.cs">
+      <DependentUpon>SettingMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\SettingOpenSource.xaml.cs">
+      <DependentUpon>SettingOpenSource.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Sound\SettingSoundEffect.xaml.cs">
+      <DependentUpon>SettingSoundEffect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\SettingWindow.xaml.cs">
+      <DependentUpon>SettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\VisualGeneral\SettingVisualGeneral.xaml.cs">
+      <DependentUpon>SettingVisualGeneral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Visualzier\SettingVisualizer.xaml.cs">
+      <DependentUpon>SettingVisualizer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Util\ThemeHelper.cs" />
+    <Compile Include="UI\Util\FPSmsConverter.cs" />
+    <Compile Include="UI\Util\IsShowedTextConverter.cs" />
+    <Compile Include="UI\Util\IsUsedTextConverter.cs" />
+    <Compile Include="UI\Util\RoundDoubleConverter.cs" />
+    <Compile Include="UI\Util\TextStreamer.cs" />
+    <Compile Include="UI\Control\VolumeBar.xaml.cs">
+      <DependentUpon>VolumeBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Control\WaveFormTrackBar.xaml.cs">
+      <DependentUpon>WaveFormTrackBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Util\TopmostTextConverter.cs" />
+    <Compile Include="UI\Util\WindowResizer.cs" />
+    <Compile Include="UI\Util\WindowTransclick.cs" />
+    <Compile Include="Util\MemoryManagement.cs" />
+    <Compile Include="Util\Resource.cs" />
+    <Compile Include="Util\ResourcesParent.cs" />
+    <Compile Include="Util\RussianRullet.cs" />
+    <Compile Include="Util\StreamString.cs" />
+    <Compile Include="Util\StringChipher.cs" />
+    <Compile Include="Util\TextTool.cs" />
+    <Compile Include="Util\XmlHelper.cs" />
+    <Page Include="DancerLite\Player\DanceLiteControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DancerLite\DanceLiteEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DancerLite\Player\DanceLiteWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dancer\Composer\ComposerRender.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dancer\Control\MikuEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dancer\Popup\DanceProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Editor\ImageContentEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Editor\LineLayoutEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Editor\LyricBlurEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Editor\LyricDropShadowEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Editor\TextContentEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\AngleEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\DoubleTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\GraphEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\BrushEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\ColorEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dancer\DanceMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\LyricsEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Player\Control\SingerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Popup\LyricDownloader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Editor\LyricLineEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Popup\LyricsUploader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Player\Control\LyricLineRenderer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Player\Control\SingerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lyrics\Editor\MetadataEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Server\User\EditAccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Server\User\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Server\User\RegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\ImageViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\PlaymodeSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\ShadowWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\WindowShadow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\AskMerge.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\DialogMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\DialogText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\ImageViewerPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\MessagePopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\MusicInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\MusicLoading.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\NewPlaylist.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\PlaylistItemViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\PlaylistsViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\PopupTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\VolumeBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Control\WaveFormTrackBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\ProgressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\RemoteControllerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\SplashWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Popups\UserControlHostWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\General\SettingAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\General\SettingAlbumArt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\General\SettingGeneralPlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Language\English.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Language\Korean.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UI\Settings\General\SettingLanguage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\General\SettingPlayerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SettingSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SkinBrushEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SkinColorEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SkinEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SkinGradientEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SkinGradientStopEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SkinGradientStopPinEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SkinImageBrushEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SkinLinearGradientPropertiesEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SkinShadowEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SkinSolidColorBrushEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Skin\SkinValueEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Sound\SettingDspWrapper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Sound\SettingEcho.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Sound\SettingEqualizer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Sound\SettingEqualizerBand.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Sound\SettingLimiter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\SettingMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\SettingOpenSource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Sound\SettingSoundEffect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\SettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Sound\SettingSoundGeneral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Sound\SettingStereoEnhancer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\VisualGeneral\SettingVisualGeneral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Visualzier\SettingVisualizer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Visualzier\SettingVisualizerOsilo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Visualzier\SettingVisualizerSpec.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Visualzier\SettingVisualizerVU.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\CircleTrackBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\DarkEmbosedText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\DarkEmbosedTextStatic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\DefaultButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\DefaultCheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\DefaultMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\DefaultPasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\DefaultScrollBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\DefaultTextbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\DefaultTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\DefaultTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\EqBandBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\ExitButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\GrayEmbosedTextStatic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\ImageButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\ImageItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\ToolTip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="DSP\sym3_paser.lua" />
+    <None Include="packages.config" />
+    <None Include="Presets\Earphone DSP Preset.DSPs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\Speaker DSP Preset.DSPs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\Symphony Default Theme.symskin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\Symphony DSP Preset.DSPs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="UI\Settings\Sound\LuaDspTemplete.lua" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_albumart_overray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_control_buttons_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_control_buttons_stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_control_buttons_previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_control_buttons_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_control_buttons_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_control_buttons_setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_background_top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_background_bot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_title_minimum.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_title_maximize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_title_exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_background_vignette.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSCore\CSCore.csproj">
+      <Project>{c3dccfe3-dd3f-4eee-849b-33e355b1e064}</Project>
+      <Name>CSCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DirectCanvas\DirectCanvas\DirectCanvas.csproj">
+      <Project>{2d2f9a31-7edc-45a1-ab17-d7334e39ed64}</Project>
+      <Name>DirectCanvas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KeraLua\KeraLua.Net45.csproj">
+      <Project>{47153754-10F5-44D8-B578-F5A32B69061A}</Project>
+      <Name>KeraLua.Net45</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MikuMikuFlex\MMF.csproj">
+      <Project>{a04f1a52-5efd-402a-a207-b239ea15df55}</Project>
+      <Name>MMF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NLua\NLua.Net45.csproj">
+      <Project>{f55cabbb-4108-4a39-94e1-581fd46dc021}</Project>
+      <Name>NLua.Net45</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TagLib\TagLib-Sharp.csproj">
+      <Project>{6b143a39-c7b2-4743-9917-92262c60e9a6}</Project>
+      <Name>TagLib-Sharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_control_buttons_pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym_icon_256.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_control_order_once.png" />
+    <Resource Include="Images\sym3_control_order_random.png" />
+    <Resource Include="Images\sym3_control_order_repeat.png" />
+    <Resource Include="Images\sym3_list_icon_goback.png" />
+    <Resource Include="Images\sym3_list_icon_pause.png" />
+    <Resource Include="Images\sym3_list_icon_play.png" />
+    <Resource Include="Images\sym3_playlist_lists_control_exit.png" />
+    <Resource Include="Images\sym3_playlist_lists_control_new.png" />
+    <Resource Include="Images\sym3_playlist_lists_control_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2%28x86 및 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_bar_order_once.png" />
+    <Resource Include="Images\sym3_bar_order_random.png" />
+    <Resource Include="Images\sym3_bar_order_repeat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_control_taskbar_order_repeat.png" />
+    <Resource Include="Images\sym3_control_order_repeat_one.png" />
+    <Resource Include="Images\sym3_control_taskbar_order_once.png" />
+    <Resource Include="Images\sym3_control_taskbar_order_random.png" />
+    <Resource Include="Images\sym3_control_taskbar_order_repeat_one.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_playlist_icon_border.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="License">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_popup_exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sym3_control_buttons_nextskip.png" />
+    <Resource Include="Images\sym3_control_buttons_preskip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\256 - Shadowed.png" />
+    <Resource Include="Images\sym3_imgViewer_moveBack.png" />
+    <Resource Include="Images\sym3_imgViewer_moveNext.png" />
+    <Resource Include="Images\sym3_control_pins_pinned.png" />
+    <Resource Include="Images\sym3_control_pins_unpinned.png" />
+    <Resource Include="Images\sym3_control_pins_pinned_eff.png" />
+    <Resource Include="Images\sym3_control_pins_unpinned_eff.png" />
+    <Resource Include="Images\sym3_control_buttons_exit.png" />
+    <Content Include="lua52.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="UI\Settings\Sound\LuaHighlight.xshd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

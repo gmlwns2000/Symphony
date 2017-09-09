@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Lyric>
+	<Version>1</Version>
+	<Metadata>
+		<Title>Q&amp;A リサイタル</Title>
+		<Artist>戸松遥</Artist>
+		<Album>Q&amp;A リサイタル</Album>
+		<Author>알 수 없음</Author>
+		<FileName>戸松遥-Q&amp;A リサイタル.mp3</FileName>
+	</Metadata>
+	<Lines>
+		<Count>1</Count>
+		<Line FadeOut="Auto" FadeOutLength="0.10" FadeIn="Auto" FadeInLength="0.07" Opacity="1.00" TextSize="28.00" Text="가사를 입력 해주세요 1" TextAlignment="Center" A="255" B="255" G="255" R="255" Duration="-1.00" Position="854.00" Blur.Radius="0.00" Shadow.Radius="5.00" Shadow.Opacity="1.00" Shadow.Depth="0.00" Shadow.Direction="0.00" Shadow.Color.A="255" Shadow.Color.B="0" Shadow.Color.G="0" Shadow.Color.R="0" />
+	</Lines>
+</Lyric>

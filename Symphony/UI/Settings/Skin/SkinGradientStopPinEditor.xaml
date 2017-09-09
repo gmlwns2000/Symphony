@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Symphony.UI.Settings.SkinGradientStopPinEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI.Settings"
+             mc:Ignorable="d" HorizontalAlignment="Left" VerticalAlignment="Top" d:DesignWidth="120" d:DesignHeight="102" MouseLeftButtonDown="Polygon_MouseLeftButtonDown" >
+    <Grid Width="12" Height="29">
+        <Polygon Points="6,0 12,6 12,22 6,29 0,22 0,6" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="White" Stretch="Fill">
+            <Polygon.Effect>
+                <DropShadowEffect ShadowDepth="0" Opacity="0.66"/>
+            </Polygon.Effect>
+        </Polygon>
+        <Polygon x:Name="polygon" Points="6,0 12,6 12,22 6,29 0,22 0,6" VerticalAlignment="Center" HorizontalAlignment="Center" Stroke="Transparent" Fill="White" Stretch="Fill"/>
+    </Grid>
+    <UserControl.CacheMode>
+        <BitmapCache/>
+    </UserControl.CacheMode>
+</UserControl>

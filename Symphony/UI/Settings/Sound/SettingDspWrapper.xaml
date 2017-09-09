@@ -1,0 +1,48 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:Symphony.UI.Settings"
+    xmlns:Dancer="clr-namespace:Symphony.Dancer" x:Class="Symphony.UI.Settings.SettingDspWrapper"
+    xmlns:Avalon ="http://icsharpcode.net/sharpdevelop/avalonedit"
+    mc:Ignorable="d" d:Width="560" d:Height="340" PreviewKeyDown="UserControl_PreviewKeyDown">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultScrollBar.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultButton.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultMenu.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/ToolTip.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Background="Transparent" FontSize="14" FontFamily="NanumBarunGothic Light">
+            <MenuItem Header="{DynamicResource Lang_File}" Height="29" Padding="10,5" Margin="16,0,0,0">
+                <MenuItem x:Name="Menu_File_New" Header="{DynamicResource Lang_MakeNew}" Height="25" Click="Menu_File_New_Click"/>
+                <MenuItem x:Name="Menu_File_Open" Header="{DynamicResource Lang_File_Open}" Height="25" Click="Menu_File_Open_Click"/>
+                <MenuItem x:Name="Menu_File_Save" Header="{DynamicResource Lang_Save}" Height="25" Click="Menu_File_Save_Click"/>
+                <MenuItem x:Name="Menu_File_Save_Other" Header="{DynamicResource Lang_SaveOther}" Height="25" Click="Menu_File_Save_Other_Click"/>
+                <MenuItem x:Name="Menu_File_Close" Header="{DynamicResource Lang_Close}" Height="25" Click="Menu_File_Close_Click"/>
+            </MenuItem>
+            <MenuItem Header="{DynamicResource Lang_Edit}" Height="29" Padding="10,5" Margin="8,0,0,0">
+                <MenuItem x:Name="Menu_Edit_Undo" Header="{DynamicResource Lang_Undo}" Height="25" Click="Menu_Edit_Undo_Click"/>
+                <MenuItem x:Name="Menu_Edit_Redo" Header="{DynamicResource Lang_Redo}" Height="25" Click="Menu_Edit_Redo_Click"/>
+                <MenuItem x:Name="Menu_Edit_Copy" Header="{DynamicResource Lang_Copy}" Height="25" Click="Menu_Edit_Copy_Click"/>
+                <MenuItem x:Name="Menu_Edit_Paste" Header="{DynamicResource Lang_Paste}" Height="25" Click="Menu_Edit_Paste_Click"/>
+                <MenuItem x:Name="Menu_Edit_Cut" Header="{DynamicResource Lang_Cut}" Height="25" Click="Menu_Edit_Cut_Click"/>
+                <MenuItem x:Name="Menu_Edit_AutoReturn" Header="{DynamicResource Lang_AutoNewLine}" Height="25" Click="Menu_Edit_AutoReturn_Click"/>
+                <MenuItem x:Name="Menu_Edit_ShowLine" Header="{DynamicResource Lang_ShowLineNumber}" Height="25" Click="Menu_Edit_ShowLine_Click"/>
+            </MenuItem>
+        </Menu>
+        <Rectangle Height="1" VerticalAlignment="Bottom" Fill="#44000000"/>
+        <Avalon:TextEditor PreviewKeyDown="textEditor_PreviewKeyDown" x:Name="textEditor" Grid.RowSpan="1" Grid.Row="1" Foreground="#FF383838" LineNumbersForeground="#FFA6A7B0" AllowDrop="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" ShowLineNumbers="True" FontFamily="Consolas" FontSize="12" AutomationProperties.IsRowHeader="False">
+            
+        </Avalon:TextEditor>
+    </Grid>
+</UserControl>

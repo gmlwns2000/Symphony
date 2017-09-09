@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Symphony.UI.Settings.SettingEqualizer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI.Settings"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" MinHeight="240">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultCheckBox.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultButton.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/CircleTrackBar.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid VerticalAlignment="Stretch" Margin="24,12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" x:Name="Stack_Bands" Height="280" VerticalAlignment="Top" HorizontalAlignment="Left" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <Grid Grid.Column="1" Margin="10,5,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Slider Maximum="1" Value="1" x:Name="Sld_Amp" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,0,0,25" ValueChanged="Sld_Amp_ValueChanged" LargeChange="0.1" SmallChange="0.03" Style="{StaticResource CircleTrackBar}"/>
+            <Slider Grid.Column="1" Maximum="1" Value="1" x:Name="Sld_Opacity" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,0,0,25" ValueChanged="Sld_Opacity_ValueChanged" SmallChange="0.03" LargeChange="0.1" Style="{StaticResource CircleTrackBar}"/>
+            <TextBlock ToolTip="{DynamicResource Lang_Setting_Audio_SoundEffect_EQ_PreAmp_Tooltip}" Style="{StaticResource GradientEmbosedText}" Text="{DynamicResource Lang_Setting_Audio_SoundEffect_EQ_PreAmp}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,8"/>
+            <TextBlock ToolTip="{DynamicResource Lang_Setting_Audio_SoundEffect_EQ_Volume_Tooltip}" Style="{StaticResource GradientEmbosedText}" Text="{DynamicResource Lang_Setting_Audio_SoundEffect_EQ_Volume}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,8" Grid.Column="1"/>
+            <CheckBox Grid.ColumnSpan="2" Grid.Row="1" x:Name="Chk_On" IsChecked="True" VerticalAlignment="Bottom" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,24" Content="{DynamicResource Lang_Use}" Unchecked="Chk_On_Unchecked" Checked="Chk_On_Checked" FontFamily="NanumBarunGothic Light" Style="{DynamicResource DefaultCheckBox}" Foreground="#FF7A7A7A"/>
+            <Button Grid.ColumnSpan="2" Grid.Row="1" Style="{StaticResource DefaultButton}" Content="{DynamicResource Lang_Setting_Audio_SoundEffect_EQ_Reset}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="Button_Click" FontFamily="NanumBarunGothic Light"/>
+            <Grid.CacheMode>
+                <BitmapCache SnapsToDevicePixels="True" EnableClearType="True"/>
+            </Grid.CacheMode>
+        </Grid>
+    </Grid>
+</UserControl>

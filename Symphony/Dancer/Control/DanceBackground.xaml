@@ -1,0 +1,29 @@
+﻿<Window x:Class="Symphony.Dancer.DanceBackground"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Symphony.Dancer"
+        mc:Ignorable="d"
+        Title="Symphony - 춤 에디터 작업영역" Topmost="True" WindowStyle="None" AllowsTransparency="True" ShowInTaskbar="False" Background="Transparent" d:DesignWidth="825.212" d:DesignHeight="519.538">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/ToolTip.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid ToolTip="춤 에디터 작업 영역">
+        <Grid.Effect>
+            <DropShadowEffect ShadowDepth="0" Opacity="0.75" BlurRadius="7"/>
+        </Grid.Effect>
+        <Rectangle Height="2" Width="31" Fill="#FF0FCCFF" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Height="2" Width="31" Fill="#FF0FCCFF" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <Rectangle Height="2" Width="31" Fill="#FF0FCCFF" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        <Rectangle Height="2" Width="31" Fill="#FF0FCCFF" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <Rectangle Height="31" Width="2" Fill="#FF0FCCFF" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <Rectangle Height="31" Width="2" Fill="#FF0FCCFF" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        <Rectangle Height="31" Width="2" Fill="#FF0FCCFF" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <Rectangle Height="31" Width="2" Fill="#FF0FCCFF" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

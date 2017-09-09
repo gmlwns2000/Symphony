@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2D2F9A31-7EDC-45A1-AB17-D7334E39ED64}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DirectCanvas</RootNamespace>
+    <AssemblyName>DirectCanvas</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\DirectCanvas.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\DirectCanvas.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DirectShowLib-2005">
+      <HintPath>..\DirectShowLib-2005.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\SlimDX SDK (January 2012)\Bin\net40\x64\SlimDX.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BlendStateMode.cs" />
+    <Compile Include="Brushes\DrawingLayerBrush.cs" />
+    <Compile Include="Brushes\Brush.cs" />
+    <Compile Include="Brushes\BrushAlignment.cs" />
+    <Compile Include="Brushes\ExtendMode.cs" />
+    <Compile Include="Brushes\GradientStop.cs" />
+    <Compile Include="Brushes\LinearGradientBrush.cs" />
+    <Compile Include="Brushes\Pen.cs" />
+    <Compile Include="Brushes\RadialGradientBrush.cs" />
+    <Compile Include="Brushes\SolidColorBrush.cs" />
+    <Compile Include="Brushes\VideoBrush.cs" />
+    <Compile Include="Brushes\WPFBrushConverter.cs" />
+    <Compile Include="Composer.cs" />
+    <Compile Include="CompositionDrawStateManagement.cs" />
+    <Compile Include="D3DImageSlimDX.cs" />
+    <Compile Include="DirectCanvasControl.xaml.cs">
+      <DependentUpon>DirectCanvasControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DrawCalledArgs.cs" />
+    <Compile Include="Effects\ShaderEffectFilter.cs" />
+    <Compile Include="Misc\Converter.cs" />
+    <Compile Include="Scenes\Scene.cs" />
+    <Compile Include="Scenes\InputStatus.cs" />
+    <Compile Include="WPFBlitPresenter.cs" />
+    <Compile Include="Direct2DRenderTarget.cs" />
+    <Compile Include="DirectCanvasFactory.cs" />
+    <Compile Include="DrawingLayer.cs" />
+    <Compile Include="DrawStateManagement.cs" />
+    <Compile Include="Effects\BlurEffect.cs" />
+    <Compile Include="Effects\ColorShaderEffectProperty.cs" />
+    <Compile Include="Effects\DrawingLayerShaderEffectProperty.cs" />
+    <Compile Include="Effects\FloatShaderEffectProperty.cs" />
+    <Compile Include="Effects\PointEffectProperty.cs" />
+    <Compile Include="Effects\RadialWiggleTransitionEffect.cs" />
+    <Compile Include="Effects\RippleEffect.cs" />
+    <Compile Include="Effects\ShaderEffect.cs" />
+    <Compile Include="Effects\ShaderEffectProperty.cs" />
+    <Compile Include="Helpers\BrushHelper.cs" />
+    <Compile Include="Imaging\Enums.cs" />
+    <Compile Include="Imaging\Image.cs" />
+    <Compile Include="Imaging\ImageData.cs" />
+    <Compile Include="Imaging\WIC\D2DRenderTargetEx.cs" />
+    <Compile Include="Imaging\WIC\Interop.cs" />
+    <Compile Include="Imaging\WIC\NativeStream.cs" />
+    <Compile Include="IResourceFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Misc\Color4.cs" />
+    <Compile Include="Misc\Point.cs" />
+    <Compile Include="Misc\RotationParameters.cs" />
+    <Compile Include="Misc\PointF.cs" />
+    <Compile Include="Misc\Rectangle.cs" />
+    <Compile Include="Misc\RectangleF.cs" />
+    <Compile Include="Rendering\Materials\ShaderResourceTexture.cs" />
+    <Compile Include="Rendering\Materials\StagingTexture.cs" />
+    <Compile Include="Shapes\RoundedRectangleF.cs" />
+    <Compile Include="Misc\Size.cs" />
+    <Compile Include="Misc\SizeF.cs" />
+    <Compile Include="Multimedia\Dx9Interop.cs" />
+    <Compile Include="Multimedia\MediaPlayer.cs" />
+    <Compile Include="Multimedia\Vmr9Allocator.cs" />
+    <Compile Include="Presenter.cs" />
+    <Compile Include="Rendering\DeviceSettings10_1.cs" />
+    <Compile Include="Rendering\DeviceContext10_1.cs" />
+    <Compile Include="Rendering\DxgiSwapChain.cs" />
+    <Compile Include="Rendering\DxgiSwapChain10_1.cs" />
+    <Compile Include="Rendering\Effects\QuadVertex.cs" />
+    <Compile Include="Rendering\Effects\ShaderQuad.cs" />
+    <Compile Include="Rendering\Effects\ShaderRenderer.cs" />
+    <Compile Include="Rendering\FpsCounter.cs" />
+    <Compile Include="Rendering\Bindings\GeometryInputShaderBinding.cs" />
+    <Compile Include="Rendering\Bindings\IGeometryInputBinding.cs" />
+    <Compile Include="Rendering\Materials\RenderTargetTexture.cs" />
+    <Compile Include="Rendering\Materials\Texture.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\Sprites\SpriteDrawData.cs" />
+    <Compile Include="Rendering\Sprites\SpriteRenderData.cs" />
+    <Compile Include="Rendering\Sprites\SpriteRendererBlendStateHelper.cs" />
+    <Compile Include="Rendering\Sprites\SpriteVertex.cs" />
+    <Compile Include="Rendering\Sprites\VertexConstantData.cs" />
+    <Compile Include="ResourceFactory.cs" />
+    <Compile Include="Rendering\Shaders\PixelShader10.cs" />
+    <Compile Include="Rendering\Shaders\ShaderBase.cs" />
+    <Compile Include="Rendering\Shaders\ShaderVersion.cs" />
+    <Compile Include="Rendering\Shaders\VertexShader10.cs" />
+    <Compile Include="Rendering\Sprites\SpriteQuad.cs" />
+    <Compile Include="Rendering\Sprites\SpriteRenderer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Rendering\StreamBuffers\ConstantStreamBuffer.cs" />
+    <Compile Include="Rendering\StreamBuffers\GeometryMesh.cs" />
+    <Compile Include="Rendering\StreamBuffers\IndexStreamBuffer.cs" />
+    <Compile Include="Rendering\StreamBuffers\IStreamBuffer.cs" />
+    <Compile Include="Rendering\StreamBuffers\StreamBuffer.cs" />
+    <Compile Include="Rendering\StreamBuffers\VertexStreamBuffer.cs" />
+    <Compile Include="Shapes\BezierSegment.cs" />
+    <Compile Include="Shapes\Ellipse.cs" />
+    <Compile Include="Shapes\Geometry.cs" />
+    <Compile Include="Shapes\PathGeometry.cs" />
+    <Compile Include="Shapes\QuadraticBezierSegment.cs" />
+    <Compile Include="Transforms\RotateTransform.cs" />
+    <Compile Include="Transforms\ScaleTransform.cs" />
+    <Compile Include="Transforms\GeneralTransform.cs" />
+    <Compile Include="Transforms\SkewTransform.cs" />
+    <Compile Include="Transforms\TransformCollection.cs" />
+    <Compile Include="Transforms\TransformGroup.cs" />
+    <Compile Include="Transforms\TranslateTransform.cs" />
+    <Compile Include="WindowsFormsPresenter.cs" />
+    <Compile Include="WPFPresenter.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Rendering\Assets\Sprite.hlsl" />
+    <EmbeddedResource Include="Rendering\Effects\Shaders\ShaderQuad.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Effects\Shaders\Blur.ps" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Effects\Shaders\Ripple.ps" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Effects\Shaders\RadialWiggleTransitionEffect.ps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="DirectCanvasControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

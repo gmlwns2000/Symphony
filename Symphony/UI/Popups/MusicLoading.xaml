@@ -1,0 +1,57 @@
+﻿<Window x:Name="window" 
+        x:Class="Symphony.UI.MusicLoading"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Symphony.UI"
+        mc:Ignorable="d"
+        Title="Symphony - 파일 로딩중" Height="148" Width="447" AllowsTransparency="True" ResizeMode="NoResize" WindowStyle="None" Background="Transparent" ShowInTaskbar="False" ShowActivated="False" Icon="/Symphony;component/Images/sym_icon_256.ico" Topmost="True" IsHitTestVisible="False">
+    <Window.Resources>
+        <Style x:Key="GradientEmbosedText" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF313131" Offset="0"/>
+                        <GradientStop Color="#FF4C4C4C" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Direction="270" BlurRadius="0" Color="White" ShadowDepth="1" Opacity="0.85"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontFamily" Value="NanumBarunGothic UltraLight"/>
+        </Style>
+        <Storyboard x:Key="OnLoaded1" Timeline.DesiredFrameRate="30">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="window">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.41" Value="1" KeySpline="0,0,1,0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource OnLoaded1}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <local:WindowShadow Opacity="0.40"/>
+        <Grid Margin="16">
+            <Rectangle x:Name="rectangle">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFE9E9E9" Offset="0"/>
+                        <GradientStop Color="#FFE0E0E0" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock Style="{StaticResource GradientEmbosedText}" Opacity="0.66" Text="{DynamicResource Lang_MusicLoading_Please_Wait}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,20" FontSize="16"/>
+            <TextBlock Style="{StaticResource GradientEmbosedText}" Opacity="0.88" x:Name="Lb_Counter" Text="0/0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,20" FontSize="14" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Fixed"/>
+            <TextBlock Style="{StaticResource GradientEmbosedText}" x:Name="Lb_FileName" Text="" VerticalAlignment="Top" Margin="15,24,15,0" FontSize="20" TextTrimming="CharacterEllipsis"/>
+            <ProgressBar x:Name="Progress" Value="25" Height="9" VerticalAlignment="Bottom" Margin="0,0,0,10" Foreground="#FF358BFF" Background="#66FFFFFF" BorderBrush="#54000000"/>
+            <Border BorderThickness="1" BorderBrush="#FF6f8692"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,141 @@
+﻿<Window x:Class="Symphony.UI.MusicInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Symphony.UI"
+        mc:Ignorable="d"
+        Title="Symphony - 음악 속성" ResizeMode="NoResize" x:Name="wd" ShowInTaskbar="False" Height="360" Width="582" AllowsTransparency="False" AllowDrop="True" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterOwner" Background="Black" Icon="/Symphony;component/Images/sym_icon_256.ico" FontFamily="NanumBarunGothic Light" PreviewKeyDown="wd_PreviewKeyDown">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="0" UseAeroCaptionButtons="False" CornerRadius="0" GlassFrameThickness="0"/>
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/ToolTip.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultButton.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultMenu.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/ExitButton.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/GrayEmbosedTextStatic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Storyboard x:Key="PopupShow" Timeline.DesiredFrameRate="30" Completed="Storyboard_Completed">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="wd">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="1" KeySpline="0,0,0,1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="PopupOff" Timeline.DesiredFrameRate="30">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="wd">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="0" KeySpline="0,0,0,1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource PopupShow}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid x:Name="grid" UseLayoutRounding="True">
+        <Rectangle  Fill="#FFF0F0F0"/>
+        <Grid UseLayoutRounding="False" Height="31" HorizontalAlignment="Stretch" VerticalAlignment="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown" ClipToBounds="True">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFEFEFEF" Offset="0"/>
+                    <GradientStop Color="#FFE6E6E6" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Menu Margin="0,1" FontFamily="NanumBarunGothic Light" FontSize="14" Background="{x:Null}">
+                <Menu.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF6F6F6F" Offset="0"/>
+                        <GradientStop Color="#FF9E9E9E" Offset="1"/>
+                    </LinearGradientBrush>
+                </Menu.Foreground>
+                <MenuItem Header="{DynamicResource Lang_File}" Height="29" MinWidth="48" Padding="10,5" Margin="32,0,0,0">
+                    <MenuItem Header="{DynamicResource Lang_MusicInfo_File_Move}" Height="25" x:Name="Menu_File_Move" Click="Menu_File_Move_Click"/>
+                    <MenuItem Header="{DynamicResource Lang_MusicInfo_File_Copy}" Height="25" x:Name="Menu_File_Copy" Click="Menu_File_Copy_Click"/>
+                    <!--<MenuItem Header="_파일 공유" Height="25"/>-->
+                    <MenuItem Header="{DynamicResource Lang_MusicInfo_File_Edit_Name}" Height="25" x:Name="Menu_File_Rename" Click="Menu_File_Rename_Click"/>
+                    <!--<MenuItem Header="_다른 포맷으로 인코딩" Height="25"/>-->
+                    <MenuItem Header="{DynamicResource Lang_MusicInfo_File_Remove_From_List}" Height="25" x:Name="Menu_File_Remove_Item" Click="Menu_File_Remove_Item_Click"/>
+                    <MenuItem Header="{DynamicResource Lang_MusicInfo_File_Delete_File}" Height="25" x:Name="Menu_File_Delete" Click="Menu_File_Delete_Click"/>
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Lang_MusicInfo_Tag}" Height="29" MinWidth="48" Padding="10,5" Margin="8,0,0,0">
+                    <MenuItem Header="{DynamicResource Lang_MusicInfo_Tag_Album_Art}" x:Name="Menu_AlbumArt"/>
+                    <MenuItem Header="{DynamicResource Lang_MusicInfo_AlbumArt_Add}" x:Name="Menu_AlbumArt_Add" Click="Menu_AlbumArt_Add_Click" />
+                    <MenuItem Header="{DynamicResource Lang_MusicInfo_AlbumArt_Clear}" x:Name="Menu_AlbumArt_Clear" Click="Menu_AlbumArt_Clear_Click"/>
+                    <MenuItem Header="{DynamicResource Lang_Refresh}" x:Name="Menu_Tag_Refresh" Click="Menu_Tag_Refresh_Click" />
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Lang_MusicInfo_Lyric}" Height="29" MinWidth="48" Padding="10,5" Margin="8,0,0,0" x:Name="Menu_Lyric">
+                    <MenuItem x:Name="Menu_Lyric_Make" Header="{DynamicResource Lang_MusicInfo_Lyric_Make_New}" Height="25" Click="Menu_Lyric_Make_Click"/>
+                    <MenuItem x:Name="Menu_Lyric_Edit" Header="{DynamicResource Lang_MusicInfo_Lyric_Edit}" Height="25" Click="Menu_Lyric_Edit_Click"/>
+                    <MenuItem x:Name="Menu_Lyric_Download" Header="{DynamicResource Lang_MusicInfo_Lyric_Download}" Height="25" Click="Menu_Lyric_Download_Click"/>
+                    <MenuItem x:Name="Menu_Lyric_Manage" Header="{DynamicResource Lang_MusicInfo_Lyric_Manage}" Height="25" Click="Menu_Lyric_Manage_Click"/>
+                    <MenuItem x:Name="Menu_Lyric_Reset" Header="{DynamicResource Lang_MusicInfo_Lyric_Clear_Cache}" Height="25" Click="Menu_Lyric_Reset_Click"/>
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Lang_MusicInfo_Dancer}" Height="29" MinWidth="48" Padding="10,5" Margin="8,0,0,0" x:Name="Menu_Dance">
+                    <MenuItem x:Name="Menu_Dance_Make" Header="{DynamicResource Lang_MusicInfo_Dancer_Make_New}" Height="25" Click="Menu_Dance_Make_Click"/>
+                    <MenuItem x:Name="Menu_Dance_Edit" Header="{DynamicResource Lang_MusicInfo_Dancer_Edit}" Height="25" Click="Menu_Dance_Edit_Click"/>
+                    <MenuItem x:Name="Menu_Dance_Download" Header="{DynamicResource Lang_MusicInfo_Dancer_Download}" Height="25" Click="Menu_Dance_Download_Click" Visibility="Collapsed"/>
+                    <MenuItem x:Name="Menu_Dance_Manage" Header="{DynamicResource Lang_MusicInfo_Dancer_Manage}" Height="25" Click="Menu_Dance_Manage_Click" Visibility="Collapsed"/>
+                    <MenuItem x:Name="Menu_Dance_Reset"  Header="{DynamicResource Lang_MusicInfo_Dancer_Clear_Cache}" Height="25" Click="Menu_Dance_Reset_Click"/>
+                </MenuItem>
+            </Menu>
+            <Button Width="68" Height="68" HorizontalAlignment="Right" Margin="-14,0" VerticalAlignment="Center" Click="Button_Click" FocusVisualStyle="{x:Null}" BorderBrush="{x:Null}" Style="{StaticResource ExitButton}" Foreground="#00484848">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Symphony;component/Images/sym3_popup_exit.png" RenderOptions.BitmapScalingMode="Fant" Stretch="None">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.75" ScaleY="0.75"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Rectangle Height="1" Fill="White" Stroke="{x:Null}" VerticalAlignment="Bottom"/>
+            <Grid.CacheMode>
+                <BitmapCache SnapsToDevicePixels="True" EnableClearType="True"/>
+            </Grid.CacheMode>
+        </Grid>
+        <Grid>
+            <Border BorderBrush="#FF474D50" BorderThickness="1" SnapsToDevicePixels="True" d:IsLocked="True" IsHitTestVisible="False"/>
+            <Rectangle x:Name="Rct_AlbumArt_1" Width="218" Height="218" HorizontalAlignment="Left" Fill="#11000000" VerticalAlignment="Top" Stroke="White" StrokeThickness="1" RadiusX="4" RadiusY="4" Margin="14,38,0,0" MouseLeftButtonDown="Rct_AlbumArt_1_MouseLeftButtonDown" AllowDrop="True" Drop="Rct_AlbumArt_1_Drop"/>
+            <Rectangle x:Name="Rct_AlbumArt_2" Width="107" Height="107" HorizontalAlignment="Left" Fill="#11000000" VerticalAlignment="Top" Stroke="White" StrokeThickness="1" RadiusX="4" RadiusY="4" Margin="237,38,0,0" MouseLeftButtonDown="Rct_AlbumArt_2_MouseLeftButtonDown" AllowDrop="True" Drop="Rct_AlbumArt_2_Drop"/>
+            <Rectangle x:Name="Rct_AlbumArt_3" Width="107" Height="107" HorizontalAlignment="Left" Fill="#11000000" VerticalAlignment="Top" Stroke="White" StrokeThickness="1" RadiusX="4" RadiusY="4" Margin="237,148,0,0" MouseLeftButtonDown="Rct_AlbumArt_3_MouseLeftButtonDown" AllowDrop="True" Drop="Rct_AlbumArt_3_Drop"/>
+            <TextBlock Text="{DynamicResource Lang_MusicInfo_Title}" TextAlignment="Center" Style="{StaticResource GrayEmbosedText}" FontSize="18" FontFamily="NanumBarunGothic" Margin="14,267,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Width="84"/>
+            <TextBlock Text="{DynamicResource Lang_MusicInfo_Artist}" TextAlignment="Center" Style="{StaticResource GrayEmbosedText}" FontSize="14" FontFamily="NanumBarunGothic" Margin="14,297,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Width="84"/>
+            <TextBlock Text="{DynamicResource Lang_MusicInfo_Track_Album}" TextAlignment="Center" Style="{StaticResource GrayEmbosedText}" FontSize="14" FontFamily="NanumBarunGothic" Margin="14,324,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Width="84"/>
+            <TextBlock Text="{DynamicResource Lang_MusicInfo_Genre}" TextAlignment="Center" Style="{StaticResource GrayEmbosedText}" FontSize="14" FontFamily="NanumBarunGothic" Margin="344,45,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Width="82"/>
+            <TextBlock Text="{DynamicResource Lang_MusicInfo_Year}" TextAlignment="Center" Style="{StaticResource GrayEmbosedText}" FontSize="14" FontFamily="NanumBarunGothic" Margin="344,72,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Width="82"/>
+            <TextBlock Text="{DynamicResource Lang_MusicInfo_Codec}" TextAlignment="Center" Style="{StaticResource GrayEmbosedText}" FontSize="14" FontFamily="NanumBarunGothic" Margin="344,99,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Width="82"/>
+            <TextBlock Text="{DynamicResource Lang_MusicInfo_Bitrate}" TextAlignment="Center" Style="{StaticResource GrayEmbosedText}" FontSize="14" FontFamily="NanumBarunGothic" Margin="344,126,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Width="82"/>
+            <TextBlock Text="{DynamicResource Lang_MusicInfo_Samplerate}" TextAlignment="Center" Style="{StaticResource GrayEmbosedText}" FontSize="14" FontFamily="NanumBarunGothic" Margin="344,153,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Width="82"/>
+            <TextBlock Text="{DynamicResource Lang_MusicInfo_FileSize}" TextAlignment="Center" Style="{StaticResource GrayEmbosedText}" FontSize="14" FontFamily="NanumBarunGothic" Margin="344,180,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Width="82"/>
+            <TextBlock Text="{DynamicResource Lang_MusicInfo_FileName}" TextAlignment="Center" Style="{StaticResource GrayEmbosedText}" FontSize="14" FontFamily="NanumBarunGothic" Margin="344,207,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Width="82"/>
+            <TextBlock Text="{DynamicResource Lang_MusicInfo_FileLocation}" TextAlignment="Center" Style="{StaticResource GrayEmbosedText}" FontSize="14" FontFamily="NanumBarunGothic" Margin="344,234,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Width="82"/>
+            <TextBlock x:Name="Lb_Title" Text="울룰루랄라 MP3" Style="{StaticResource GradientEmbosedText}" FontSize="18" Margin="111,267,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="461" TextTrimming="CharacterEllipsis" ToolTip="{Binding Mode=OneWay, ElementName=Lb_Title, Path=Text}" MouseLeftButtonDown="Lb_Title_MouseLeftButtonDown"/>
+            <TextBlock x:Name="Lb_Artist" Text="우크렐라" Style="{StaticResource GradientEmbosedText}" FontSize="14" Margin="111,297,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="461" TextTrimming="CharacterEllipsis" ToolTip="{Binding Mode=OneWay, ElementName=Lb_Artist, Path=Text}"/>
+            <TextBlock x:Name="Lb_Track_Album" Text="01 - 일릴렐뤼루레 싱글 앨범 (feat. Verbs)" Style="{StaticResource GradientEmbosedText}" FontSize="14" Margin="111,324,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="461" TextTrimming="CharacterEllipsis" ToolTip="{Binding Mode=OneWay, ElementName=Lb_Track_Album, Path=Text}"/>
+            <TextBlock x:Name="Lb_Genre" Text="Chaos Blue" Style="{StaticResource GradientEmbosedText}" FontSize="14" Margin="431,45,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" TextTrimming="CharacterEllipsis" ToolTip="{Binding Mode=OneWay, ElementName=Lb_Genre, Path=Text}"/>
+            <TextBlock x:Name="Lb_Year" Text="2014" Style="{StaticResource GradientEmbosedText}" FontSize="14" Margin="431,72,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" TextTrimming="CharacterEllipsis" ToolTip="{Binding Mode=OneWay, ElementName=Lb_Year, Path=Text}"/>
+            <TextBlock x:Name="Lb_Codec" Text="MP3" Style="{StaticResource GradientEmbosedText}" FontSize="14" Margin="431,99,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" TextTrimming="CharacterEllipsis" ToolTip="{Binding Mode=OneWay, ElementName=Lb_Codec, Path=Text}"/>
+            <TextBlock x:Name="Lb_Bitrate" Text="320 kbps" Style="{StaticResource GradientEmbosedText}" FontSize="14" Margin="431,126,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" TextTrimming="CharacterEllipsis" ToolTip="{Binding Mode=OneWay, ElementName=Lb_Bitrate, Path=Text}"/>
+            <TextBlock x:Name="Lb_Sample" Text="44,100 Hz" Style="{StaticResource GradientEmbosedText}" FontSize="14" Margin="431,153,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" TextTrimming="CharacterEllipsis" ToolTip="{Binding Mode=OneWay, ElementName=Lb_Sample, Path=Text}"/>
+            <TextBlock x:Name="Lb_Size" Text="9.87 MB" Style="{StaticResource GradientEmbosedText}" FontSize="14" Margin="431,180,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" TextTrimming="CharacterEllipsis" ToolTip="{Binding Mode=OneWay, ElementName=Lb_Size, Path=Text}"/>
+            <TextBlock x:Name="Lb_FileName" Text="울룰루랄라.MP3" Style="{StaticResource GradientEmbosedText}" FontSize="14" Margin="431,207,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" TextTrimming="CharacterEllipsis" ToolTip="{Binding Mode=OneWay, ElementName=Lb_FileName, Path=Text}"/>
+            <TextBlock x:Name="Lb_FilePath" Text="C:\Users\AinL\Desktop\새 폴더\mp3\울룰루랄라.MP3" Style="{StaticResource GradientEmbosedText}" FontSize="14" Margin="431,234,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" TextTrimming="CharacterEllipsis" ToolTip="{Binding Mode=OneWay, ElementName=Lb_FilePath, Path=Text}"/>
+            <Grid.CacheMode>
+                <BitmapCache SnapsToDevicePixels="True" EnableClearType="True"/>
+            </Grid.CacheMode>
+        </Grid>
+        <Grid.CacheMode>
+            <BitmapCache SnapsToDevicePixels="True" EnableClearType="True"/>
+        </Grid.CacheMode>
+    </Grid>
+</Window>

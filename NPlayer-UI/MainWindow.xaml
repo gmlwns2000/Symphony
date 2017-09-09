@@ -1,0 +1,207 @@
+﻿<Window x:Class="NPlayer_UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NPlayer_UI"
+        mc:Ignorable="d"
+        Title="NPlayer - Music player based on NAudio" Height="604" Width="990" MinWidth="890" MinHeight="600" Closed="Window_Closed" LocationChanged="Window_LocationChanged" SizeChanged="Window_SizeChanged" StateChanged="Window_StateChanged">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="502*"/>
+            <ColumnDefinition Width="429*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="openBT" Content="Open" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" Height="20"/>
+        <Label x:Name="openlb" Content="Label" Margin="90,7,90.333,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="26"/>
+        <Button x:Name="Exit" Content="Exit" Margin="0,10,10.333,0" VerticalAlignment="Top" Grid.Column="1" Height="20" HorizontalAlignment="Right" Width="75" Click="Exit_Click"/>
+        <GroupBox Header="NAudio" Margin="10,35,10,9.667">
+            <Grid Margin="0,0,-2,0">
+                <Button Content="Play" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+                <Button Content="Pause" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
+                <Button x:Name="stop" Content="Stop" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="75" Click="stop_Click"/>
+                <Slider x:Name="barVol" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top" Width="139" ValueChanged="barVol_ValueChanged" Maximum="100" LargeChange="8"/>
+                <Slider x:Name="barTime" Margin="90,61,10,0" VerticalAlignment="Top" ValueChanged="barTime_ValueChanged" LargeChange="5000" SmallChange="3000" MouseLeftButtonDown="barTime_MouseLeftButtonDown"/>
+                <Label x:Name="lbVol" Content="" HorizontalAlignment="Left" Margin="229,7,0,0" VerticalAlignment="Top"/>
+                <Label Content="볼륨" HorizontalAlignment="Left" Margin="90,28,0,0" VerticalAlignment="Top"/>
+                <Label Content="시간" HorizontalAlignment="Left" Margin="90,79,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="lbPos" Content="Label" HorizontalAlignment="Right" Margin="0,35,10,0" VerticalAlignment="Top"/>
+                <GroupBox Header="파일정보" Margin="10,110,10,0" VerticalAlignment="Top" Height="143">
+                    <Grid>
+                        <Label Content="파일경로:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                        <Label Content="파일이름:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
+                        <Label Content="플레이중:" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="lbPlay" Content="Label" HorizontalAlignment="Left" Margin="76,62,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="lbFileName" Content="Label" HorizontalAlignment="Left" Margin="76,36,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="lbFilePath" Content="Label" HorizontalAlignment="Left" Margin="76,10,0,0" VerticalAlignment="Top"/>
+                        <Label Content="BitPerSecond:" HorizontalAlignment="Left" Margin="141,62,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="lbBitSec" Content="Label" HorizontalAlignment="Left" Margin="230,62,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Bit Per Sample:" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top"/>
+                        <Label Content="SampleRate:" HorizontalAlignment="Left" Margin="141,88,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="lbSampleRate" Content="Label" HorizontalAlignment="Left" Margin="230,88,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="lbBps" Content="Label" HorizontalAlignment="Left" Margin="103,88,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                </GroupBox>
+                <Button Content="List" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="39" Height="20" Click="ToggleButton_Checked"/>
+                <Button x:Name="next" Content="|&gt;" HorizontalAlignment="Right" Margin="0,10,101.333,0" VerticalAlignment="Top" Width="29" Click="next_Click"/>
+                <Button x:Name="previous" Content="&lt;|" HorizontalAlignment="Right" Margin="0,10,135.333,0" VerticalAlignment="Top" Width="29" Click="previous_Click"/>
+                <Grid Margin="10,258,10,10.333">
+                    <Grid Margin="0,0,70,105.667">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider x:Name="eq1" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq1_ValueChanged" Grid.Column="0"/>
+                        <Slider x:Name="eq2" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq2_ValueChanged" Grid.Column="1"/>
+                        <Slider x:Name="eq3" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq3_ValueChanged" Grid.Column="2"/>
+                        <Slider x:Name="eq4" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq4_ValueChanged" Grid.Column="3" Margin="0.667,0,1.333,0.333"/>
+                        <Slider x:Name="eq5" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq5_ValueChanged" Grid.Column="4"/>
+                        <Slider x:Name="eq6" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq6_ValueChanged" Grid.Column="5"/>
+                        <Slider x:Name="eq7" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq7_ValueChanged" Grid.Column="6"/>
+                        <Slider x:Name="eq8" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq8_ValueChanged" Grid.Column="7"/>
+                        <Slider x:Name="eq9" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq9_ValueChanged" Grid.Column="8"/>
+                        <Slider x:Name="eq10" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq10_ValueChanged" Grid.Column="9"/>
+                        <Slider x:Name="eq11" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq11_ValueChanged" Grid.Column="10"/>
+                        <Slider x:Name="eq12" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq12_ValueChanged" Grid.Column="11"/>
+                        <Slider x:Name="eq13" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq13_ValueChanged" Grid.Column="12"/>
+                        <Slider x:Name="eq14" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq14_ValueChanged" Grid.Column="13"/>
+                        <Slider x:Name="eq15" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq15_ValueChanged" Grid.Column="14"/>
+                        <Slider x:Name="eq16" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq16_ValueChanged" Grid.Column="15"/>
+                        <Slider x:Name="eq17" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq17_ValueChanged" Grid.Column="16"/>
+                        <Slider x:Name="eq18" HorizontalAlignment="Center" Orientation="Vertical" Maximum="30" Minimum="-30" LargeChange="3" SmallChange="1" ValueChanged="eq18_ValueChanged" Grid.Column="17"/>
+                    </Grid>
+                    <Button x:Name="rest" Content="Reset" Margin="0,0,0,105.667" Click="rest_Click" HorizontalAlignment="Right" Width="62" Height="20" VerticalAlignment="Bottom"/>
+                    <Label Content="18 Band EQ" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    <Grid Height="52" VerticalAlignment="Bottom" RenderTransformOrigin="0.797,0.187" Margin="0,0,0,48.667">
+                        <Slider x:Name="sdEchoFactor" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" RenderTransformOrigin="0.6,3.333" Margin="0,5,0,0" ValueChanged="slider_ValueChanged" Maximum="1" LargeChange="0.1" SmallChange="0.01" Value="0.3"/>
+                        <Button x:Name="btEchoReset" Content="Reset" HorizontalAlignment="Right" Margin="0,31,0,0" VerticalAlignment="Top" Width="64" Click="btEchoReset_Click"/>
+                        <Slider x:Name="sdEchoLegnth" HorizontalAlignment="Left" Margin="0,29,0,0" VerticalAlignment="Top" Width="241" ValueChanged="sdEchoLegnth_ValueChanged" LargeChange="1000" SmallChange="250" Minimum="100" Maximum="48000" Value="10000"/>
+                        <Label x:Name="label" Content="Factor" HorizontalAlignment="Left" Margin="125,0,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label1" Content="Length" HorizontalAlignment="Left" Margin="246,24,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label2" Content="Echo" HorizontalAlignment="Right" Margin="0,-4,0,0" VerticalAlignment="Top"/>
+                        <CheckBox x:Name="sdEchoOn" Content="On" HorizontalAlignment="Right" Margin="0,8,55,0" VerticalAlignment="Top" Checked="CheckBox_Checked_1" Unchecked="CheckBox_Unchecked_1" IsChecked="True" IsThreeState="True"/>
+                    </Grid>
+                    <CheckBox x:Name="checkBox" Content="On" Margin="0,0,26,130.667" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="36" IsChecked="True" Checked="checkBox_Checked" Unchecked="checkBox_Unchecked"/>
+                    <Slider x:Name="eqOpacity" HorizontalAlignment="Right" Margin="0,49,-2,145.667" Width="31" Orientation="Vertical" SmallChange="0.05" LargeChange="0.1" Maximum="1" Value="1" ValueChanged="eqOpacity_ValueChanged"/>
+                    <Slider x:Name="eqAmp" HorizontalAlignment="Right" Margin="0,49,44,145.667" Orientation="Vertical" LargeChange="0.1" Maximum="1" SmallChange="0.05" Value="1" ValueChanged="eqAmp_ValueChanged_1"/>
+                    <Label x:Name="label3" Content="Amp" HorizontalAlignment="Right" Margin="0,26,35,0" Height="26" VerticalAlignment="Top"/>
+                    <Label x:Name="label4" Content="Opc" HorizontalAlignment="Right" Margin="0,26,3,0" Height="26" VerticalAlignment="Top"/>
+                    <Grid Margin="0,0,0,-0.333" Height="48" VerticalAlignment="Bottom">
+                        <Slider x:Name="sdLimitLimit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="233" Margin="0,6,0,0" LargeChange="0.1" Maximum="1" SmallChange="0.05" Value="1" ValueChanged="sdLimitLimit_ValueChanged"/>
+                        <Slider x:Name="sdLimitStrength" HorizontalAlignment="Left" Margin="0,26,0,0" Width="233" Value="0.5" LargeChange="0.1" Maximum="1" SmallChange="0.05" ValueChanged="sdLimitStrength_ValueChanged" Height="18" VerticalAlignment="Top"/>
+                        <Button x:Name="btLimitReset" Content="Reset" VerticalAlignment="Top" HorizontalAlignment="Right" Width="61" Margin="0,26,0,0" Click="btLimitReset_Click"/>
+                        <Label x:Name="label5" Content="Limiter" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,1,0,0"/>
+                        <Label x:Name="label6" Content="Strength" HorizontalAlignment="Left" Margin="238,22,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label7" Content="Limit" HorizontalAlignment="Left" Margin="238,2,0,0" VerticalAlignment="Top" Width="71"/>
+                        <CheckBox x:Name="cbLimitOn" Content="On" Margin="0,8,52,0" VerticalAlignment="Top" Checked="cbLimitOn_Checked" Unchecked="cbLimitOn_Unchecked" IsChecked="True" HorizontalAlignment="Right" Width="36"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="ID3tag.NET" Margin="10,33,10.333,9.667">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="167*"/>
+                    <RowDefinition Height="56*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="타이틀" HorizontalAlignment="Left" Margin="10,0,0,115" Height="31" VerticalAlignment="Bottom" FontSize="14"/>
+                    <Label x:Name="lbTagTitle" Content="타이틀" HorizontalAlignment="Left" Margin="60,0,0,115" Height="31" VerticalAlignment="Bottom" FontSize="14"/>
+                    <Label Content="아티스트" HorizontalAlignment="Left" Margin="10,0,0,90" Height="25" VerticalAlignment="Bottom"/>
+                    <Label Content="앨범" HorizontalAlignment="Left" Margin="10,0,0,65" Height="25" VerticalAlignment="Bottom"/>
+                    <Label Content="장르" HorizontalAlignment="Left" Margin="10,0,0,40" Height="25" VerticalAlignment="Bottom"/>
+                    <Label Content="트랙" HorizontalAlignment="Left" Margin="10,0,0,15" Height="25" VerticalAlignment="Bottom"/>
+                    <Label x:Name="lbTagArtist" Content="아티스트" HorizontalAlignment="Left" Margin="75,0,0,90" Height="25" VerticalAlignment="Bottom"/>
+                    <Label x:Name="lbTagAlbum" Content="앨범" HorizontalAlignment="Left" Margin="75,0,0,65" Height="25" VerticalAlignment="Bottom"/>
+                    <Label x:Name="lbTagGanre" Content="장르" HorizontalAlignment="Left" Margin="75,0,0,40" Height="25" VerticalAlignment="Bottom"/>
+                    <Label x:Name="lbTagTrack" Content="트랙" HorizontalAlignment="Left" Margin="75,0,0,15" Height="25" VerticalAlignment="Bottom"/>
+                    <Label Content="연도" HorizontalAlignment="Left" Margin="163,0,0,40" Height="25" VerticalAlignment="Bottom"/>
+                    <Label Content="BPM" HorizontalAlignment="Left" Margin="163,0,0,15" Height="25" VerticalAlignment="Bottom"/>
+                    <Label x:Name="lbTagYear" Content="연도" HorizontalAlignment="Left" Margin="210,0,0,40" Height="25" VerticalAlignment="Bottom"/>
+                    <Label x:Name="lbTagBPM" Content="BPM" HorizontalAlignment="Left" Margin="210,0,0,15" Height="25" VerticalAlignment="Bottom"/>
+                    <Grid Margin="10,10,10,146">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="203*"/>
+                            <ColumnDefinition Width="101*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="AlbumArt1"/>
+                        <TextBox x:Name="richTextBox1" TextWrapping="Wrap" Text="TextBox" Grid.Column="1" Margin="0,25,0,0"/>
+                        <Label Content="가사" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Canvas x:Name="canvas" Background="#FF434343">
+                        <Polyline x:Name="polyline1" StrokeThickness="2">
+                            <Polyline.Stroke>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF7541FF" Offset="0.748"/>
+                                    <GradientStop Color="#34FFFFFF"/>
+                                    <GradientStop Color="#35FFFFFF" Offset="1"/>
+                                    <GradientStop Color="#FF7642FF" Offset="0.258"/>
+                                </LinearGradientBrush>
+                            </Polyline.Stroke>
+                            <Polyline.Effect>
+                                <DropShadowEffect BlurRadius="0" Direction="270" ShadowDepth="2" Opacity="0.36"/>
+                            </Polyline.Effect>
+                        </Polyline>
+                    </Canvas>
+                    <Rectangle x:Name="leftRect" Width="4" VerticalAlignment="Center" Height="29" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF55E5FF" Offset="0"/>
+                                <GradientStop Color="#FFFF6EE9" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle x:Name="rightRect" Width="4" VerticalAlignment="Center" Height="28" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF55E5FF" Offset="0"/>
+                                <GradientStop Color="#FFFF6EE9" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Label x:Name="lbFps" Content="Label" Margin="0,0,0.333,0" HorizontalAlignment="Right" Width="94" Height="28" VerticalAlignment="Top" Foreground="White" FontSize="10.667" HorizontalContentAlignment="Right">
+                        <Label.Effect>
+                            <DropShadowEffect Direction="270" BlurRadius="0" Opacity="0.33" ShadowDepth="2"/>
+                        </Label.Effect>
+                    </Label>
+
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</Window>
+

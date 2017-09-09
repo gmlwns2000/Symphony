@@ -1,0 +1,449 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A04F1A52-5EFD-402A-A207-B239EA15DF55}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MMF</RootNamespace>
+    <AssemblyName>MMF</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <PlatformTarget>x64</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AssimpNet">
+      <HintPath>..\libs\assimp.net\AssimpNet.dll</HintPath>
+    </Reference>
+    <Reference Include="BulletSharp, Version=2.83.7.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\BulletSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="NiWrapper.Net">
+      <HintPath>..\Kinnect\NiWrapper.NiTE.Net x86\NiWrapper.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NiWrapper.NiTE.Net">
+      <HintPath>..\Kinnect\NiWrapper.NiTE.Net x86\NiWrapper.NiTE.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.87.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SQLite\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.88.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TargaImage">
+      <HintPath>..\Targa\Release\TargaImage.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bone\BestrowKinematicsProvider.cs" />
+    <Compile Include="Bone\IBone.cs" />
+    <Compile Include="Bone\ManualTransformUpdater.cs" />
+    <Compile Include="Bone\MorphTransformer.cs" />
+    <Compile Include="Controls\WPF\WPFRenderControl.xaml.cs">
+      <DependentUpon>WPFRenderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceManager\SampleManager.cs" />
+    <Compile Include="Kinect\KinectUserDetectEventArgs.cs" />
+    <Compile Include="Kinect\KinectUserLostEventArgs.cs" />
+    <Compile Include="Matricies\Camera\CameraMotion\BasicCameraControllerMotionProvider.cs" />
+    <Compile Include="Matricies\Camera\CameraMotion\BoneFollowCameraMotionProvider.cs" />
+    <Compile Include="Matricies\Camera\CameraMotion\VMDCameraMotionProvider.cs" />
+    <Compile Include="Matricies\Camera\ICameraMotionProvider.cs" />
+    <Compile Include="Matricies\Camera\CameraMotion\SideCameraMotionProvider.cs" />
+    <Compile Include="DeviceManager\ITargetContext.cs" />
+    <Compile Include="DeviceManager\TextureTargetContext.cs" />
+    <Compile Include="DeviceManager\WPFTargetTextureContext.cs" />
+    <Compile Include="Matricies\World\IBasicWorldMatrixProvider.cs" />
+    <Compile Include="MME\EffectLoaderCompiledEventArgs.cs" />
+    <Compile Include="MME\EffectLoaderCompilingEventArgs.cs" />
+    <Compile Include="MME\ScriptClass.cs" />
+    <Compile Include="MME\ScriptOrder.cs" />
+    <Compile Include="MME\VariableSubscriber\ConstantSubscriber\BasicMaterialConstantSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\ConstantSubscriber\ConstantBufferManager\BasicMaterialConstantBufferInputLayout.cs" />
+    <Compile Include="MME\VariableSubscriber\ConstantSubscriber\ConstantBufferManager\BasicMaterialConstantBufferManager.cs" />
+    <Compile Include="MME\VariableSubscriber\ConstantSubscriber\ConstantBufferManager\ConstantBufferManagerBase.cs" />
+    <Compile Include="MME\VariableSubscriber\ConstantSubscriber\ConstantBufferManager\FullMaterialConstantBufferInputLayout.cs" />
+    <Compile Include="MME\VariableSubscriber\ConstantSubscriber\ConstantBufferManager\FullMaterialConstantBufferManager.cs" />
+    <Compile Include="MME\VariableSubscriber\ConstantSubscriber\ConstantBufferSubscriberBase.cs" />
+    <Compile Include="MME\VariableSubscriber\ConstantSubscriber\FullMaterialConstantSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\ControlInfoSubscriber\ControlObjectAnnotation.cs" />
+    <Compile Include="MME\VariableSubscriber\ControlInfoSubscriber\ControlObjectSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\ControlInfoSubscriber\TargetObject.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\AddingSphereTextureSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\AddingTextureSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\AmbientVectorSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\DiffuseVectorSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\EdgeThicknessSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\EdgeVectorSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\EmissiveVectorSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\GroundShadowColorVectorSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\MaterialInfo.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\MaterialSphereMapSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\MaterialSubscriberBase.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\MaterialTextureSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\MaterialToonTextureSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\MaterialVariableInfo.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\MultiplyingSphereTextureSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\MultiplyingTextureSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\SpecularPowerSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\SpecularVectorSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\TargetObject.cs" />
+    <Compile Include="MME\VariableSubscriber\MaterialSubscriber\ToonVectorSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\MatrixSubscriberBase.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ProjectionInverseMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ProjectionInverseTransposeMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ProjectionMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ProjectionTransposeMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ViewInverseMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ViewInverseTransposeMatrixSubsriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ViewMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ViewProjectionInverseMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ViewProjectionInverseTransposeMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ViewProjectionMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ViewProjectionTransposeMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\ViewTransposeMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldInverseMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldInverseTransposeMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldTransposeMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldViewInverseMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldViewInverseTransposeMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldViewMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldViewProjectionInverseMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldViewProjectionInverseTransposeMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldViewProjectionMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldViewProjectionTransposeMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MatrixSubscriber\WorldViewTransposeMatrixSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MouseSubscriber\LeftMouseDownSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MouseSubscriber\MiddleMouseDownSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MouseSubscriber\MousePositionSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\MouseSubscriber\MouseSubscriberBase.cs" />
+    <Compile Include="MME\VariableSubscriber\MouseSubscriber\RightMouseDownSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\ObjectAnnotationType.cs" />
+    <Compile Include="MME\VariableSubscriber\PeculiarValueSubscriber\OpAddSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\PeculiarValueSubscriber\ParthfSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\PeculiarValueSubscriber\PeculiarValueSubscriberBase.cs" />
+    <Compile Include="MME\VariableSubscriber\PeculiarValueSubscriber\SpAddSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\PeculiarValueSubscriber\SubsetCountSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\PeculiarValueSubscriber\TranspSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\PeculiarValueSubscriber\Use_SpheremapSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\PeculiarValueSubscriber\Use_TextureSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\PeculiarValueSubscriber\Use_ToonSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\PeculiarValueSubscriber\VertexCountSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\ScreenInfoSubscriber\ViewPortPixelSizeScriber.cs" />
+    <Compile Include="MME\VariableSubscriber\SubscribeArgument.cs" />
+    <Compile Include="MME\VariableSubscriber\SubscriberBase.cs" />
+    <Compile Include="MME\VariableSubscriber\TextureSubscriber\RenderColorTargetSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\TextureSubscriber\RenderDepthStencilTargetSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\TextureSubscriber\TextureAnnotationParser.cs" />
+    <Compile Include="MME\VariableSubscriber\TextureSubscriber\TextureSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\TimeSubscriber\ElapsedTimeSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\TimeSubscriber\TimeSubScriber.cs" />
+    <Compile Include="MME\VariableSubscriber\TimeSubscriber\TimeSubscriberBase.cs" />
+    <Compile Include="MME\VariableSubscriber\UpdateBy.cs" />
+    <Compile Include="MME\VariableSubscriber\VariableType.cs" />
+    <Compile Include="MME\VariableSubscriber\WorldInfoSubscriber\DirectionSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\WorldInfoSubscriber\PositionSubscriber.cs" />
+    <Compile Include="MME\VariableSubscriber\WorldInfoSubscriber\WorldInfoSubscriberBase.cs" />
+    <Compile Include="Model\ISubsetDivided.cs" />
+    <Compile Include="Morph\GroupMorphData.cs" />
+    <Compile Include="Motion\ActionAfterMotion.cs" />
+    <Compile Include="Motion\MorphMotionForVME.cs" />
+    <Compile Include="Motion\MMDMotionForVME.cs" />
+    <Compile Include="Matricies\Projection\BasicProjectionMatrixProvider.cs" />
+    <Compile Include="Matricies\Projection\IProjectionMatrixProvider.cs" />
+    <Compile Include="Matricies\Projection\ProjectionMatrixChangedEventArgs.cs" />
+    <Compile Include="Matricies\Projection\ProjectionMatrixChangedVariableType.cs" />
+    <Compile Include="Physics\BulletTimer.cs" />
+    <Compile Include="Physics\ConstraintFactory.cs" />
+    <Compile Include="Physics\DynamicsWorldFactory.cs" />
+    <Compile Include="Physics\Joint6ConnectedBody.cs" />
+    <Compile Include="Physics\Joint6ConnectedBodyPair.cs" />
+    <Compile Include="Physics\Joint6MovementRestriction.cs" />
+    <Compile Include="Physics\Joint6Restriction.cs" />
+    <Compile Include="Physics\Joint6RotationRestriction.cs" />
+    <Compile Include="Physics\Joint6Stiffness.cs" />
+    <Compile Include="Physics\RigidBodyFactory.cs" />
+    <Compile Include="Physics\RigidProperty.cs" />
+    <Compile Include="Physics\SuperProperty.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Motion\BoneMotionForVME.cs" />
+    <Compile Include="Model\ISubset.cs" />
+    <Compile Include="Model\Assimp\AssimpFileFilter.cs" />
+    <Compile Include="Model\Assimp\AssimpHelper.cs" />
+    <Compile Include="Model\Assimp\AssimpModel.cs" />
+    <Compile Include="Model\Assimp\AssimpSubset.cs" />
+    <Compile Include="DeviceManager\PanelObserver.cs" />
+    <Compile Include="DeviceManager\ScreenContext.cs" />
+    <Compile Include="DeviceManager\WorldSpace.cs" />
+    <Compile Include="Kinect\ColorTexture.cs" />
+    <Compile Include="Kinect\DepthTexture.cs" />
+    <Compile Include="Kinect\IKinectTexture.cs" />
+    <Compile Include="Kinect\IRTexture.cs" />
+    <Compile Include="Kinect\KinectDeviceManager.cs" />
+    <Compile Include="Kinect\KinectFKUpdater.cs" />
+    <Compile Include="Kinect\OpenNIManager.cs" />
+    <Compile Include="Light\LightMatrixManager.cs" />
+    <Compile Include="MME\Includer\BasicEffectIncluder.cs" />
+    <Compile Include="MME\Includer\IncludeDirectory.cs" />
+    <Compile Include="MME\InvalidMMEEffectShaderException.cs" />
+    <Compile Include="MME\MMEEffectException.cs" />
+    <Compile Include="MME\MMEEffectInfo.cs" />
+    <Compile Include="MME\MMEEffectPass.cs" />
+    <Compile Include="MME\PeculiarEffectSubscriberDictionary.cs" />
+    <Compile Include="MME\Script\FunctionBase.cs" />
+    <Compile Include="MME\Script\FunctionDictionary.cs" />
+    <Compile Include="MME\Script\Function\ClearFunction.cs" />
+    <Compile Include="MME\Script\Function\ClearSetColorFunction.cs" />
+    <Compile Include="MME\Script\Function\ClearSetDepthFunction.cs" />
+    <Compile Include="MME\Script\Function\DrawFunction.cs" />
+    <Compile Include="MME\Script\Function\LoopByCountFunction.cs" />
+    <Compile Include="MME\Script\Function\LoopEndFunction.cs" />
+    <Compile Include="MME\Script\Function\LoopGetIndexFunction.cs" />
+    <Compile Include="MME\Script\Function\PassFunction.cs" />
+    <Compile Include="MME\Script\Function\RenderColorTargetFunction.cs" />
+    <Compile Include="MME\Script\Function\RenderDepthStencilTargetFunction.cs" />
+    <Compile Include="MME\Script\ScriptRuntime.cs" />
+    <Compile Include="Model\IEdgeDrawable.cs" />
+    <Compile Include="Model\IGroundShadowDrawable.cs" />
+    <Compile Include="Model\Shape\PlaneBoard.cs" />
+    <Compile Include="Model\Other\DebugDotManager.cs" />
+    <Compile Include="Model\PMX\PMXSubsetManager.cs" />
+    <Compile Include="Model\BasicSubresourceLoader.cs" />
+    <Compile Include="Model\BasicTransformer.cs" />
+    <Compile Include="Grid\TargetCross.cs" />
+    <Compile Include="Model\ISubsetManager.cs" />
+    <Compile Include="Model\IBufferManager.cs" />
+    <Compile Include="Morph\BoneMorphData.cs" />
+    <Compile Include="Morph\BoneMorphProvider.cs" />
+    <Compile Include="Morph\GroupMorphProvider.cs" />
+    <Compile Include="Morph\IMorphManager.cs" />
+    <Compile Include="Morph\IMorphProvider.cs" />
+    <Compile Include="Model\PMX\IPMXSubset.cs" />
+    <Compile Include="Model\PMX\PMXModelWithPhysics.cs" />
+    <Compile Include="Morph\MaterialMorphData.cs" />
+    <Compile Include="Morph\MaterialMorphProvider.cs" />
+    <Compile Include="Morph\PMXMorphManager.cs" />
+    <Compile Include="Morph\UVMorphData.cs" />
+    <Compile Include="Morph\UVMorphProvider.cs" />
+    <Compile Include="Morph\VertexMorphProvider.cs" />
+    <Compile Include="Sprite\D2DSpriteBatch.cs" />
+    <Compile Include="Sprite\D2D\D2DSpriteBitmap.cs" />
+    <Compile Include="Sprite\D2D\D2DSpriteBitmapBrush.cs" />
+    <Compile Include="Sprite\D2D\D2DSpriteLinearGradientBrush.cs" />
+    <Compile Include="Sprite\D2D\D2DSpriteGradientStopCollection.cs" />
+    <Compile Include="Sprite\D2D\D2DSpriteRadialGradientBrush.cs" />
+    <Compile Include="Sprite\D2D\D2DSpriteSolidColorBrush.cs" />
+    <Compile Include="Sprite\D2D\D2DSpriteTextformat.cs" />
+    <Compile Include="Sprite\GDISpriteBatch.cs" />
+    <Compile Include="Sprite\IDynamicTexture.cs" />
+    <Compile Include="Sprite\SpriteVertexLayout.cs" />
+    <Compile Include="Model\Other\DebugDotInputLayout.cs" />
+    <Compile Include="Bone\BoneTransformer.cs" />
+    <Compile Include="Utility\HierachicalOrderSolver.cs" />
+    <Compile Include="Utility\HierarchicalCollection.cs" />
+    <Compile Include="Utility\TargaSolver.cs" />
+    <Compile Include="Motion\MorphMotion.cs" />
+    <Compile Include="Morph\VertexMorphData.cs" />
+    <Compile Include="Physics\BulletManager.cs" />
+    <Compile Include="Physics\PMXPhysicsTransformManager.cs" />
+    <Compile Include="RenderContext.cs" />
+    <Compile Include="Bone\BoneComparer.cs" />
+    <Compile Include="Bone\ITransformUpdater.cs" />
+    <Compile Include="Bone\PhysicsOrder.cs" />
+    <Compile Include="Bone\PMXSkeletonWithPhysics.cs" />
+    <Compile Include="Utility\FPSCounter.cs" />
+    <Compile Include="Model\ISubresourceLoader.cs" />
+    <Compile Include="Model\IToonTextureManager.cs" />
+    <Compile Include="Model\PMX\PMXModelBufferManager.cs" />
+    <Compile Include="Model\BasicInputLayout.cs" />
+    <Compile Include="Matricies\Camera\BasicCamera.cs" />
+    <Compile Include="Matricies\Camera\CameraMatrixChangedEventArgs.cs" />
+    <Compile Include="Matricies\Camera\CameraMatrixChangedVariableType.cs" />
+    <Compile Include="Matricies\Camera\CameraProvider.cs" />
+    <Compile Include="Utility\CGHelper.cs" />
+    <Compile Include="Model\PMX\PMXSubset.cs" />
+    <Compile Include="MME\EffectLoader.cs" />
+    <Compile Include="Grid\AxisGridLayout.cs" />
+    <Compile Include="Grid\BasicGrid.cs" />
+    <Compile Include="Grid\MeasureGridLayout.cs" />
+    <Compile Include="DeviceManager\IDeviceManager.cs" />
+    <Compile Include="Model\IDrawable.cs" />
+    <Compile Include="Model\ITransformer.cs" />
+    <Compile Include="Light\IShadowmap.cs" />
+    <Compile Include="MME\EffectSubscriberDictionary.cs" />
+    <Compile Include="MME\Light\ParallelLightManager.cs" />
+    <Compile Include="Matricies\MatrixManager.cs" />
+    <Compile Include="Model\PMX\PMXModel.cs" />
+    <Compile Include="MME\EffectParseHelper.cs" />
+    <Compile Include="MME\ExtendedBoolean.cs" />
+    <Compile Include="MME\MMEEffectManager.cs" />
+    <Compile Include="MME\MMEEffectPassType.cs" />
+    <Compile Include="MME\MMEEffectTechnique.cs" />
+    <Compile Include="Motion\BasicMotionManager.cs" />
+    <Compile Include="Motion\IMotionManager.cs" />
+    <Compile Include="Motion\IMotionProvider.cs" />
+    <Compile Include="Motion\IMovable.cs" />
+    <Compile Include="Motion\MMDMotion.cs" />
+    <Compile Include="Motion\MotionTimer.cs" />
+    <Compile Include="DeviceManager\BasicGraphicDeviceManager.cs" />
+    <Compile Include="Bone\PMXBone.cs" />
+    <Compile Include="Motion\BoneMotion.cs" />
+    <Compile Include="Bone\CCDIK.cs" />
+    <Compile Include="Bone\IkLink.cs" />
+    <Compile Include="Bone\ISkinningProvider.cs" />
+    <Compile Include="Bone\PMXSkeleton.cs" />
+    <Compile Include="Model\PMX\PMXToonTextureManager.cs" />
+    <Compile Include="Matricies\World\BasicWorldMatrixProvider.cs" />
+    <Compile Include="Matricies\World\ChangedWorldMatrixValueType.cs" />
+    <Compile Include="Matricies\World\IWorldMatrixProvider.cs" />
+    <Compile Include="Matricies\World\WorldMatrixChangedEventArgs.cs" />
+    <Compile Include="Controls\WPF\D3DImageContainer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MMDFileParser\MMDFileParser.csproj">
+      <Project>{3df05446-6065-4ebb-9bcc-075a0d91dda0}</Project>
+      <Name>MMDFileParser</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Shader\debugDot.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="System.Data.SQLite.Linq.dll" />
+    <None Include="x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="x86\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="Resource\Shader\GridShader.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource\Shader\DefaultShader.fx" />
+    <EmbeddedResource Include="Resource\Shader\SpriteShader.fx" />
+    <EmbeddedResource Include="Resource\Shader\ShapeShader.fx" />
+    <Content Include="Resource\Shader\Xshader.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Toon\toon0.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Toon\toon1.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Toon\toon10.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Toon\toon2.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Toon\toon3.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Toon\toon4.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Toon\toon5.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Toon\toon6.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Toon\toon7.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Toon\toon8.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Toon\toon9.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\WPF\WPFRenderControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

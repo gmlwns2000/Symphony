@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MMDFileParser</RootNamespace>
+    <AssemblyName>MMDFileParser</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x64</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CGHelper.cs" />
+    <Compile Include="IFrameData.cs" />
+    <Compile Include="FrameManager.cs" />
+    <Compile Include="MotionParser\BezierCurve.cs" />
+    <Compile Include="MotionParser\BoneFrameData.cs" />
+    <Compile Include="MotionParser\BoneFrameList.cs" />
+    <Compile Include="MotionParser\CameraFrameData.cs" />
+    <Compile Include="MotionParser\CameraFrameList.cs" />
+    <Compile Include="MotionParser\MorphFrameData.cs" />
+    <Compile Include="MotionParser\MorphFrameList.cs" />
+    <Compile Include="MotionParser\Header.cs" />
+    <Compile Include="MotionParser\LightFrameData.cs" />
+    <Compile Include="MotionParser\LightFrameList.cs" />
+    <Compile Include="MotionParser\MotionData.cs" />
+    <Compile Include="OpenMMDFormat\BezInterpolParams.cs" />
+    <Compile Include="OpenMMDFormat\BoneFrame.cs" />
+    <Compile Include="OpenMMDFormat\BoneFrameTable.cs" />
+    <Compile Include="OpenMMDFormat\bvec2.cs" />
+    <Compile Include="OpenMMDFormat\CameraExtraBezParams.cs" />
+    <Compile Include="OpenMMDFormat\CameraFrame.cs" />
+    <Compile Include="OpenMMDFormat\CameraFrameTable.cs" />
+    <Compile Include="OpenMMDFormat\Header.cs" />
+    <Compile Include="OpenMMDFormat\IDTag.cs" />
+    <Compile Include="OpenMMDFormat\IKInfo.cs" />
+    <Compile Include="OpenMMDFormat\LightFrame.cs" />
+    <Compile Include="OpenMMDFormat\LightFrameTable.cs" />
+    <Compile Include="OpenMMDFormat\MorphFrame.cs" />
+    <Compile Include="OpenMMDFormat\MorphFrameTable.cs" />
+    <Compile Include="OpenMMDFormat\OpenMMDFormatExtension.cs" />
+    <Compile Include="OpenMMDFormat\SelfShadowFrame.cs" />
+    <Compile Include="OpenMMDFormat\SelfShadowFrameTable.cs" />
+    <Compile Include="OpenMMDFormat\ShowIkFrame.cs" />
+    <Compile Include="OpenMMDFormat\vec2.cs" />
+    <Compile Include="OpenMMDFormat\vec3.cs" />
+    <Compile Include="OpenMMDFormat\vec4.cs" />
+    <Compile Include="OpenMMDFormat\VocaloidMotionEvolved.cs" />
+    <Compile Include="ParserHelper.cs" />
+    <Compile Include="PMXModelParser\BoneConnectTo.cs" />
+    <Compile Include="PMXModelParser\BoneData.cs" />
+    <Compile Include="PMXModelParser\BoneList.cs" />
+    <Compile Include="PMXModelParser\BoneWeight\BDEF1.cs" />
+    <Compile Include="PMXModelParser\BoneWeight\BDEF2.cs" />
+    <Compile Include="PMXModelParser\BoneWeight\BDEF4.cs" />
+    <Compile Include="PMXModelParser\BoneWeight\BoneWeightBase.cs" />
+    <Compile Include="PMXModelParser\BoneWeight\QDEF.cs" />
+    <Compile Include="PMXModelParser\BoneWeight\SDEF.cs" />
+    <Compile Include="PMXModelParser\EncodeType.cs" />
+    <Compile Include="PMXModelParser\FrameElementData.cs" />
+    <Compile Include="PMXModelParser\Header.cs" />
+    <Compile Include="PMXModelParser\IkLinkData.cs" />
+    <Compile Include="PMXModelParser\JointData.cs" />
+    <Compile Include="PMXModelParser\JointList.cs" />
+    <Compile Include="PMXModelParser\JointParam\HingeJointParam.cs" />
+    <Compile Include="PMXModelParser\JointParam\JointParamBase.cs" />
+    <Compile Include="PMXModelParser\JointParam\ConeTwistJointParam.cs" />
+    <Compile Include="PMXModelParser\JointParam\P2PJointParam.cs" />
+    <Compile Include="PMXModelParser\JointParam\SliderJointParam.cs" />
+    <Compile Include="PMXModelParser\JointParam\Spring6DOFJointParam.cs" />
+    <Compile Include="PMXModelParser\JointParam\Basic6DofJointParam.cs" />
+    <Compile Include="PMXModelParser\JointType.cs" />
+    <Compile Include="PMXModelParser\LocalProvideTo.cs" />
+    <Compile Include="PMXModelParser\MaterialData.cs" />
+    <Compile Include="PMXModelParser\MaterialList.cs" />
+    <Compile Include="PMXModelParser\ModelData.cs" />
+    <Compile Include="PMXModelParser\ModelInfo.cs" />
+    <Compile Include="PMXModelParser\MorphData.cs" />
+    <Compile Include="PMXModelParser\MorphList.cs" />
+    <Compile Include="PMXModelParser\MorphOffset\BoneMorphOffset.cs" />
+    <Compile Include="PMXModelParser\MorphOffset\FlipMorphOffset.cs" />
+    <Compile Include="PMXModelParser\MorphOffset\GroupMorphOffset.cs" />
+    <Compile Include="PMXModelParser\MorphOffset\ImpulseMorphOffset.cs" />
+    <Compile Include="PMXModelParser\MorphOffset\MaterialMorphOffset.cs" />
+    <Compile Include="PMXModelParser\MorphOffset\MorphOffsetBase.cs" />
+    <Compile Include="PMXModelParser\MorphOffset\UVMorphOffset.cs" />
+    <Compile Include="PMXModelParser\MorphOffset\VertexMorphOffset.cs" />
+    <Compile Include="PMXModelParser\MorphType.cs" />
+    <Compile Include="PMXModelParser\PhysicsCalcType.cs" />
+    <Compile Include="PMXModelParser\RenderFlag.cs" />
+    <Compile Include="PMXModelParser\RigidBodyData.cs" />
+    <Compile Include="PMXModelParser\RigidBodyList.cs" />
+    <Compile Include="PMXModelParser\RigidBoryShape.cs" />
+    <Compile Include="PMXModelParser\ShowFrameData.cs" />
+    <Compile Include="PMXModelParser\ShowFrameList.cs" />
+    <Compile Include="PMXModelParser\SphereMode.cs" />
+    <Compile Include="PMXModelParser\SurfaceData.cs" />
+    <Compile Include="PMXModelParser\SurfaceList.cs" />
+    <Compile Include="PMXModelParser\TextureList.cs" />
+    <Compile Include="PMXModelParser\VertexData.cs" />
+    <Compile Include="PMXModelParser\VertexList.cs" />
+    <Compile Include="PMXModelParser\WeightTranslationType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

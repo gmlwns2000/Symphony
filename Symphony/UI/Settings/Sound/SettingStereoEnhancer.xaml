@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Symphony.UI.Settings.SettingStereoEnhancer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI.Settings"
+             xmlns:UI="clr-namespace:Symphony.UI"
+             mc:Ignorable="d" MinHeight="50" MinWidth="200">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/CircleTrackBar.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultButton.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultCheckBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <UI:IsUsedTextConverter x:Key="IsUsed"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Rectangle Width="1" Height="20" Fill="#33000000"/>
+        <Rectangle Width="1" Height="20" Fill="#33000000" Grid.Column="1"/>
+        <TextBlock Opacity="0.33" Text="Left" VerticalAlignment="Center" IsHitTestVisible="False" FontSize="20" FontFamily="NanumBarunGothic Light"/>
+        <Slider SmallChange="0.1" LargeChange="0.3" Style="{StaticResource CircleTrackBar}" x:Name="Sld_Left_Factor" Width="150" Margin="0,10,0,0" Minimum="0" Maximum="2" Value="0.65" ValueChanged="Sld_Left_Factor_ValueChanged" Height="18" VerticalAlignment="Top"/>
+        <TextBlock Opacity="0.33" Grid.Column="1" Text="Right" VerticalAlignment="Center" HorizontalAlignment="Right" IsHitTestVisible="False" FontSize="20" FontFamily="NanumBarunGothic Light"/>
+        <Slider SmallChange="0.1" LargeChange="0.3" Style="{StaticResource CircleTrackBar}" x:Name="Sld_Right_Factor" Width="150" Grid.Column="1" Margin="0,10" Minimum="0" Maximum="2" Value="1.35" ValueChanged="Sld_Right_Factor_ValueChanged"/>
+        <CheckBox x:Name="Cb_Use" Grid.Column="2" Style="{StaticResource DefaultCheckBox}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0" Checked="Cb_Use_Checked" Unchecked="Cb_Use_Unchecked">
+            <TextBlock Style="{StaticResource GradientEmbosedText}" Text="{Binding ElementName=Cb_Use, Path=IsChecked, Converter={StaticResource IsUsed}}"/>
+        </CheckBox>
+        <Slider SmallChange="0.1" LargeChange="0.3" Style="{StaticResource CircleTrackBar}" x:Name="Sld_Opacity" Grid.Row="1" Margin="0,0,0,5" ValueChanged="Sld_Opacity_ValueChanged" Value="1" Maximum="1"/>
+        <Slider SmallChange="0.1" LargeChange="0.3" Style="{StaticResource CircleTrackBar}" x:Name="Sld_PreAmp" Grid.Row="2" ValueChanged="Sld_PreAmp_ValueChanged" Value="1" Maximum="1"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="{DynamicResource Lang_Setting_Audio_SoundEffect_StereoEnhancer_Strength}" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="{DynamicResource Lang_Setting_Audio_SoundEffect_StereoEnhancer_Amp}" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}"/>
+        <Button Click="Bt_Reset_Click" Content="{DynamicResource Lang_Setting_Audio_SoundEffect_StereoEnhancer_Reset}" x:Name="Bt_Reset" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Padding="10,2" Style="{StaticResource DefaultButton}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Symphony.UI.Settings.SettingSoundEffect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI.Settings"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ScrollViewer Name="scr" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Focusable="False" FocusVisualStyle="{x:Null}">
+        <Grid Height="Auto">
+            <TextBlock Style="{StaticResource GradientEmbosedText}" Text="기본 사운드 효과" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+            <StackPanel HorizontalAlignment="Left" Margin="0,51,0,0">
+                <TextBlock Text="이퀄라이저" ToolTip="대역별로 볼륨을 조절합니다.&#x0a;볼륨: 대역의 볼륨 조정값입니다.&#x0a;크기: 볼륨을 변경할 대역폭 넓이입니다. 클수록 넓은 영역의 대역폭에 영향을 줍니다" Margin="24,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="16"/>
+                <local:SettingEqualizer Margin="12,12" x:Name="settingEq" HorizontalAlignment="Stretch"/>
+                <TextBlock Text="에코 효과" ToolTip="간단한 울림 효과입니다.&#x0a;적절히 사용하면 소리를 맑게도 할수있습니다.&#x0a;길이: 피드백의 길이를 조절합니다.&#x0a;볼륨: 피드백의 볼륨을 조절합니다" Margin="24,24,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="16"/>
+                <local:SettingEcho Margin="12,12" x:Name="settingEcho" HorizontalAlignment="Stretch"/>
+                <TextBlock Text="리미터" ToolTip="소리의 볼륨이 너무 커져서 깨지는 것을 줄여줍니다.&#x0a;최대값: 이값을 최대로 맞추려고 노력해봅니다&#x0a;세기: 볼륨을 조절하는 세기입니다. 높으면 오히려 찢어질 수 도있습니다." Margin="24,24,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="16"/>
+                <!--난 막는다고 안햇다... 는 실력부족.. 진관 도와줘요-->
+                <local:SettingLimiter Margin="12,12" x:Name="settingLimiter" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

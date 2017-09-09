@@ -1,0 +1,48 @@
+﻿//Modified from here:  http://wpffx.codeplex.com/SourceControl/changeset/view/19891#521712
+
+Texture2D implicitInput : register(t0);
+Texture2D oldInput : register(t1);
+Texture2D cloudInput : register(t2);
+
+SamplerState TextureSampler : register(s0);
+
+cbuffer PSConstants : register(b0)
+{
+	float progress : packoffset(c0.x);
+};
+
+cbuffer PSConstants2 : register(b1)
+{
+	float randomSeed : packoffset(c0.x);
+};
+
+struct PSInput
+{
+    float4 PositionCS : SV_Position;
+    float2 TexCoord : TEXCOORD;
+};
+
+float4 RadialWiggle(float2 uv)
+{
+    float2 center = float2(0.5,0.5);
+    float2 toUV = uv - center;
+    float distanceFromCenter = length(toUV);
+    float2 normToUV = toUV / distanceFromCenter;
+    float angle = (atan2(normToUV.y, normToUV.x) + 3.141592) / (2.0 * 3.141592);
+    float offset1 = cloudInput.Sample(TextureSampler, float2(angle, frac(progress/3 + distanceFromCenter/5 + randomSeed))).x * 2.0 - 1.0;
+    float offset2 = offset1 * 2.0 * min(0.3, (1-progress)) * distanceFromCenter;
+    offset1 = offset1 * 2.0 * min(0.3, progress) * distanceFromCenter;
+    
+    float4 c1 = oldInput.Sample(TextureSampler, frac(center + normToUV * (distanceFromCenter + offset1))); 
+   float4 c2 = implicitInput.Sample(TextureSampler, frac(center + normToUV * (distanceFromCenter + offset2)));
+
+    return lerp(c1, c2, progress);
+}
+
+//--------------------------------------------------------------------------------------
+// Pixel Shader
+//--------------------------------------------------------------------------------------
+float4 main(PSInput input) : SV_Target
+{
+    return RadialWiggle(input.TexCoord);
+}

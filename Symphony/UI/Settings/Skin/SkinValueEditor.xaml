@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Symphony.UI.Settings.SkinValueEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.UI.Settings"
+             mc:Ignorable="d" 
+             d:DesignWidth="460">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical" x:Name="stackPanel">
+        <Grid Margin="15,5" x:Name="textGrid" Background="#01000000">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="Tb_Category" Grid.Column="0" IsHitTestVisible="False" Text="배경" UseLayoutRounding="True" Style="{StaticResource GradientEmbosedText}" FontSize="18" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="Tb_Name" Grid.Column="1" IsHitTestVisible="False" Text="배경 브러쉬 값" UseLayoutRounding="True" Style="{StaticResource GradientEmbosedText}" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid x:Name="grid">
+            <TextBlock HorizontalAlignment="Center" IsHitTestVisible="False" VerticalAlignment="Center" Margin="10" Text="{DynamicResource Lang_SkinEditor_UnknownFormat}" Opacity="0.66" FontSize="18" Style="{StaticResource GradientEmbosedText}"/>
+        </Grid>
+    </StackPanel>
+</UserControl>

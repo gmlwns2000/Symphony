@@ -1,0 +1,28 @@
+﻿<Window x:Class="TextblockVsFormattedtext.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TextblockVsFormattedtext"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" UseLayoutRounding="True">
+    <Grid>
+        <Grid x:Name="grid">
+
+        </Grid>
+        <Button x:Name="tb" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="25" Content="textblock" Click="tb_Click"/>
+        <Button x:Name="ft" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Height="25" Content="format" Click="ft_Click"/>
+        <Button x:Name="gl" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Height="25" Content="glyphrun" Click="gl_Click"/>
+        <Button x:Name="clear" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="25" Content="clear" Click="clear_Click"/>
+        <TextBlock x:Name="Counter" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32" Text="0" Foreground="White" FontWeight="Bold">
+            <TextBlock.Effect>
+                <DropShadowEffect ShadowDepth="0" Opacity="1" BlurRadius="5"/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock x:Name="FPS" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="12" Text="24fps" Foreground="Lime" FontWeight="Bold" FontSize="22">
+            <TextBlock.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="3"/>
+            </TextBlock.Effect>
+        </TextBlock>
+    </Grid>
+</Window>

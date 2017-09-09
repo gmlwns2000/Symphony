@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Symphony.Lyrics.ImageContentEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.Lyrics"
+             xmlns:UI="clr-namespace:Symphony.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultButton.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultCheckBox.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultScrollBar.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Image Margin="10" x:Name="Img" IsHitTestVisible="False" Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Grid Grid.Column="1" ClipToBounds="True">
+            <Rectangle Fill="#11FFFFFF" Stroke="#20000000" StrokeThickness="1" Margin="0,-1,-1,-1"/>
+            <ScrollViewer>
+                <StackPanel Margin="10,5">
+                    <TextBlock Text="{DynamicResource Lang_File}" Margin="0,5" Style="{StaticResource GradientEmbosedText}"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5" Height="26">
+                        <!--<Button Content="편집" Width="85" Style="{StaticResource DefaultButton}" x:Name="Bt_Edit" Click="Bt_Edit_Click"/>-->
+                        <Button Content="{DynamicResource Lang_Open}" Width="130" Style="{StaticResource DefaultButton}" x:Name="Bt_Open" Click="Bt_Open_Click"/>
+                    </StackPanel>
+                    <Grid>
+                        <TextBlock Text="{DynamicResource Lang_Lyric_Content_ImageContent_Horizontal}" Margin="0,5" Style="{StaticResource GradientEmbosedText}"/>
+                        <CheckBox IsChecked="True" VerticalAlignment="Center" HorizontalAlignment="Right" VerticalContentAlignment="Center" Style="{StaticResource DefaultCheckBox}" x:Name="Cb_Width_Auto" Checked="Cb_Width_Auto_Checked" Unchecked="Cb_Width_Auto_Unchecked">
+                            <TextBlock VerticalAlignment="Center" Text="{DynamicResource Lang_Auto}" Style="{StaticResource GradientEmbosedText}"/>
+                        </CheckBox>
+                    </Grid>
+                    <Grid Margin="0,0,0,5">
+                        <UI:DoubleTextBox x:Name="Tb_Width" ValueChanged="Tb_Width_ValueChanged"/>
+                        <TextBlock Text="px" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,5" Style="{StaticResource GradientEmbosedText}"/>
+                    </Grid>
+                    <Grid>
+                        <TextBlock Text="{DynamicResource Lang_Lyric_Content_ImageContent_Vertical}" Margin="0,5" Style="{StaticResource GradientEmbosedText}"/>
+                        <CheckBox IsChecked="True" VerticalAlignment="Center" HorizontalAlignment="Right" VerticalContentAlignment="Center" Style="{StaticResource DefaultCheckBox}" x:Name="Cb_Height_Auto" Checked="Cb_Height_Auto_Checked" Unchecked="Cb_Height_Auto_Unchecked">
+                            <TextBlock VerticalAlignment="Center" Text="{DynamicResource Lang_Auto}" Style="{StaticResource GradientEmbosedText}"/>
+                        </CheckBox>
+                    </Grid>
+                    <Grid Margin="0,0,0,5">
+                        <UI:DoubleTextBox x:Name="Tb_Height" ValueChanged="Tb_Height_ValueChanged"/>
+                        <TextBlock Text="px" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,5" Style="{StaticResource GradientEmbosedText}"/>
+                    </Grid>
+                    <TextBlock Text="{DynamicResource Lang_Stretch}" Style="{StaticResource GradientEmbosedText}" Margin="0,5"/>
+                    <ComboBox SelectedIndex="0" Margin="0,0,0,5" x:Name="Cbb_Stretch" SelectionChanged="Cbb_Stretch_SelectionChanged">
+                        <ComboBoxItem Content="{DynamicResource Lang_Stretch_None}"/>
+                        <ComboBoxItem Content="{DynamicResource Lang_Stretch_Fill}"/>
+                        <ComboBoxItem Content="{DynamicResource Lang_Stretch_Uniform}"/>
+                        <ComboBoxItem Content="{DynamicResource Lang_Stretch_UniformToFill}"/>
+                    </ComboBox>
+                    <TextBlock Text="{DynamicResource Lang_ScalingMode}" Style="{StaticResource GradientEmbosedText}" Margin="0,5"/>
+                    <ComboBox Margin="0,0,0,5" SelectedIndex="0" x:Name="Cbb_Resample" SelectionChanged="Cbb_Resample_SelectionChanged">
+                        <ComboBoxItem Content="{DynamicResource Lang_ScalingMode_None}"/>
+                        <ComboBoxItem Content="{DynamicResource Lang_ScalingMode_NearestNeighbor}"/>
+                        <ComboBoxItem Content="{DynamicResource Lang_ScalingMode_LowQulity}"/>
+                        <ComboBoxItem Content="{DynamicResource Lang_ScalingMode_HighQulity}"/>
+                    </ComboBox>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

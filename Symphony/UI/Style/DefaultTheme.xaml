@@ -1,0 +1,125 @@
+﻿<!-- Symphony Default Theme Template -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- 아래의 값들을 적절히 수정하시고 태마를 재로드 하면 적용됩니다. -->
+    
+    <!-- 수정가능 영역 시작 -->
+    
+    <!-- Spectrum Analyzer Color -->
+    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" x:Key="Theme_Spectrum_Color">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="#AAFFFFFF" Offset="0" />
+            <GradientStop Color="#FFFFFFFF" Offset="0.85" />
+            <GradientStop Color="#55FFFFFF" Offset="0.85" />
+            <GradientStop Color="#77FFFFFF" Offset="1" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+    
+    <!-- Osiloscope Color -->
+    <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0" x:Key="Theme_Osilo_Color">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="#AAFFFFFF" Offset="0" />
+            <GradientStop Color="#FFFFFFFF" Offset="0.85" />
+            <GradientStop Color="#55FFFFFF" Offset="0.85" />
+            <GradientStop Color="#77FFFFFF" Offset="1" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <!-- VU meter Color -->
+    <SolidColorBrush x:Key="Theme_VU_DarkBrush" Color="#50646464"/>
+    <SolidColorBrush x:Key="Theme_VU_LightBrush" Color="#50A0A0A0"/>
+    
+    <!-- Waveform Color -->
+    <Color x:Key="Theme_Waveform_Foreground" A="255" R="76" G="215" B="255"/>
+    <Color x:Key="Theme_Waveform_Highlight" A="255" R="255" G="255" B="255"/>
+    <SolidColorBrush x:Key="Theme_Waveform_Border" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Waveform_Background" Color="#2B000000"/>
+    <SolidColorBrush x:Key="Theme_Waveform_Bar_Foreground" Color="#FF2EA9FF"/>
+    <SolidColorBrush x:Key="Theme_Waveform_Bar_Background" Color="#2D000000"/>
+    <SolidColorBrush x:Key="Theme_Waveform_Bar_Border" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Waveform_Cursor_Background" Color="#C9393939"/>
+    <SolidColorBrush x:Key="Theme_Waveform_Cursor_Rect_Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Waveform_Cursor_Circle_Foreground" Color="#FFFFFFFF"/>
+    
+    <!-- MainWindow Background Colors-->
+    <SolidColorBrush x:Key="Theme_Background_Background" Color="#FF4FBAF2"/>
+    <SolidColorBrush x:Key="Theme_Background_Border" Color="#FF454545"/>
+
+    <!-- MainWindow Small Grid -->
+    <LinearGradientBrush x:Key="Theme_Small_Background" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FFE5E5E5" Offset="0"/>
+        <GradientStop Color="#FFDCDCDC" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <SolidColorBrush x:Key="Theme_Small_AlbumArt_Strok" Color="White"/>
+    <SolidColorBrush x:Key="Theme_Small_PositionBar_Stroke" Color="#2D000000"/>
+    <SolidColorBrush x:Key="Theme_Small_PositionBar_Background" Color="#3DFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Small_PositionBar_Foreground" Color="#FF0096FF"/>
+    <SolidColorBrush x:Key="Theme_Small_Border_Brush" Color="#FFFFFFFF"/>
+    
+    <!-- MainWindow Mid Grid -->
+    <SolidColorBrush x:Key="Theme_Mid_Border" Color="#FFFFFFFF"/>
+    
+    <!-- Playlist Item Viewer -->
+    <SolidColorBrush x:Key="Theme_PlaylistItem_Background" Color="#38000000"/>
+    
+    <SolidColorBrush x:Key="Theme_PlaylistItem_Header_Background" Color="#54F2F2F2"/>
+    <SolidColorBrush x:Key="Theme_PlaylistItem_Header_TextColor" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_PlaylistItem_Header_Border" Color="#FFFFFFFF"/>
+    <DropShadowEffect x:Key="Theme_PlaylistItem_Header_TextEffect" Opacity="0.45" BlurRadius="2" ShadowDepth="0"/>
+    
+    <SolidColorBrush x:Key="Theme_PlaylistItem_List_Header_Border" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_PlaylistItem_List_Header_Spliter" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_PlaylistItem_List_Header_Text" Color="#FFFFFFFF"/>
+    <DropShadowEffect x:Key="Theme_PlaylistItem_List_Header_TextEffect" BlurRadius="0" ShadowDepth="1" Opacity="0.66" Direction="270"/>
+
+    <SolidColorBrush x:Key="Theme_PlaylistItem_List_Text" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_PlaylistItem_List_Text_Shadow" Color="#A8000000"/>
+    
+    <SolidColorBrush x:Key="Theme_PlaylistItem_Item_Normal_Border" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_PlaylistItem_Item_Hover_Border" Color="#FF5CFFD2"/>
+    <SolidColorBrush x:Key="Theme_PlaylistItem_Item_Clicked_Border" Color="#FFFF44C1"/>
+
+    <!-- Playlists Viewer -->
+    <SolidColorBrush x:Key="Theme_Playlists_Background" Color="#38000000"/>
+    <SolidColorBrush x:Key="Theme_Playlists_Header_Background" Color="#54F2F2F2"/>
+    <SolidColorBrush x:Key="Theme_Playlists_Header_TextColor" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Playlists_Header_Border" Color="#FFFFFFFF"/>
+    <DropShadowEffect x:Key="Theme_Playlists_Header_TextEffect" Opacity="0.45" BlurRadius="2" ShadowDepth="0"/>
+    <SolidColorBrush x:Key="Theme_Playlists_List_TextColor" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Playlists_List_Header_Border" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Playlists_List_Header_Spliter" Color="#FFFFFFFF"/>
+    <DropShadowEffect x:Key="Theme_Playlists_List_Header_TextEffect" BlurRadius="0" ShadowDepth="1" Opacity="0.66" Direction="270"/>
+    <DropShadowEffect x:Key="Theme_Playlists_Item_TextEffect" BlurRadius="0" ShadowDepth="1" Opacity="0.66" Direction="270"/>
+    <SolidColorBrush x:Key="Theme_Playlists_Item_Normal_Border" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Playlists_Item_Hover_Border" Color="#FF5CFFD2"/>
+    <SolidColorBrush x:Key="Theme_Playlists_Item_Clicked_Border" Color="#FFFF44C1"/>
+    
+    <!-- MainWindow Big Grid -->
+    <SolidColorBrush x:Key="Theme_Big_AlbumArt_Border" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Big_Info_Border" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Big_Info_Background" Color="#54000000"/>
+    <SolidColorBrush x:Key="Theme_Big_Info_Lines_Vertical" Color="#FFC5C5C5"/>
+    <SolidColorBrush x:Key="Theme_Big_Info_Lines_Horizon" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Big_Info_Title" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Big_Info_Content" Color="#FFFFFFFF"/>
+
+    <!-- MainWindow Footer Grid -->
+    <SolidColorBrush x:Key="Theme_Footer_VolumeBar_Background" Color="#70FFFFFF"/>
+    <SolidColorBrush x:Key="Theme_Footer_VolumeBar_Foreground" Color="#FF3AE5F9"/>
+    <SolidColorBrush x:Key="Theme_Footer_VolumeBar_Stroke" Color="#1E000000"/>
+    <SolidColorBrush x:Key="Theme_Footer_Border" Color="#FFFFFFFF"/>
+    <LinearGradientBrush x:Key="Theme_Footer_Background" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FFE0E0E0" Offset="0"/>
+        <GradientStop Color="#FFE4E4E4" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Text Theme -->
+    <LinearGradientBrush x:Key="Theme_Text_Color" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FF5F5F5F" Offset="0"/>
+        <GradientStop Color="#FF7A7A7A" Offset="1"/>
+    </LinearGradientBrush>
+    <DropShadowEffect x:Key="Theme_Text_Effect" Direction="270" BlurRadius="0" Color="White" ShadowDepth="1" Opacity="0.85"/>
+    
+    <!-- 수정가능 영역 종료 -->
+</ResourceDictionary>

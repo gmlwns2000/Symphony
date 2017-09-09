@@ -1,0 +1,82 @@
+﻿//From http://mynameismjp.wordpress.com/2010/11/14/d3d11-features MS-PL
+Texture2D InputTexture : register(t0);
+
+SamplerState TextureSampler : register(s0);
+
+cbuffer PSConstants : register(b0)
+{
+	float Sigma : packoffset(c0.x);
+};
+
+cbuffer PSConstants2 : register(b1)
+{
+	float SampleWidth : packoffset(c0.x);
+};
+
+cbuffer PSConstants3 : register(b2)
+{
+	float SampleHeight : packoffset(c0.x);
+};
+
+cbuffer PSConstants4 : register(b3)
+{
+	float4 Tint : packoffset(c0);
+};
+
+cbuffer PSConstants5 : register(b4)
+{
+	float Direction : packoffset(c0);
+};
+
+struct PSInput
+{
+    float4 PositionCS : SV_Position;
+    float2 TexCoord : TEXCOORD;
+};
+
+// Calculates the gaussian blur weight for a given distance and sigmas
+float CalcGaussianWeight(int sampleDist, float sigma)
+{
+	float g = 1.0f / sqrt(2.0f * 3.14159 * sigma * sigma);
+	return (g * exp(-(sampleDist * sampleDist) / (2 * sigma * sigma)));
+}
+
+// Performs a gaussian blur in one direction
+float4 Blur(in PSInput input, float2 texScale, float sigma)
+{
+    float4 color = 0;
+    for (int i = -6; i < 6; i++)
+    {
+		float weight = CalcGaussianWeight(i, sigma);
+        float2 texCoord = input.TexCoord;
+		texCoord += (i / float2(SampleWidth, SampleHeight)) * texScale;
+		float4 sample = InputTexture.Sample(TextureSampler, texCoord);
+		color += sample * weight;
+    }
+
+    return color;
+}
+
+float4 BlurH(in PSInput input) : SV_Target
+{
+	float4 color = Blur(input, float2(1, 0), Sigma);
+	color *= Tint;
+
+	return color;
+}
+
+float4 BlurV(in PSInput input) : SV_Target
+{
+	float4 color = Blur(input, float2(0, 1), Sigma);
+	color *= Tint;
+	
+	return color;
+}
+
+float4 BlurMain(in PSInput input) : SV_Target
+{
+	if(Direction == 0)
+		return BlurH(input);
+	else
+		return BlurV(input);
+}

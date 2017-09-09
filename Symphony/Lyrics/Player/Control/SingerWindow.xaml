@@ -1,0 +1,10 @@
+﻿<Window x:Class="Symphony.Lyrics.SingerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Symphony.Lyrics"
+        mc:Ignorable="d"
+        Title="Symphony - 가사 재생기" MinHeight="135" MinWidth="760" UseLayoutRounding="True" RenderOptions.EdgeMode="Aliased" SizeToContent="WidthAndHeight" Top="-1000" Left="-1000" WindowStyle="None" Background="Transparent" ShowInTaskbar="False" AllowsTransparency="True" ResizeMode="NoResize" Topmost="True" PreviewMouseLeftButtonDown="Window_PreviewMouseLeftButtonDown" Icon="/Symphony;component/Images/sym_icon_256.ico" >
+    <local:SingerControl x:Name="control"/>
+</Window>

@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="Symphony.Lyrics.LyricDropShadowEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Symphony.Lyrics"
+             xmlns:UI="clr-namespace:Symphony.UI"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/DarkEmbosedTextStatic.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Style/CircleTrackBar.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <UI:RoundDoubleConverter x:Key="Round"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Orientation="Horizontal" Margin="10,5">
+        <UI:ColorEditor Width="140" Height="120" x:Name="colorEditor" ColorUpdated="colorEditor_ColorUpdated"/>
+        <StackPanel Margin="10,0,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+            <StackPanel>
+                <StackPanel Margin="0,5">
+                    <Grid Margin="0,5">
+                        <TextBlock Text="{DynamicResource Lang_Size}" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Text="{Binding ElementName=Sld_Radius, Path=Value, Converter={StaticResource Round}}" HorizontalAlignment="Right" Style="{StaticResource GradientEmbosedText}"/>
+                            <TextBlock Text=" px" HorizontalAlignment="Right" Style="{StaticResource GradientEmbosedText}"/>
+                        </StackPanel>
+                    </Grid>
+                    <Slider Width="130" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}" x:Name="Sld_Radius" Value="5" Minimum="0" Maximum="50" SmallChange="1" LargeChange="2" ValueChanged="Sld_Radius_ValueChanged"/>
+                </StackPanel>
+                <StackPanel Margin="0,5">
+                    <Grid Margin="0,5">
+                        <TextBlock Text="{DynamicResource Lang_Opacity}" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Text="{Binding ElementName=Sld_Opacity, Path=Value, Converter={StaticResource Round}}" HorizontalAlignment="Right" Style="{StaticResource GradientEmbosedText}"/>
+                            <TextBlock Text=" %" HorizontalAlignment="Right" Style="{StaticResource GradientEmbosedText}"/>
+                        </StackPanel>
+                    </Grid>
+                    <Slider Width="130" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}" x:Name="Sld_Opacity" ValueChanged="Sld_Opacity_ValueChanged" Minimum="0" Maximum="100" Value="100" SmallChange="5" LargeChange="10"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="10,0,0,0">
+                <StackPanel Margin="0,5">
+                    <Grid Margin="0,5">
+                        <TextBlock Text="{DynamicResource Lang_Depth}" HorizontalAlignment="Left" Style="{StaticResource GradientEmbosedText}"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Text="{Binding ElementName=Sld_Depth, Path=Value, Converter={StaticResource Round}}" HorizontalAlignment="Right" Style="{StaticResource GradientEmbosedText}"/>
+                            <TextBlock Text=" px" HorizontalAlignment="Right" Style="{StaticResource GradientEmbosedText}"/>
+                        </StackPanel>
+                    </Grid>
+                    <Slider Width="130" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}" x:Name="Sld_Depth" Value="0" Maximum="50" Minimum="0" SmallChange="1" LargeChange="2" ValueChanged="Sld_Depth_ValueChanged"/>
+                </StackPanel>
+                <Grid Margin="0,5">
+                    <TextBlock Text="{DynamicResource Lang_Angle}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,5" Style="{StaticResource GradientEmbosedText}"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="{Binding Path=Angle, ElementName=An_Shadow_Angle, Mode=OneWay, Converter={StaticResource Round}}" Style="{StaticResource GradientEmbosedText}" Margin="0,5"/>
+                        <TextBlock Text="˚" Style="{StaticResource GradientEmbosedText}" Margin="0,5"/>
+                        <UI:AngleEditor x:Name="An_Shadow_Angle" Width="52" Height="52" HorizontalAlignment="Right" Margin="-5" AngleChanged="An_Shadow_Angle_AngleChanged"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
