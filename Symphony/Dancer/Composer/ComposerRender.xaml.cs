@@ -120,7 +120,7 @@ namespace Symphony.Dancer
         {
             RenderControl.TextureContext.MatrixManager.ViewMatrixManager.CameraPosition = new Vector3(0, 50, -25);
             RenderControl.TextureContext.MatrixManager.ViewMatrixManager.CameraLookAt = new Vector3(0, 10, 0);
-            RenderControl.TextureContext.CameraMotionProvider = new DancerLite.CameraControl(RenderControl, 45);
+            RenderControl.TextureContext.CameraMotionProvider = new CameraControl(RenderControl, 45);
 
             if (Plot != null)
             {

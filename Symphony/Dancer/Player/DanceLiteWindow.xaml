@@ -1,9 +1,9 @@
-﻿<Window x:Class="Symphony.DancerLite.DanceLiteWindow"
+﻿<Window x:Class="Symphony.Dancer.DanceLiteWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Symphony.DancerLite"
+        xmlns:local="clr-namespace:Symphony.Dancer"
         mc:Ignorable="d"
         Title="Symphony - 춤 Lite" Height="750" Width="520" WindowStartupLocation="CenterScreen" UseLayoutRounding="True" AllowsTransparency="True" Background="Transparent" WindowStyle="None" MouseMove="Window_MouseMove" PreviewMouseDown="Window_MouseDown" PreviewMouseUp="Window_MouseUp" Icon="/Symphony;component/Images/sym_icon_256.ico">
     <Grid>
