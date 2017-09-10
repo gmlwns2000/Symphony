@@ -20,44 +20,13 @@ namespace Symphony.UI.Settings
     /// </summary>
     public partial class SettingVisualizerVU : UserControl
     {
+        public Util.Settings Settings = Util.Settings.Current;
+
         public SettingVisualizerVU()
         {
+            DataContext = Settings;
+
             InitializeComponent();
-        }
-
-        MainWindow mw;
-        bool inited = false;
-        public void Init(MainWindow mw)
-        {
-            this.mw = mw;
-
-            UpdateUI();
-        }
-
-        public void UpdateUI()
-        {
-            inited = false;
-
-            Sld_Vu_Opacity.Value = mw.VU_Opacity * 100;
-            Sld_Vu_Senstive.Value = mw.VU_Senstive;
-
-            inited = true;
-        }
-
-        private void Sld_Vu_Opacity_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (inited)
-            {
-                mw.VU_Opacity = e.NewValue / 100;
-            }
-        }
-
-        private void Sld_Vu_Senstive_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (inited)
-            {
-                mw.VU_Senstive = e.NewValue;
-            }
         }
     }
 }

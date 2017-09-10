@@ -20,16 +20,11 @@ namespace Symphony.UI.Settings
     /// </summary>
     public partial class SettingGeneralPlayer : UserControl
     {
-        MainWindow mw;
-        public SettingGeneralPlayer(MainWindow mw)
+        public SettingGeneralPlayer()
         {
             InitializeComponent();
 
-            this.mw = mw;
-
-            Control_AlbumArt.Init(mw);
-
-            Control_PlayerControl.Init(mw);
+            Control_AlbumArt.Init();
         }
     }
 }

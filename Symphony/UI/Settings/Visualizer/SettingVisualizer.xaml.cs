@@ -21,30 +21,9 @@ namespace Symphony.UI.Settings
     /// </summary>
     public partial class SettingVisualizer : UserControl
     {
-        MainWindow mw;
-
-        public SettingVisualizer(MainWindow mw)
+        public SettingVisualizer()
         {
             InitializeComponent();
-
-            this.mw = mw;
-
-            Control_Osilo.Init(mw);
-
-            Control_VU.Init(mw);
-
-            Control_Spec.Init(mw);
-
-            UpdateUI();
-        }
-
-        private void UpdateUI()
-        {
-            Control_Osilo.UpdateUI();
-
-            Control_VU.UpdateUI();
-
-            Control_Spec.UpdateUI();
         }
     }
 }

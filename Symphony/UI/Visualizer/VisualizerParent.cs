@@ -14,33 +14,21 @@ namespace Symphony.UI
 {
     public class VisualizerParent : FrameworkElement
     {
-        // List of loaded visualizers
-        public List<IVisualizer> Visualizers = new List<IVisualizer>();
-
         public Util.Settings Settings = Util.Settings.Current;
-        public bool inited = false;
+        public List<IVisualizer> Visualizers = new List<IVisualizer>();
         public int framems;
         public bool AllowRender { get; set; }
         public bool UseMotionBlur = false;
-        
-        public VisualizerParent()
-        {
-            canvas = new VisualCollection(this);
-            AllowRender = true;
-        }
 
         protected override Visual GetVisualChild(int index)
         {
             return canvas[index];
         }
 
-        protected override int VisualChildrenCount
-        {
-            get
-            {
-                return canvas.Count;
-            }
-        }
+        protected override int VisualChildrenCount => canvas.Count;
+
+        protected MainWindow mw;
+        protected bool inited = false;
 
         VisualCollection canvas;
         Queue<float> buffer;
@@ -52,20 +40,32 @@ namespace Symphony.UI
         int buffer_frame = 0;
         int buffer_lentancy = 0;
 
+        public VisualizerParent()
+        {
+            canvas = new VisualCollection(this);
+            AllowRender = true;
+        }
+
+        public void Init(MainWindow mw)
+        {
+            this.mw = mw;
+            inited = true;
+        }
+
         public void InitSample(int lentacy, int framems, DSPMaster master)
         {
             sampleRate = master.SampleRate;
             this.lentacy = lentacy;
             framems = Settings.GUIUpdate;
             channel = master.Channel;
-            
+
             // sampleRate * channel * 3 frame
             buffer_lentancy = (int)(((double)lentacy / 1000) * master.Channel * sampleRate);
             buffer_frame = (int)(((double)framems / 1000) * master.Channel * sampleRate * 1.33);
             buffer_thresold = Math.Max(buffer_lentancy + buffer_frame, buffer_frame * 3);
             buffer = new Queue<float>();
 
-            foreach(IVisualizer v in Visualizers)
+            foreach (IVisualizer v in Visualizers)
             {
                 v.Init(master, lentacy, framems);
             }
@@ -90,7 +90,7 @@ namespace Symphony.UI
         {
             float[] buf;
 
-            lock(buffer_lock)
+            lock (buffer_lock)
             {
                 if (buffer != null && buffer.Count > 0)
                 {
@@ -116,14 +116,14 @@ namespace Symphony.UI
 
             return buf;
         }
-        
+
         public void Update()
         {
             framems = Settings.GUIUpdate;
             if (inited)
             {
                 DrawingVisual visual = new DrawingVisual();
-                if(UseMotionBlur)
+                if (UseMotionBlur)
                     visual.CacheMode = new BitmapCache();
 
                 using (DrawingContext dc = visual.RenderOpen())

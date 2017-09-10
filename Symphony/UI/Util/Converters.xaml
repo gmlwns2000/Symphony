@@ -9,4 +9,7 @@
     <UI:FadeOutModeToIndex x:Key="CvtFadeOutModeToIndex"/>
     <UI:HorizontalAlignmentToIndex x:Key="CvtHorizontalAlignmentToIndex"/>
     <UI:VerticalAlignmentToIndex x:Key="CvtVerticalAlignmentToIndex"/>
+    <UI:BarRenderTypesToIndex x:Key="CvtBarRenderTypesToIndex"/>
+    <UI:ScalingStrategyToIndex x:Key="CvtScalingStrategyToIndex"/>
+    <UI:ResamplingModeToIndex x:Key="CvtResamplingModeToIndex"/>
 </ResourceDictionary>

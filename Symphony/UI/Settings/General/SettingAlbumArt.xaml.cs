@@ -33,15 +33,12 @@ namespace Symphony.UI.Settings
             ListOn = FindResource("ListOn") as Storyboard;
             ListOff = FindResource("ListOff") as Storyboard;
         }
-
-        MainWindow mw;
+        
         Storyboard ListOn;
         Storyboard ListOff;
         bool inited = false;
-        public void Init(MainWindow mw)
+        public void Init()
         {
-            this.mw = mw;
-
             UpdateUI();
         }
 
@@ -99,7 +96,7 @@ namespace Symphony.UI.Settings
                     }
                 }
 
-                mw.PlayerAlbumArtSearchPathes = ret.ToArray();
+                Settings.PlayerAlbumArtSearchPathes = ret.ToArray();
             }
 
             timerText.Stop();

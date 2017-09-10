@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultCheckBox.xaml"/>
                 <ResourceDictionary Source="/Symphony;component/UI/Style/CircleTrackBar.xaml"/>
                 <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultScrollBar.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Util/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <UI:RoundDoubleConverter x:Key="Round"/>
             <UI:IsUsedTextConverter x:Key="IsUsedText"/>
@@ -30,7 +31,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Shape}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <ComboBox x:Name="Cbb_Spec_RenderType" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="2" SelectionChanged="Cbb_Spec_RenderType_SelectionChanged">
+            <ComboBox x:Name="Cbb_Spec_RenderType" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="{Binding SpecRenderType, Converter={StaticResource CvtBarRenderTypesToIndex}}">
                 <ComboBoxItem Content="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Dot}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Dot_Tooltip}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Line}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Line_Tooltip}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Rectangle}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Rectangle_Tooltip}"/>
@@ -47,7 +48,7 @@
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Height}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Height_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Height_Low}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
             <Rectangle Width="1" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Fill="#33000000"/>
-            <Slider x:Name="Sld_Spec_Height" ToolTip="{Binding ElementName=Sld_Spec_Height, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" ValueChanged="Sld_Spec_Height_ValueChanged" Grid.Column="2" Minimum="-100" Maximum="100" Value="30" SmallChange="1" LargeChange="10" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Spec_Height" ToolTip="{Binding ElementName=Sld_Spec_Height, Path=Value, Converter={StaticResource CvtPercentToText}, Mode=OneWay}" Grid.Column="2" Minimum="-1" Maximum="1" Value="{Binding SpecHeight}" SmallChange="0.01" LargeChange="0.1" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Height_High}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -59,7 +60,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Position}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Position_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Position_Top}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Spec_Top" ToolTip="{Binding Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" ValueChanged="Sld_Spec_Top_ValueChanged" Minimum="0" Maximum="100" Value="47.5" SmallChange="1" LargeChange="10" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Spec_Top" ToolTip="{Binding Value, Converter={StaticResource CvtPercentToText}, Mode=OneWay}" Grid.Column="2" Minimum="0" Maximum="1" Value="{Binding SpecTop}" SmallChange="0.01" LargeChange="0.1" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Position_Bottom}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -72,9 +73,9 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Width}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Width_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="1px" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Spec_Width" ToolTip="{Binding Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" Minimum="1" ValueChanged="Sld_Spec_Width_ValueChanged" Maximum="50" SmallChange="1" LargeChange="5" Value="10" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Spec_Width" ToolTip="{Binding Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" Minimum="1" Maximum="50" SmallChange="1" LargeChange="5" Value="{Binding SpecWidth}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="50px" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,5,0"/>
-            <TextBox Text="0" Grid.Column="4" Width="60" Margin="0,0,24,0" Style="{StaticResource DefaultTextbox}" Foreground="#FF3E3E3E" x:Name="Tb_Spec_Width" TextChanged="Tb_Spec_Width_TextChanged"/>
+            <TextBox Text="{Binding SpecWidth, Converter={StaticResource CvtDoubleToText}}" Grid.Column="4" Width="60" Margin="0,0,24,0" Style="{StaticResource DefaultTextbox}" Foreground="#FF3E3E3E" x:Name="Tb_Spec_Width"/>
             <TextBlock Text="px"  Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,28,0" FontFamily="NanumBarunGothic" Foreground="#FF5F5F5F"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -87,9 +88,9 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Dash}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Dash_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="0px" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Spec_Dash" ToolTip="{Binding Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" ValueChanged="Sld_Spec_Dash_ValueChanged" Minimum="0" Maximum="20" SmallChange="1" LargeChange="4" Value="1" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Spec_Dash" ToolTip="{Binding Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" Minimum="0" Maximum="20" SmallChange="1" LargeChange="4" Value="{Binding SpecDash}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="20px" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,5,0"/>
-            <TextBox Text="0" Grid.Column="4" Width="60" Margin="0,0,24,0" Style="{StaticResource DefaultTextbox}" Foreground="#FF3E3E3E" x:Name="Tb_Spec_Dash" TextChanged="Tb_Spec_Dash_TextChanged"/>
+            <TextBox Text="{Binding SpecDash, Converter={StaticResource CvtDoubleToText}}" Grid.Column="4" Width="60" Margin="0,0,24,0" Style="{StaticResource DefaultTextbox}" Foreground="#FF3E3E3E" x:Name="Tb_Spec_Dash"/>
             <TextBlock Text="px"  Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,28,0" FontFamily="NanumBarunGothic" Foreground="#FF5F5F5F"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -101,7 +102,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Opacity}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Opacity_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="0%" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Spec_Opacity" Grid.Column="2" Minimum="0" ValueChanged="Sld_Spec_Opacity_ValueChanged" Maximum="100" Value="100" SmallChange="1" LargeChange="10" ToolTip="{Binding ElementName=Sld_Spec_Opacity, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" VerticalAlignment="Top" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Spec_Opacity" Grid.Column="2" Minimum="0" Maximum="1" Value="{Binding SpecOpacity}" SmallChange="0.01" LargeChange="0.1" ToolTip="{Binding ElementName=Sld_Spec_Opacity, Path=Value, Converter={StaticResource CvtPercentToText}, Mode=OneWay}" VerticalAlignment="Top" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="100%" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -113,7 +114,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Strength}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Strength_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Strength_Week}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Spec_Strength" Grid.Column="2" Minimum="0.08" SmallChange="0.01" LargeChange="0.1" ValueChanged="Sld_Spec_Strength_ValueChanged" Maximum="1" Value="0.75" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Spec_Strength" Grid.Column="2" Minimum="0.08" SmallChange="0.01" LargeChange="0.1" Maximum="1" Value="{Binding SpecStrength}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Strength_Strong}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -125,7 +126,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_MinFreq}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_MinFreq_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="15hz" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Spec_MinFreq" Grid.Column="2" Minimum="15" SmallChange="2" LargeChange="50" ValueChanged="Sld_Spec_MinFreq_ValueChanged" Maximum="24000" Value="100" ToolTip="{Binding ElementName=Sld_Spec_MinFreq, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" VerticalAlignment="Top" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Spec_MinFreq" Grid.Column="2" Minimum="15" SmallChange="2" LargeChange="50" Maximum="24000" Value="{Binding SpecMinFreq}" ToolTip="{Binding ElementName=Sld_Spec_MinFreq, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" VerticalAlignment="Top" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="24khz" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -137,7 +138,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_MaxFreq}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_MaxFreq_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="15hz" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Spec_MaxFreq" Grid.Column="2" Minimum="15" SmallChange="2" LargeChange="50" ValueChanged="Sld_Spec_MaxFreq_ValueChanged" Maximum="24000" Value="100" ToolTip="{Binding ElementName=Sld_Spec_MaxFreq, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" VerticalAlignment="Top" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Spec_MaxFreq" Grid.Column="2" Minimum="15" SmallChange="2" LargeChange="50" Maximum="24000" Value="{Binding SpecMaxFreq}" ToolTip="{Binding ElementName=Sld_Spec_MaxFreq, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" VerticalAlignment="Top" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="24khz" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -147,7 +148,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_ScalingMode}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_ScalingMode_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <ComboBox x:Name="Cbb_Spec_ScalingMode" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="2" SelectionChanged="Cbb_Spec_ScalingMode_SelectionChanged">
+            <ComboBox x:Name="Cbb_Spec_ScalingMode" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="{Binding SpecScalingMode, Converter={StaticResource CvtScalingStrategyToIndex}}">
                 <ComboBoxItem Content="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_ScalingMode_Linear}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_ScalingMode_Linear_Tooltip}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_ScalingMode_Sqrt}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_ScalingMode_Sqrt_Tooltip}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_ScalingMode_Log}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_ScalingMode_Log_Tooltip}"/>
@@ -155,15 +156,15 @@
         </Grid>
         <Grid Margin="0,15,0,0">
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Invert}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_Invert_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <CheckBox x:Name="Cb_Spec_Invert" IsChecked="False" Checked="Cb_Spec_Invert_Checked" Unchecked="Cb_Spec_Invert_Unchecked" Content="{Binding ElementName=Cb_Spec_Invert, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+            <CheckBox x:Name="Cb_Spec_Invert" IsChecked="{Binding SpecInvert}" Content="{Binding ElementName=Cb_Spec_Invert, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid Margin="0,15,0,0">
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_UseLogScale}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_UseLogScale_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <CheckBox x:Name="Cb_Spec_UseLogScale" IsChecked="False" Checked="Cb_Spec_UseLogScale_Checked" Unchecked="Cb_Spec_UseLogScale_Unchecked" Content="{Binding ElementName=Cb_Spec_UseLogScale, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+            <CheckBox x:Name="Cb_Spec_UseLogScale" IsChecked="{Binding SpecUseLogScale}" Content="{Binding ElementName=Cb_Spec_UseLogScale, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid Margin="0,15,0,0">
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_UseResampler}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_UseResampler_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <CheckBox x:Name="Cb_Spec_UseResampler" IsChecked="False" Checked="Cb_Spec_UseResampler_Checked" Unchecked="Cb_Spec_UseResampler_Unchecked" Content="{Binding ElementName=Cb_Spec_UseResampler, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+            <CheckBox x:Name="Cb_Spec_UseResampler" IsChecked="{Binding SpecUseResampler}" Content="{Binding ElementName=Cb_Spec_UseResampler, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid Margin="0,15,0,0">
             <Grid.ColumnDefinitions>
@@ -172,7 +173,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_ResamplingMode}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_ResamplingMode_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <ComboBox x:Name="Cbb_Spec_ResamplingMode" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="0" SelectionChanged="Cbb_Spec_ResamplingMode_SelectionChanged">
+            <ComboBox x:Name="Cbb_Spec_ResamplingMode" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="{Binding SpecResampleMode, Converter={StaticResource CvtResamplingModeToIndex}}">
                 <ComboBoxItem Content="{DynamicResource Lang_ResamplingMode_Linear}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_ResamplingMode_HalfSine}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_ResamplingMode_FullSine}"/>
@@ -180,7 +181,7 @@
         </Grid>
         <Grid Margin="0,15,0,0">
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_GridShow}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_GridShow_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <CheckBox x:Name="Cb_Spec_GridShow" IsChecked="False" Checked="Cb_Spec_GridShow_Checked" Unchecked="Cb_Spec_GridShow_Unchecked" Content="{Binding ElementName=Cb_Spec_GridShow, Path=IsChecked, Converter={StaticResource IsShowedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+            <CheckBox x:Name="Cb_Spec_GridShow" IsChecked="{Binding SpecGridShow}" Content="{Binding ElementName=Cb_Spec_GridShow, Path=IsChecked, Converter={StaticResource IsShowedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid Margin="0,15,0,0">
             <Grid.ColumnDefinitions>
@@ -189,7 +190,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_GridTextHorizontalAlignment}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Spectrum_GridTextHorizontalAlignment_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <ComboBox x:Name="Cbb_Spec_GridTextHorizontalAlignment" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="2" SelectionChanged="Cbb_Spec_GridTextHorizontalAlignment_SelectionChanged">
+            <ComboBox x:Name="Cbb_Spec_GridTextHorizontalAlignment" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="{Binding SpecGridTextHorizontalAlignment, Converter={StaticResource CvtHorizontalAlignmentToIndex}}" >
                 <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Left}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Center}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Right}"/>

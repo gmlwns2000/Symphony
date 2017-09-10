@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultCheckBox.xaml"/>
                 <ResourceDictionary Source="/Symphony;component/UI/Style/CircleTrackBar.xaml"/>
                 <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultScrollBar.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Util/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <UI:RoundDoubleConverter x:Key="Round"/>
             <UI:IsUsedTextConverter x:Key="IsUsedText"/>
@@ -31,7 +32,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Vu_Opacity}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Vu_Opacity_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="0%" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Vu_Opacity" Grid.Column="2" Minimum="0" SmallChange="1" LargeChange="10" ValueChanged="Sld_Vu_Opacity_ValueChanged" Maximum="100" Value="100" ToolTip="{Binding ElementName=Sld_Vu_Opacity, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Vu_Opacity" Grid.Column="2" Minimum="0" SmallChange="0.01" LargeChange="0.1" Maximum="1" Value="{Binding VUOpacity}" ToolTip="{Binding ElementName=Sld_Vu_Opacity, Path=Value, Converter={StaticResource CvtPercentToText}, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="100%" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -43,7 +44,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Vu_Senstive}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Vu_Senstive_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="30ms" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Vu_Senstive" Grid.Column="2" Minimum="30" SmallChange="1" LargeChange="10" ValueChanged="Sld_Vu_Senstive_ValueChanged" Maximum="350" Value="150" ToolTip="{Binding ElementName=Sld_Vu_Senstive, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Vu_Senstive" Grid.Column="2" Minimum="30" SmallChange="1" LargeChange="10" Maximum="350" Value="{Binding VUSenstive}" ToolTip="{Binding ElementName=Sld_Vu_Senstive, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="350ms" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
     </StackPanel>
