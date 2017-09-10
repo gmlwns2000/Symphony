@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultButton.xaml"/>
                 <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultScrollBar.xaml"/>
                 <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultTextbox.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Util/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <UI:RoundDoubleConverter x:Key="Round"/>
             <UI:IsUsedTextConverter x:Key="IsUsedText"/>
@@ -35,7 +36,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Audio_General_Player_Buffer}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Audio_General_Player_Buffer_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
                     <TextBlock Text="{DynamicResource Lang_Setting_Audio_General_Player_Buffer_Small}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-                    <Slider x:Name="Sld_Audio_Buffer" ToolTip="{Binding ElementName=Sld_Audio_Buffer, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" ValueChanged="Sld_Audio_Buffer_ValueChanged" Grid.Column="2" Minimum="30" Maximum="300" Value="100" SmallChange="1" LargeChange="10" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+                    <Slider x:Name="Sld_Audio_Buffer" ToolTip="{Binding ElementName=Sld_Audio_Buffer, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" Value="{Binding AudioDesiredLantency}" Grid.Column="2" Minimum="30" Maximum="300" SmallChange="1" LargeChange="10" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
                     <TextBlock Text="{DynamicResource Lang_Setting_Audio_General_Player_Buffer_Big}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
@@ -47,12 +48,12 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Audio_General_Player_Volume}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Audio_General_Player_Volume_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
                     <TextBlock Text="{DynamicResource Lang_Setting_Audio_General_Player_Volume_Silence}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-                    <Slider x:Name="Sld_Audio_Volume" ValueChanged="Sld_Audio_Volume_ValueChanged" Grid.Column="2" Minimum="0" Maximum="1" Value="0.75" SmallChange="0.05" LargeChange="0.1" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+                    <Slider x:Name="Sld_Audio_Volume" Value="{Binding AudioVolume}" Grid.Column="2" Minimum="0" Maximum="100" SmallChange="5" LargeChange="10" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
                     <TextBlock Text="{DynamicResource Lang_Setting_Audio_General_Player_Volume_Loud}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <TextBlock Text="{DynamicResource Lang_Setting_Audio_General_Player_EffectLimit}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Audio_General_Player_EffectLimit_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <CheckBox x:Name="Cb_Audio_Effect_Limit" IsChecked="True" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalContentAlignment="Center" Style="{StaticResource DefaultCheckBox}" Checked="Cb_Audio_Effect_Limit_Checked" Unchecked="Cb_Audio_Effect_Limit_Unchecked">
+                    <CheckBox x:Name="Cb_Audio_Effect_Limit" IsChecked="{Binding AudioUseDspLimit}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalContentAlignment="Center" Style="{StaticResource DefaultCheckBox}">
                         <TextBlock Text="{Binding ElementName=Cb_Audio_Effect_Limit, Path=IsChecked, Converter={StaticResource IsUsedText}}" VerticalAlignment="Center" Style="{StaticResource GradientEmbosedText}"/>
                     </CheckBox>
                 </Grid>
@@ -63,11 +64,11 @@
                         <ColumnDefinition Width="24"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Audio_General_Player_EffectLimitSamplerate}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Audio_General_Player_EffectLimitSamplerate_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12" Grid.ColumnSpan="3"/>
-                    <ComboBox x:Name="Cb_Audio_Effect_Limit_Samplerate" Width="120" HorizontalAlignment="Right" SelectedIndex="1" SelectionChanged="Cb_Audio_Effect_Limit_Samplerate_SelectionChanged">
-                        <ComboBoxItem Content="48,000"/>
-                        <ComboBoxItem Content="96,000" IsSelected="True"/>
-                        <ComboBoxItem Content="192,000"/>
-                        <ComboBoxItem Content="324,000"/>
+                    <ComboBox x:Name="Cb_Audio_Effect_Limit_Samplerate" Width="120" HorizontalAlignment="Right" SelectedValuePath="Content" SelectedValue="{Binding AudioDspLimitSampleRate, Converter={StaticResource }}">
+                        <ComboBoxItem Content="48000"/>
+                        <ComboBoxItem Content="96000"/>
+                        <ComboBoxItem Content="192000"/>
+                        <ComboBoxItem Content="324000"/>
                     </ComboBox>
                     <TextBlock Text="Hz" Grid.Column="1" Margin="5,5,0,0" FontFamily="NanumBarunGothic Light" VerticalAlignment="Top" Style="{StaticResource GradientEmbosedText}"/>
                 </Grid>

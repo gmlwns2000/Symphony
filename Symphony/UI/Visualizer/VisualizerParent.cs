@@ -14,12 +14,10 @@ namespace Symphony.UI
 {
     public class VisualizerParent : FrameworkElement
     {
-        private VisualCollection canvas;
-        public MainWindow mw;
-        public bool inited = false;
-
+        public Util.Settings Settings = Util.Settings.Current;
         public List<IVisualizer> Visualizers = new List<IVisualizer>();
-
+        public bool inited = false;
+        public int framems;
         public bool AllowRender { get; set; }
         public bool UseMotionBlur = false;
 
@@ -42,28 +40,21 @@ namespace Symphony.UI
             }
         }
 
+        VisualCollection canvas;
+        Queue<float> buffer;
         int sampleRate;
         int lentacy;
-        public int framems;
         int channel;
-        Queue<float> buffer;
         object buffer_lock = new object();
         int buffer_thresold = 0;
         int buffer_frame = 0;
         int buffer_lentancy = 0;
 
-        public void Init(MainWindow Parent)
-        {
-            mw = Parent;
-            
-            inited = true;
-        }
-
         public void InitSample(int lentacy, int framems, DSPMaster master)
         {
             sampleRate = master.SampleRate;
             this.lentacy = lentacy;
-            framems = mw.GUIUpdate;
+            framems = Settings.GUIUpdate;
             channel = master.Channel;
             
             // sampleRate * channel * 3 frame
@@ -126,7 +117,7 @@ namespace Symphony.UI
         
         public void Update()
         {
-            framems = mw.GUIUpdate;
+            framems = Settings.GUIUpdate;
             if (inited)
             {
                 DrawingVisual visual = new DrawingVisual();

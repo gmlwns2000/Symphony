@@ -22,6 +22,8 @@ namespace Symphony.UI
     /// </summary>
     public partial class RemoteControllerWindow : Window
     {
+        public Util.Settings Settings { get; set; } = Util.Settings.Current;
+
         private static int InstanceCount = 0;
         public int UID;
 
@@ -185,9 +187,9 @@ namespace Symphony.UI
                     Tb_Title.Text = mw.Lb_Small_Title.Text;
                 }
 
-                if (Sld_Volume.Value != mw.AudioVolume)
+                if (Sld_Volume.Value != Settings.AudioVolume)
                 {
-                    Sld_Volume.Value = mw.AudioVolume;
+                    Sld_Volume.Value = Settings.AudioVolume;
                 }
             }
         }
@@ -218,7 +220,7 @@ namespace Symphony.UI
 
             Dispatcher.Invoke(new Action(() => 
             {
-                Sld_Volume.Value = mw.AudioVolume;
+                Sld_Volume.Value = Settings.AudioVolume;
 
                 if(np.CurrentPlaylist != null)
                     UpdateOrder(np.CurrentPlaylist.Order);
@@ -257,9 +259,9 @@ namespace Symphony.UI
                     Tb_Title.Text = mw.Lb_Small_Title.Text;
                 }
 
-                if(Sld_Volume.Value != mw.AudioVolume)
+                if(Sld_Volume.Value != Settings.AudioVolume)
                 {
-                    Sld_Volume.Value = mw.AudioVolume;
+                    Sld_Volume.Value = Settings.AudioVolume;
                 }
             }));
 
@@ -270,7 +272,7 @@ namespace Symphony.UI
         {
             if (inited)
             {
-                mw.AudioVolume = e.NewValue;
+                Settings.AudioVolume = e.NewValue;
             }
         }
 
@@ -451,7 +453,7 @@ namespace Symphony.UI
 
             Dispatcher.Invoke(delegate
             {
-                if (mw.UseImageAnimation)
+                if (Settings.UseImageAnimation)
                 {
                     ImageOff.Begin();
                 }
@@ -469,7 +471,7 @@ namespace Symphony.UI
 
             if (Img_AlbumArt != null)
             {
-                if (mw.UseImageAnimation)
+                if (Settings.UseImageAnimation)
                 {
                     ImageOn.Begin();
                 }
