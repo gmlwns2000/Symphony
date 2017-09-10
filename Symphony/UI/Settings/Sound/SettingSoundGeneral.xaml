@@ -64,7 +64,7 @@
                         <ColumnDefinition Width="24"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Audio_General_Player_EffectLimitSamplerate}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Audio_General_Player_EffectLimitSamplerate_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12" Grid.ColumnSpan="3"/>
-                    <ComboBox x:Name="Cb_Audio_Effect_Limit_Samplerate" Width="120" HorizontalAlignment="Right" SelectedValuePath="Content" SelectedValue="{Binding AudioDspLimitSampleRate, Converter={StaticResource }}">
+                    <ComboBox x:Name="Cb_Audio_Effect_Limit_Samplerate" Width="120" HorizontalAlignment="Right" SelectedValuePath="Content" SelectedValue="{Binding AudioDspLimitSampleRate, Converter={StaticResource CvtDoubleToText}}">
                         <ComboBoxItem Content="48000"/>
                         <ComboBoxItem Content="96000"/>
                         <ComboBoxItem Content="192000"/>

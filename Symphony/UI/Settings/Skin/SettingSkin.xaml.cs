@@ -25,6 +25,8 @@ namespace Symphony.UI.Settings
     /// </summary>
     public partial class SettingSkin : UserControl
     {
+        public Util.Settings Settings = Util.Settings.Current;
+
         bool inited = false;
         MainWindow mw;
         List<string> items = new List<string>();
@@ -32,6 +34,8 @@ namespace Symphony.UI.Settings
 
         public SettingSkin(MainWindow mw)
         {
+            DataContext = Settings;
+
             InitializeComponent();
 
             this.mw = mw;
@@ -85,14 +89,14 @@ namespace Symphony.UI.Settings
 
             for(int i =0; i < items.Count; i++)
             {
-                if (items[i] == mw.CurrentTheme)
+                if (items[i] == Settings.CurrentTheme)
                 {
                     Lst_Data.SelectedIndex = i;
                     break;
                 }
             }
 
-            Lb_CurrentTheme.Text = LanguageHelper.FindText("Lang_Setting_Video_Skin_CurrentSkin") + " " + mw.CurrentTheme;
+            Lb_CurrentTheme.Text = LanguageHelper.FindText("Lang_Setting_Video_Skin_CurrentSkin") + " " + Settings.CurrentTheme;
         }
 
         private void Lst_ItemDoubleClick(object sender, MouseButtonEventArgs e)
@@ -161,7 +165,7 @@ namespace Symphony.UI.Settings
                     {
                         if(ThemeHelper.CreateTheme(result.Text) != null)
                         {
-                            mw.CurrentTheme = result.Text;
+                            Settings.CurrentTheme = result.Text;
 
                             ThemeHelper.LoadTheme(new DirectoryInfo(targetPath), mw);
                         }
@@ -200,7 +204,7 @@ namespace Symphony.UI.Settings
 
                         ThemeHelper.LoadTheme(new DirectoryInfo(Path.Combine(ThemeHelper.LibraryFolder, "Default Theme")), mw);
 
-                        mw.CurrentTheme = "Default Theme";
+                        Settings.CurrentTheme = "Default Theme";
 
                         UpdateList();
                     }
@@ -248,9 +252,9 @@ namespace Symphony.UI.Settings
 
                     if (dic != null)
                     {
-                        mw.CurrentTheme = items[Lst_Data.SelectedIndex];
+                        Settings.CurrentTheme = items[Lst_Data.SelectedIndex];
                         
-                        Lb_CurrentTheme.Text = LanguageHelper.FindText("Lang_Setting_Video_Skin_CurrentSkin") + " " + mw.CurrentTheme;
+                        Lb_CurrentTheme.Text = LanguageHelper.FindText("Lang_Setting_Video_Skin_CurrentSkin") + " " + Settings.CurrentTheme;
                     }
                 }
                 else
@@ -349,7 +353,7 @@ namespace Symphony.UI.Settings
                         try
                         {
                             Directory.Move(skin, dist);
-                            mw.CurrentTheme = result.Text;
+                            Settings.CurrentTheme = result.Text;
                             UpdateList();
                         }
                         catch (Exception exc)

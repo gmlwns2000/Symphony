@@ -21,103 +21,13 @@ namespace Symphony.UI.Settings
     /// </summary>
     public partial class SettingVisualizerOsilo : UserControl
     {
-        Brush borderBrush;
-        Brush warnBrush;
+        Util.Settings Settings = Util.Settings.Current;
 
         public SettingVisualizerOsilo()
         {
+            DataContext = Settings;
+
             InitializeComponent();
-
-            borderBrush = Tb_Osilo_Dash.BorderBrush;
-            warnBrush = new SolidColorBrush(Color.FromArgb(180, 255, 30, 50));
-            warnBrush.Freeze();
-        }
-
-        MainWindow mw;
-        bool inited = false;
-        public void Init(MainWindow mw)
-        {
-            this.mw = mw;
-            inited = true;
-        }
-
-        public void UpdateUI()
-        {
-            if (!inited)
-            {
-                return;
-            }
-
-            inited = false;
-
-            Sld_Osilo_Dash.Value = mw.OsiloDash;
-            Sld_Osilo_Width.Value = mw.OsiloWidth;
-            Sld_Osilo_Height.Value = mw.OsiloHeight * 100;
-            Sld_Osilo_Opacity.Value = mw.OsiloOpacity * 100;
-            Sld_Osilo_Strength.Value = mw.OsiloStrength * 100;
-            Sld_Osilo_Top.Value = mw.OsiloTop * 100;
-            Sld_Osilo_View.Value = mw.OsiloView;
-
-            Tb_Osilo_Dash.Text = mw.OsiloDash.ToString("0.0");
-            Tb_Osilo_Width.Text = mw.OsiloWidth.ToString("0.0");
-
-            Cb_Osilo_Invert.IsChecked = mw.OsiloUseInvert;
-            Cb_Osilo_GridShow.IsChecked = mw.OsiloGridShow;
-
-            switch (mw.OsiloRenderType)
-            {
-                case BarRenderTypes.Dots:
-                    Cbb_Osilo_RenderType.SelectedIndex = 0;
-                    break;
-                case BarRenderTypes.Line:
-                    Cbb_Osilo_RenderType.SelectedIndex = 1;
-                    break;
-                case BarRenderTypes.Rectangle:
-                    Cbb_Osilo_RenderType.SelectedIndex = 2;
-                    break;
-                case BarRenderTypes.Filled:
-                    Cbb_Osilo_RenderType.SelectedIndex = 3;
-                    break;
-            }
-
-            switch (mw.OsiloGridTextHorizontalAlignment)
-            {
-                case HorizontalAlignment.Left:
-                    Cbb_Osilo_GridTextHorizontalAlignment.SelectedIndex = 0;
-                    break;
-                case HorizontalAlignment.Center:
-                    Cbb_Osilo_GridTextHorizontalAlignment.SelectedIndex = 1;
-                    break;
-                case HorizontalAlignment.Right:
-                    Cbb_Osilo_GridTextHorizontalAlignment.SelectedIndex = 2;
-                    break;
-            }
-
-            inited = true;
-        }
-
-        private void Sld_Osilo_View_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (inited)
-            {
-                mw.OsiloView = (float)e.NewValue;
-            }
-        }
-
-        private void Sld_Osilo_Height_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (inited)
-            {
-                mw.OsiloHeight = (float)e.NewValue / 100;
-            }
-        }
-
-        private void Sld_Osilo_Top_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (inited)
-            {
-                mw.OsiloTop = e.NewValue / 100;
-            }
         }
 
         private void Sld_Osilo_Width_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

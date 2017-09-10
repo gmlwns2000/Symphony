@@ -22,19 +22,11 @@ namespace Symphony.UI.Settings
     {
         public Util.Settings Settings = Util.Settings.Current;
 
-        public SettingSoundGeneral(MainWindow mw)
+        public SettingSoundGeneral()
         {
-            InitializeComponent();
-
             DataContext = Settings;
-        }
 
-        private void Cb_Audio_Effect_Limit_Samplerate_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (inited)
-            {
-                mw.AudioDspLimitSampleRate = (int)Convert.ToDouble(((string)((ComboBoxItem)Cb_Audio_Effect_Limit_Samplerate.Items[Cb_Audio_Effect_Limit_Samplerate.SelectedIndex]).Content).Replace(",", ""));
-            }
+            InitializeComponent();
         }
     }
 }

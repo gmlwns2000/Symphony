@@ -2,5 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Symphony.UI.Util"
                     xmlns:UI="clr-namespace:Symphony.UI">
-    <UI:
+    <UI:DoubleToText x:Key="CvtDoubleToText"/>
+    <UI:MsToFPS x:Key="CvtMsToFPS"/>
+    <UI:PercentToText x:Key="CvtPercentToText"/>
+    <UI:FadeInModeToIndex x:Key="CvtFadeInModeToIndex"/>
+    <UI:FadeOutModeToIndex x:Key="CvtFadeOutModeToIndex"/>
+    <UI:HorizontalAlignmentToIndex x:Key="CvtHorizontalAlignmentToIndex"/>
+    <UI:VerticalAlignmentToIndex x:Key="CvtVerticalAlignmentToIndex"/>
 </ResourceDictionary>

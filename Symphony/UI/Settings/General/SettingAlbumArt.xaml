@@ -37,7 +37,7 @@
         <TextBlock Text="{DynamicResource Lang_Setting_General_Player_AlbumArt_Title}" ToolTip="{DynamicResource Lang_Setting_General_Player_AlbumArt_Title_Tooltip}" Margin="24,5,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="16"/>
         <Grid Margin="0,15,0,0">
             <TextBlock Text="{DynamicResource Lang_Setting_General_Player_AlbumArt_UseLocalSearch}" ToolTip="{DynamicResource Lang_Setting_General_Player_AlbumArt_UseLocalSearch_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <CheckBox x:Name="Cb_Use" IsChecked="False" Checked="Cb_Use_Checked" Unchecked="Cb_Use_Unchecked" Content="{Binding ElementName=Cb_Use, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+            <CheckBox x:Name="Cb_Use" IsChecked="{Binding PlayerUseSearchLocalAlbumArt}" Content="{Binding ElementName=Cb_Use, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid Margin="36,15,24,0">
             <StackPanel>

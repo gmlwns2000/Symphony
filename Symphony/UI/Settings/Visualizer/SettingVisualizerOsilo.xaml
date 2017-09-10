@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultCheckBox.xaml"/>
                 <ResourceDictionary Source="/Symphony;component/UI/Style/CircleTrackBar.xaml"/>
                 <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultScrollBar.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Util/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <UI:RoundDoubleConverter x:Key="Round"/>
             <UI:IsUsedTextConverter x:Key="IsUsedText"/>
@@ -46,7 +47,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_ViewSize}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_ViewSize_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_ViewSize_Thin}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Osilo_View" ToolTip="{Binding ElementName=Sld_Osilo_View, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" ValueChanged="Sld_Osilo_View_ValueChanged" Grid.Column="2" Minimum="1" Maximum="600" Value="4" SmallChange="1" LargeChange="4" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Osilo_View" ToolTip="{Binding ElementName=Sld_Osilo_View, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" Minimum="1" Maximum="600" Value="{Binding OsiloView}" SmallChange="1" LargeChange="4" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_ViewSize_Wide}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -59,7 +60,7 @@
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Height}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Height_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Height_Low}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
             <Rectangle Width="1" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Fill="#33000000"/>
-            <Slider x:Name="Sld_Osilo_Height" ToolTip="{Binding ElementName=Sld_Osilo_Height, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" ValueChanged="Sld_Osilo_Height_ValueChanged" Grid.Column="2" Minimum="-100" Maximum="100" Value="30" SmallChange="1" LargeChange="10" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Osilo_Height" ToolTip="{Binding ElementName=Sld_Osilo_Height, Path=Value, Converter={StaticResource CvtPercentToText}, Mode=OneWay}" Grid.Column="2" Minimum="-1" Maximum="1" Value="{Binding OsiloHeight}" SmallChange="0.01" LargeChange="0.1" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Height_High}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -71,7 +72,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Position}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Position_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Position_Top}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Osilo_Top" ToolTip="{Binding Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" ValueChanged="Sld_Osilo_Top_ValueChanged" Minimum="0" Maximum="100" SmallChange="1" LargeChange="5" Value="47.5" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Osilo_Top" ToolTip="{Binding Value, Converter={StaticResource CvtPercentToText}, Mode=OneWay}" Grid.Column="2" Minimum="0" Maximum="1" SmallChange="0.01" LargeChange="0.05" Value="{Binding OsiloTop}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Position_Bottom}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -84,9 +85,9 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Width}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Width_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="1px" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Osilo_Width" ToolTip="{Binding Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" Minimum="1" ValueChanged="Sld_Osilo_Width_ValueChanged" Maximum="50" Value="10" SmallChange="1" LargeChange="5" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Osilo_Width" ToolTip="{Binding Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" Minimum="1" Maximum="50" Value="{Binding OsiloWidth}" SmallChange="1" LargeChange="5" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="50px" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,5,0"/>
-            <TextBox Text="0" Grid.Column="4" Width="60" Margin="0,0,24,0" Style="{StaticResource DefaultTextbox}" Foreground="#FF3E3E3E" x:Name="Tb_Osilo_Width" TextChanged="Tb_Osilo_Width_TextChanged"/>
+            <TextBox Text="{Binding OsiloWidth, Converter=}" Grid.Column="4" Width="60" Margin="0,0,24,0" Style="{StaticResource DefaultTextbox}" Foreground="#FF3E3E3E" x:Name="Tb_Osilo_Width" TextChanged="Tb_Osilo_Width_TextChanged"/>
             <TextBlock Text="px"  Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,28,0" FontFamily="NanumBarunGothic" Foreground="#FF5F5F5F"/>
         </Grid>
         <Grid Margin="0,15,0,0">

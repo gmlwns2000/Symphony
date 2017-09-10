@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="/Symphony;component/UI/Style/CircleTrackBar.xaml"/>
                 <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultCheckBox.xaml"/>
                 <ResourceDictionary Source="/Symphony;component/UI/Style/DefaultScrollBar.xaml"/>
+                <ResourceDictionary Source="/Symphony;component/UI/Util/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <UI:RoundDoubleConverter x:Key="Round"/>
             <UI:IsUsedTextConverter x:Key="IsUsedText"/>
@@ -30,15 +31,15 @@
                 <TextBlock Text="{DynamicResource Lang_Setting_Video_General_General}" Margin="24,5,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="16"/>
                 <Grid Margin="0,15,0,0">
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_General_ImageAnimation}" ToolTip="{DynamicResource Lang_Setting_Video_General_General_ImageAnimation_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <CheckBox x:Name="Cb_General_UseImageAnimation" IsChecked="False" Checked="Cb_General_UseImageAnimation_Checked" Unchecked="Cb_General_UseImageAnimation_Unchecked" Content="{Binding ElementName=Cb_General_UseImageAnimation, Path=IsChecked, Mode=OneWay, Converter={StaticResource IsUsedText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="Cb_General_UseImageAnimation" IsChecked="{Binding UseImageAnimation}" Content="{Binding ElementName=Cb_General_UseImageAnimation, Path=IsChecked, Mode=OneWay, Converter={StaticResource IsUsedText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_General_UseFooter}" ToolTip="{DynamicResource Lang_Setting_Video_General_General_UseFooter_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <CheckBox x:Name="Cb_General_UseFooterInfo" IsChecked="True" Checked="Cb_General_UseFooterInfo_Checked" Unchecked="Cb_General_UseFooterInfo_Unchecked" Content="{Binding ElementName=Cb_General_UseFooterInfo, Path=IsChecked, Converter={StaticResource IsShowedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="Cb_General_UseFooterInfo" IsChecked="{Binding UseFooterInfoText}" Content="{Binding ElementName=Cb_General_UseFooterInfo, Path=IsChecked, Converter={StaticResource IsShowedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_General_SavePlayerMode}" ToolTip="{DynamicResource Lang_Setting_Video_General_General_SavePlayerMode_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <CheckBox x:Name="Cb_General_SavePlayerMode" IsChecked="True" Checked="Cb_General_SavePlayerMode_Checked" Unchecked="Cb_General_SavePlayerMode_Unchecked" Content="{Binding ElementName=Cb_General_SavePlayerMode, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="Cb_General_SavePlayerMode" IsChecked="{Binding SaveWindowMode}" Content="{Binding ElementName=Cb_General_SavePlayerMode, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
@@ -51,7 +52,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_General_UiUpdateFrame}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_General_General_UiUpdateFrame_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_General_UiUpdateFrame_Slow}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-                    <Slider x:Name="Sld_General_GUIUpdateFPS" ToolTip="{Binding ElementName=Sld_General_GUIUpdateFPS, Converter={StaticResource FpsMsText},Path=Value,Mode=OneWay}" ValueChanged="Sld_General_GUIUpdateFPS_ValueChanged" Grid.Column="2" Minimum="1" Maximum="60" Value="30" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+                    <Slider x:Name="Sld_General_GUIUpdateFPS" ToolTip="{Binding ElementName=Sld_General_GUIUpdateFPS, Converter={StaticResource FpsMsText},Path=Value,Mode=OneWay}" ValueChanged="Sld_General_GUIUpdateFPS_ValueChanged" Grid.Column="2" Minimum="1" Maximum="60" Value="{Binding GUIUpdate, Converter={StaticResource CvtMsToFPS}}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_General_UiUpdateFrame_Fast}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3"/>
                     <TextBlock Text="{Binding ElementName=Sld_General_GUIUpdateFPS,Path=Value,Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="4" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     <TextBlock Text="fps" Grid.Column="5" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Margin="0,0,24,0"/>
@@ -61,19 +62,19 @@
                 <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric}" Margin="24,25,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="16"/>
                 <Grid Margin="0,15,0,0">
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_Use}" ToolTip="{DynamicResource Lang_Setting_Video_General_Lyric_Use_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <CheckBox x:Name="Cb_Singer_Use" Checked="Cb_Singer_Use_Checked" Unchecked="Cb_Singer_Use_Unchecked" IsChecked="True" Content="{Binding ElementName=Cb_Singer_Use, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="Cb_Singer_Use" IsChecked="{Binding SingerShow}" Content="{Binding ElementName=Cb_Singer_Use, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_ResetPosition}" ToolTip="{DynamicResource Lang_Setting_Video_General_Lyric_ResetPosition_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <CheckBox x:Name="Cb_Singer_ResetPosition" Checked="Cb_Singer_ResetPosition_Checked" Unchecked="Cb_Singer_ResetPosition_Unchecked" IsChecked="True" Content="{Binding Mode=OneWay,ElementName=Cb_Singer_ResetPosition,Path=IsChecked,Converter={StaticResource IsUsedText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="Cb_Singer_ResetPosition" IsChecked="{Binding SingerResetPosition}" Content="{Binding Mode=OneWay,ElementName=Cb_Singer_ResetPosition,Path=IsChecked,Converter={StaticResource IsUsedText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_WindowMode}" ToolTip="{DynamicResource Lang_Setting_Video_General_Lyric_WindowMode_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <CheckBox x:Name="Cb_Singer_WindowMode" Checked="Cb_Singer_WindowMode_Checked" Unchecked="Cb_Singer_WindowMode_Unchecked" IsChecked="True" Content="{Binding Mode=OneWay,ElementName=Cb_Singer_WindowMode,Path=IsChecked,Converter={StaticResource IsUsedText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="Cb_Singer_WindowMode" IsChecked="{Binding SingerWindowMode}" Content="{Binding Mode=OneWay,ElementName=Cb_Singer_WindowMode,Path=IsChecked,Converter={StaticResource IsUsedText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_Dragmove}" ToolTip="{DynamicResource Lang_Setting_Video_General_Lyric_Dragmove_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <CheckBox x:Name="Cb_Singer_DragMove" Checked="Cb_Singer_DragMove_Checked" Unchecked="Cb_Singer_DragMove_Unchecked" IsChecked="False" Content="{Binding Converter={StaticResource IsUsedText}, Mode=OneWay,ElementName=Cb_Singer_DragMove,Path=IsChecked}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="Cb_Singer_DragMove" IsChecked="{Binding SingerCanDragmove}" Content="{Binding Converter={StaticResource IsUsedText}, Mode=OneWay,ElementName=Cb_Singer_DragMove,Path=IsChecked}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
@@ -82,14 +83,12 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_Zoom}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_General_Lyric_Zoom_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_Zoom_Small}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-                    <Slider x:Name="Sld_Singer_Zoom" ValueChanged="Sld_Singer_Zoom_ValueChanged" Grid.Column="2" Minimum="5" Maximum="200" Value="100" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+                    <Slider x:Name="Sld_Singer_Zoom" Grid.Column="2" Minimum="0.05" Maximum="2" Value="{Binding SingerZoom}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_Zoom_Big}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3"/>
-                    <TextBlock Text="{Binding ElementName=Sld_Singer_Zoom, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="4" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <TextBlock Text="%" Grid.Column="5" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Margin="0,0,24,0"/>
+                    <TextBlock Text="{Binding ElementName=Sld_Singer_Zoom, Path=Value, Converter={StaticResource CvtPercentToText}, Mode=OneWay}" Grid.Column="4" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Margin="5,0,24,0"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
@@ -102,10 +101,9 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_Opacity}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_General_Lyric_Opacity_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
                     <TextBlock Text="5%" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-                    <Slider x:Name="Sld_Singer_Opacity" ValueChanged="Sld_Singer_Opacity_ValueChanged" Grid.Column="2" Minimum="5" Maximum="100" Value="100" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+                    <Slider x:Name="Sld_Singer_Opacity" Grid.Column="2" Minimum="0.05" Maximum="1" Value="{Binding SingerOpacity}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
                     <TextBlock Text="100%" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3"/>
-                    <TextBlock Text="{Binding ElementName=Sld_Singer_Opacity, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="4" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <TextBlock Text="%" Grid.Column="5" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Margin="0,0,24,0"/>
+                    <TextBlock Text="{Binding ElementName=Sld_Singer_Opacity, Path=Value, Converter={StaticResource CvtPercentToText}, Mode=OneWay}" Grid.Column="4" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Margin="5,0,24,0"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
@@ -114,9 +112,9 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_DefaultFadeIn}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_General_Lyric_DefaultFadeIn_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <ComboBox x:Name="Cbb_Singer_FadeIn" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="1" SelectionChanged="Cbb_Singer_FadeIn_SelectionChanged">
+                    <ComboBox x:Name="Cbb_Singer_FadeIn" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="{Binding SingerDefaultFadeInMode, Converter={StaticResource CvtFadeInModeToIndex}}">
                         <ComboBoxItem Content="{DynamicResource Lang_FadeInMode_None}"/>
-                        <ComboBoxItem Content="{DynamicResource Lang_FadeInMode_FadeIn}" IsSelected="True" />
+                        <ComboBoxItem Content="{DynamicResource Lang_FadeInMode_FadeIn}"/>
                         <ComboBoxItem Content="{DynamicResource Lang_FadeInMode_BlurIn}" />
                         <ComboBoxItem Content="{DynamicResource Lang_FadeInMode_ZoomIn}"/>
                         <ComboBoxItem Content="{DynamicResource Lang_FadeInMode_ZoomOut}"/>
@@ -133,9 +131,9 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_DefaultFadeOut}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_General_Lyric_DefaultFadeOut_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <ComboBox x:Name="Cbb_Singer_FadeOut" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="1" SelectionChanged="Cbb_Singer_FadeOut_SelectionChanged">
+                    <ComboBox x:Name="Cbb_Singer_FadeOut" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="{Binding SingerDefaultFadeOutMode, Converter={StaticResource CvtFadeOutModeToIndex}}">
                         <ComboBoxItem Content="{DynamicResource Lang_FadeOutMode_None}"/>
-                        <ComboBoxItem Content="{DynamicResource Lang_FadeOutMode_FadeOut}" IsSelected="True"/>
+                        <ComboBoxItem Content="{DynamicResource Lang_FadeOutMode_FadeOut}"/>
                         <ComboBoxItem Content="{DynamicResource Lang_FadeOutMode_BlurOut}"/>
                         <ComboBoxItem Content="{DynamicResource Lang_FadeOutMode_ZoomIn}"/>
                         <ComboBoxItem Content="{DynamicResource Lang_FadeOutMode_ZoomOut}" />
@@ -152,9 +150,9 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_HorizontalAlignment}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_General_Lyric_HorizontalAlignment_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <ComboBox x:Name="Cbb_Singer_HorizontalAlignment" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="1" SelectionChanged="Cbb_Singer_HorizontalAlignment_SelectionChanged">
+                    <ComboBox x:Name="Cbb_Singer_HorizontalAlignment" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="{Binding SingerHorizontalAlignment, Converter={StaticResource CvtHorizontalAlignmentToIndex}}" SelectionChanged="Cbb_Singer_HorizontalAlignment_SelectionChanged">
                         <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Left}"/>
-                        <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Center}" IsSelected="False"/>
+                        <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Center}"/>
                         <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Right}" />
                     </ComboBox>
                 </Grid>
@@ -165,7 +163,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Lyric_VerticalAlignment}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_General_Lyric_VerticalAlignment_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <ComboBox x:Name="Cbb_Singer_VerticalAlignment" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="2" SelectionChanged="Cbb_Singer_VerticalAlignment_SelectionChanged">
+                    <ComboBox x:Name="Cbb_Singer_VerticalAlignment" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="{Binding SingerVerticalAlignment, Converter={StaticResource CvtVerticalAlignmentToIndex}}">
                         <ComboBoxItem Content="{DynamicResource Lang_VerticalAlignment_Top}"/>
                         <ComboBoxItem Content="{DynamicResource Lang_VerticalAlignment_Center}"/>
                         <ComboBoxItem Content="{DynamicResource Lang_VerticalAlignment_Bottom}" />
@@ -176,15 +174,15 @@
                 <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Dance}" Margin="24,25,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="16"/>
                 <Grid Margin="0,15,0,0">
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Dance_Use}" ToolTip="{DynamicResource Lang_Setting_Video_General_Dance_Use_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <CheckBox x:Name="Cb_Composer_Use" IsChecked="True" Checked="Cb_Composer_Use_Checked" Unchecked="Cb_Composer_Use_Unchecked" Content="{Binding Mode=OneWay, ElementName=Cb_Composer_Use, Converter={StaticResource IsUsedText}, Path=IsChecked}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="Cb_Composer_Use" IsChecked="{Binding ComposerUse}" Content="{Binding Mode=OneWay, ElementName=Cb_Composer_Use, Converter={StaticResource IsUsedText}, Path=IsChecked}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Dance_WindowMode}" ToolTip="{DynamicResource Lang_Setting_Video_General_Dance_WindowMode_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <CheckBox x:Name="Cb_Composer_WindowMode" Checked="Cb_Composer_WindowMode_Checked" Unchecked="Cb_Composer_WindowMode_Unchecked" IsChecked="True" Content="{Binding Converter={StaticResource IsUsedText}, ElementName=Cb_Composer_WindowMode, Path=IsChecked}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="Cb_Composer_WindowMode" IsChecked="{Binding ComposerWindowMode}" Content="{Binding Converter={StaticResource IsUsedText}, ElementName=Cb_Composer_WindowMode, Path=IsChecked}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Dance_Topmost}" ToolTip="{DynamicResource Lang_Setting_Video_General_Dance_Topmost_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-                    <CheckBox x:Name="Cb_Composer_Topmost" IsChecked="True" Checked="Cb_Composer_Topmost_Checked" Unchecked="Cb_Composer_Topmost_Unchecked" Content="{Binding Converter={StaticResource TopmostText},ElementName=Cb_Composer_Topmost,Path=IsChecked,Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="Cb_Composer_Topmost" IsChecked="{Binding ComposerTopmost}" Checked="Cb_Composer_Topmost_Checked" Unchecked="Cb_Composer_Topmost_Unchecked" Content="{Binding Converter={StaticResource TopmostText},ElementName=Cb_Composer_Topmost,Path=IsChecked,Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
                 </Grid>
                 <Grid Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
@@ -197,10 +195,9 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{DynamicResource Lang_Setting_Video_General_Dance_Opacity}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_General_Dance_Opacity_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
                     <TextBlock Text="5%" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-                    <Slider x:Name="Sld_Composer_Opacity" Grid.Column="2" Minimum="5" Maximum="100" ValueChanged="Sld_Composer_Opacity_ValueChanged" Value="100" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+                    <Slider x:Name="Sld_Composer_Opacity" Grid.Column="2" Minimum="0.05" Maximum="1" ValueChanged="Sld_Composer_Opacity_ValueChanged" Value="{Binding ComposerOpacity}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
                     <TextBlock Text="100%" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3"/>
-                    <TextBlock Text="{Binding ElementName=Sld_Composer_Opacity, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="4" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <TextBlock Text="%" Grid.Column="5" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Margin="0,0,24,0"/>
+                    <TextBlock Text="{Binding ElementName=Sld_Composer_Opacity, Path=Value, Converter={StaticResource CvtPercentToText}, Mode=OneWay}" Grid.Column="4" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Margin="5,0,24,0"/>
                 </Grid>
                 <Grid Height="24"/>
             </StackPanel>

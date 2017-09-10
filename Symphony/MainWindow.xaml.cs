@@ -400,8 +400,6 @@ namespace Symphony
             systemCounter = new System.Timers.Timer(1000);
             systemCounter.Elapsed += SystemCounter_Elapsed;
 
-            VisualParent.Init(this);
-
             VisualParent.Visualizers.Add(specVisualizer);
             VisualParent.Visualizers.Add(osVisualizer);
             VisualParent.Visualizers.Add(debugOsVisualizer);

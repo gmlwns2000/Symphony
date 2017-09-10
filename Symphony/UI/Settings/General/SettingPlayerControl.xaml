@@ -28,15 +28,15 @@
         <TextBlock Text="{DynamicResource Lang_Setting_General_Player_MiniControl_Title}" ToolTip="{DynamicResource Lang_Setting_General_Player_MiniControl_Title_Tooltip}" Margin="24,5,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="16"/>
         <Grid Margin="0,15,0,0">
             <TextBlock Text="{DynamicResource Lang_Setting_General_Player_MiniControl_Use}" ToolTip="{DynamicResource Lang_Setting_General_Player_MiniControl_Use_Tooltip}" VerticalAlignment="Center" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <CheckBox x:Name="Cb_Mini_Control" Checked="Cb_Mini_Control_Checked" Unchecked="Cb_Mini_Control_Unchecked" IsChecked="False" Content="{Binding Mode=OneWay,ElementName=Cb_Mini_Control,Path=IsChecked,Converter={StaticResource IsUsedText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+            <CheckBox x:Name="Cb_Mini_Control" IsChecked="{Binding PlayerMiniControlShow}" Content="{Binding Mode=OneWay,ElementName=Cb_Mini_Control,Path=IsChecked,Converter={StaticResource IsUsedText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid Margin="0,15,0,0">
             <TextBlock Text="{DynamicResource Lang_Setting_General_Player_MiniControl_Topmost}" ToolTip="{DynamicResource Lang_Setting_General_Player_MiniControl_Topmost_Tooltip}" VerticalAlignment="Center" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <CheckBox x:Name="Cb_Mini_Control_Topmost" Checked="Cb_Mini_Control_Topmost_Checked" Unchecked="Cb_Mini_Control_Topmost_Unchecked" IsChecked="False" Content="{Binding Mode=OneWay,ElementName=Cb_Mini_Control_Topmost,Path=IsChecked,Converter={StaticResource TopmostText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+            <CheckBox x:Name="Cb_Mini_Control_Topmost" IsChecked="{Binding PlayerMiniControlTopmost}" Content="{Binding Mode=OneWay,ElementName=Cb_Mini_Control_Topmost,Path=IsChecked,Converter={StaticResource TopmostText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid Margin="0,15,0,0">
             <TextBlock Text="{DynamicResource Lang_Setting_General_Player_MiniControl_SavePosition}" ToolTip="{DynamicResource Lang_Setting_General_Player_MiniControl_SavePosition_Tooltip}" VerticalAlignment="Center" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <CheckBox x:Name="Cb_Mini_Control_Position_Save" Checked="Cb_Mini_Control_Position_Save_Checked" Unchecked="Cb_Mini_Control_Position_Save_Unchecked" IsChecked="False" Content="{Binding Mode=OneWay,ElementName=Cb_Mini_Control_Position_Save,Path=IsChecked,Converter={StaticResource IsUsedText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+            <CheckBox x:Name="Cb_Mini_Control_Position_Save" IsChecked="{Binding PlayerMiniControlSavePosition}" Content="{Binding Mode=OneWay,ElementName=Cb_Mini_Control_Position_Save,Path=IsChecked,Converter={StaticResource IsUsedText}}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
         </Grid>
     </StackPanel>
 </UserControl>

@@ -39,7 +39,7 @@ namespace Symphony.UI.Settings
 
             this.echo = echo;
 
-            updateUi();
+            UpdateUi();
 
             inited = true;
         }
@@ -52,16 +52,13 @@ namespace Symphony.UI.Settings
                 echo = new Echo((int)Sld_Length.Value, (float)Sld_Factor.Value);
                 echo.SetStatus((bool)Chk_On.IsChecked);
                 echo.SID = id;
-                if(Updated != null)
-                {
-                    Updated(this, new DspUpdatedArgs(echo));
-                }
-                updateUi();
+                Updated?.Invoke(this, new DspUpdatedArgs(echo));
+                UpdateUi();
             }
             timer.Stop();
         }
 
-        private void updateUi()
+        private void UpdateUi()
         {
             Sld_Factor.Value = echo.EchoFactor;
             Sld_Factor.ToolTip = ((int)(echo.EchoFactor * 100)).ToString() + "%";
@@ -77,30 +74,21 @@ namespace Symphony.UI.Settings
             echo = new Echo(10000, 0.3f);
             echo.SID = id;
             echo.SetStatus(false);
-            if (Updated != null)
-            {
-                Updated(this, new DspUpdatedArgs(echo));
-            }
-            updateUi();
+            Updated?.Invoke(this, new DspUpdatedArgs(echo));
+            UpdateUi();
             inited = true;
         }
 
         private void Chk_On_Checked(object sender, RoutedEventArgs e)
         {
             echo.SetStatus(true);
-            if (Updated != null)
-            {
-                Updated(this, new DspUpdatedArgs(echo));
-            }
+            Updated?.Invoke(this, new DspUpdatedArgs(echo));
         }
 
         private void Chk_On_Unchecked(object sender, RoutedEventArgs e)
         {
             echo.SetStatus(false);
-            if (Updated != null)
-            {
-                Updated(this, new DspUpdatedArgs(echo));
-            }
+            Updated?.Invoke(this, new DspUpdatedArgs(echo));
         }
 
         private void Sld_Length_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

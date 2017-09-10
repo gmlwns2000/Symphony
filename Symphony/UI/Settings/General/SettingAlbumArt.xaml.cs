@@ -22,10 +22,14 @@ namespace Symphony.UI.Settings
     /// </summary>
     public partial class SettingAlbumArt : UserControl
     {
+        public Util.Settings Settings = Util.Settings.Current;
+
         public SettingAlbumArt()
         {
-            InitializeComponent();
+            DataContext = Settings;
 
+            InitializeComponent();
+            
             ListOn = FindResource("ListOn") as Storyboard;
             ListOff = FindResource("ListOff") as Storyboard;
         }
@@ -48,32 +52,16 @@ namespace Symphony.UI.Settings
             inited = false;
 
             string text = "";
-            foreach (string s in mw.PlayerAlbumArtSearchPathes)
+            foreach (string s in Settings.PlayerAlbumArtSearchPathes)
             {
                 text += "\n" + s;
             }
             text = text.Trim('\n');
             textBox.Text = text;
 
-            Cb_Use.IsChecked = mw.PlayerUseSearchLocalAlbumArt;
+            Cb_Use.IsChecked = Settings.PlayerUseSearchLocalAlbumArt;
 
             inited = true;
-        }
-
-        private void Cb_Use_Checked(object sender, RoutedEventArgs e)
-        {
-            if (inited)
-            {
-                mw.PlayerUseSearchLocalAlbumArt = true;
-            }
-        }
-
-        private void Cb_Use_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (inited)
-            {
-                mw.PlayerUseSearchLocalAlbumArt = false;
-            }
         }
 
         DispatcherTimer timerText;
