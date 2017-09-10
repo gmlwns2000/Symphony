@@ -59,7 +59,7 @@ namespace Symphony.Dancer
             mw.UpdateAllowChanged += Mw_UpdateAllowChanged;
             mw.MovingStateChanged += Mw_MovingStateChanged;
 
-            RenderControl.FPS = 1000 / mw.GUIUpdate;
+            RenderControl.FPS = 1000 / mw.Setting.GUIUpdate;
             RenderControl.AllowRenderingChanged += RenderControl_AllowRenderingChanged;
             allowRender = false;
 

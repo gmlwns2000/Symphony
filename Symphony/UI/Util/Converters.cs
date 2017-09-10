@@ -1,4 +1,6 @@
 ﻿using Symphony.Lyrics;
+using Symphony.Player;
+using Symphony.Player.DSP.CSCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,16 +12,43 @@ using System.Windows.Data;
 
 namespace Symphony.UI
 {
+    public static class ConvertHelper
+    {
+        public static double TryToDouble(object obj)
+        {
+            if (obj is double)
+            {
+                return (double)obj;
+            }
+            else if (obj is int)
+            {
+                return (int)obj;
+            }
+            else if(obj is long)
+            {
+                return (long)obj;
+            }
+            else
+            {
+                throw new NotFiniteNumberException();
+            }
+        }
+    }
+
     public class DoubleToText : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((double)value).ToString();
+            var val = ConvertHelper.TryToDouble(value);
+            if (val % 1 == 0)
+                return val.ToString();
+            else
+                return val.ToString("0.0");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return System.Convert.ToDouble(value);
+            return System.Convert.ToDouble((string)value);
         }
     }
 
@@ -27,12 +56,12 @@ namespace Symphony.UI
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return 1000 / ((double)value);
+            return 1000 / ConvertHelper.TryToDouble(value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Math.Max(1, 1000 / (double)value);
+            return Math.Max(1, 1000 / ConvertHelper.TryToDouble(value));
         }
     }
 
@@ -40,7 +69,7 @@ namespace Symphony.UI
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return $"{Math.Round((double)value * 100)}%";
+            return $"{Math.Round(ConvertHelper.TryToDouble(value) * 100)}%";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -98,6 +127,45 @@ namespace Symphony.UI
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return (VerticalAlignment)((int)value);
+        }
+    }
+
+    public class BarRenderTypesToIndex : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (int)((BarRenderTypes)value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (BarRenderTypes)((int)value);
+        }
+    }
+
+    public class ScalingStrategyToIndex : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (int)((ScalingStrategy)value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (ScalingStrategy)((int)value);
+        }
+    }
+
+    public class ResamplingModeToIndex : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (int)((ResamplingMode)value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (ResamplingMode)((int)value);
         }
     }
 }

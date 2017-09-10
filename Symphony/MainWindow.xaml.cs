@@ -368,7 +368,7 @@ namespace Symphony
             vuVisualizer = new VuVisualization(grid2, np);
             debugOsVisualizer = new DebugOsiloscopeVisualization();
             osVisualizer = new OsiloscopeVisualization();
-
+            
             splash.Update("설정 로드 중");
             LoadSettings();
 
@@ -399,6 +399,8 @@ namespace Symphony
 
             systemCounter = new System.Timers.Timer(1000);
             systemCounter.Elapsed += SystemCounter_Elapsed;
+
+            VisualParent.Init(this);
 
             VisualParent.Visualizers.Add(specVisualizer);
             VisualParent.Visualizers.Add(osVisualizer);

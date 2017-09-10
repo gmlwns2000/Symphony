@@ -71,7 +71,7 @@ namespace Symphony.UI
             visualGeneral.Width = double.NaN;
             visualGeneral.Height = double.NaN;
 
-            visualizer = new Settings.SettingVisualizer(mw);
+            visualizer = new Settings.SettingVisualizer();
             visualizer.Width = double.NaN;
             visualizer.Height = double.NaN;
 
@@ -79,11 +79,11 @@ namespace Symphony.UI
             account.Width = double.NaN;
             account.Height = double.NaN;
 
-            soundGeneral = new Settings.SettingSoundGeneral(mw);
+            soundGeneral = new Settings.SettingSoundGeneral();
             soundGeneral.Width = double.NaN;
             soundGeneral.Height = double.NaN;
 
-            generalPlayer = new Settings.SettingGeneralPlayer(mw);
+            generalPlayer = new Settings.SettingGeneralPlayer();
             generalPlayer.Width = double.NaN;
             generalPlayer.Height = double.NaN;
 

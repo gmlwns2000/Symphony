@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Shape}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <ComboBox x:Name="Cbb_Osilo_RenderType" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="2" SelectionChanged="Cbb_Osilo_RenderType_SelectionChanged">
+            <ComboBox x:Name="Cbb_Osilo_RenderType" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="{Binding OsiloRenderType, Converter={StaticResource CvtBarRenderTypesToIndex}}">
                 <ComboBoxItem Content="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Dot}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Dot_Tooltip}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Line}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Line_Tooltip}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Rectangle}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Shape_Rectangle_Tooltip}"/>
@@ -87,7 +87,7 @@
             <TextBlock Text="1px" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
             <Slider x:Name="Sld_Osilo_Width" ToolTip="{Binding Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" Minimum="1" Maximum="50" Value="{Binding OsiloWidth}" SmallChange="1" LargeChange="5" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="50px" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,5,0"/>
-            <TextBox Text="{Binding OsiloWidth, Converter=}" Grid.Column="4" Width="60" Margin="0,0,24,0" Style="{StaticResource DefaultTextbox}" Foreground="#FF3E3E3E" x:Name="Tb_Osilo_Width" TextChanged="Tb_Osilo_Width_TextChanged"/>
+            <TextBox Text="{Binding OsiloWidth, Converter={StaticResource CvtDoubleToText}}" Grid.Column="4" Width="60" Margin="0,0,24,0" Style="{StaticResource DefaultTextbox}" Foreground="#FF3E3E3E" x:Name="Tb_Osilo_Width"/>
             <TextBlock Text="px"  Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,28,0" FontFamily="NanumBarunGothic" Foreground="#FF5F5F5F"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -100,9 +100,9 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Dash}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Dash_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="0px" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Osilo_Dash" ToolTip="{Binding Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" ValueChanged="Sld_Osilo_Dash_ValueChanged" Minimum="0" Maximum="20" Value="1" SmallChange="1" LargeChange="4" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Osilo_Dash" ToolTip="{Binding Value, Converter={StaticResource Round}, Mode=OneWay}" Grid.Column="2" Minimum="0" Maximum="20" Value="{Binding OsiloDash}" SmallChange="1" LargeChange="4" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="20px" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,5,0"/>
-            <TextBox Text="0" Grid.Column="4" Width="60" Margin="0,0,24,0" Style="{StaticResource DefaultTextbox}" Foreground="#FF3E3E3E" x:Name="Tb_Osilo_Dash" TextChanged="Tb_Osilo_Dash_TextChanged"/>
+            <TextBox Text="{Binding OsiloDash, Converter={StaticResource CvtDoubleToText}}" Grid.Column="4" Width="60" Margin="0,0,24,0" Style="{StaticResource DefaultTextbox}" Foreground="#FF3E3E3E" x:Name="Tb_Osilo_Dash"/>
             <TextBlock Text="px"  Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,28,0" FontFamily="NanumBarunGothic" Foreground="#FF5F5F5F"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -114,7 +114,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Opacity}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Opacity_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="0%" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Osilo_Opacity" ToolTip="{Binding ElementName=Sld_Osilo_Opacity, Path=Value, Converter={StaticResource Round}, Mode=OneWay}" ValueChanged="Sld_Osilo_Opacity_ValueChanged" Grid.Column="2" Minimum="0" SmallChange="1" LargeChange="10" Maximum="100" Value="100" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Osilo_Opacity" ToolTip="{Binding ElementName=Sld_Osilo_Opacity, Path=Value, Converter={StaticResource CvtPercentToText}, Mode=OneWay}" Grid.Column="2" Minimum="0" SmallChange="0.01" LargeChange="0.1" Maximum="1" Value="{Binding OsiloOpacity}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="100%" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
@@ -126,16 +126,16 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Strength}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Strength_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Strength_Week}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="1"/>
-            <Slider x:Name="Sld_Osilo_Strength" Grid.Column="2" Minimum="8" SmallChange="1" LargeChange="10" ValueChanged="Sld_Osilo_Strength_ValueChanged" Maximum="100" Value="75" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
+            <Slider x:Name="Sld_Osilo_Strength" Grid.Column="2" Minimum="0.08" SmallChange="0.01" LargeChange="0.1" Maximum="1" Value="{Binding OsiloStrength}" VerticalAlignment="Center" Style="{StaticResource CircleTrackBar}"/>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Strength_Strong}" Opacity="0.66" Style="{StaticResource GradientEmbosedText}" VerticalAlignment="Center" Grid.Column="3" Margin="0,0,24,0"/>
         </Grid>
         <Grid Margin="0,15,0,0">
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Invert}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_Invert_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <CheckBox x:Name="Cb_Osilo_Invert" IsChecked="False" Checked="Cb_Osilo_Invert_Checked" Unchecked="Cb_Osilo_Invert_Unchecked" Content="{Binding ElementName=Cb_Osilo_Invert, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+            <CheckBox x:Name="Cb_Osilo_Invert" IsChecked="{Binding OsiloUseInvert}" Content="{Binding ElementName=Cb_Osilo_Invert, Path=IsChecked, Converter={StaticResource IsUsedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid Margin="0,15,0,0">
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_GridShow}" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_GridShow_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <CheckBox x:Name="Cb_Osilo_GridShow" IsChecked="False" Checked="Cb_Osilo_GridShow_Checked" Unchecked="Cb_Osilo_GridShow_Unchecked" Content="{Binding ElementName=Cb_Osilo_GridShow, Path=IsChecked, Converter={StaticResource IsShowedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
+            <CheckBox x:Name="Cb_Osilo_GridShow" IsChecked="{Binding OsiloGridShow}" Content="{Binding ElementName=Cb_Osilo_GridShow, Path=IsChecked, Converter={StaticResource IsShowedText}, Mode=OneWay}" Style="{StaticResource DefaultCheckBox}" HorizontalAlignment="Right" Margin="0,0,24,0" Foreground="#FF7A7A7A" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid Margin="0,15,0,0">
             <Grid.ColumnDefinitions>
@@ -144,7 +144,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_GridTextHorizontalAlignment}" VerticalAlignment="Center" ToolTip="{DynamicResource Lang_Setting_Video_Visualizer_Osilo_GridTextHorizontalAlignment_Tooltip}" Margin="36,0,0,0" Style="{StaticResource GradientEmbosedText}" FontSize="12"/>
-            <ComboBox x:Name="Cbb_Osilo_GridTextHorizontalAlignment" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="2" SelectionChanged="Cbb_Osilo_GridTextHorizontalAlignment_SelectionChanged">
+            <ComboBox x:Name="Cbb_Osilo_GridTextHorizontalAlignment" Grid.Column="2" Width="120" Margin="0,0,24,0" SelectedIndex="{Binding OsiloGridTextHorizontalAlignment, Converter={StaticResource CvtHorizontalAlignmentToIndex}}">
                 <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Left}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Center}"/>
                 <ComboBoxItem Content="{DynamicResource Lang_HorizontalAlignment_Right}"/>

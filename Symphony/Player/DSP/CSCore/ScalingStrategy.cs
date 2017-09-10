@@ -2,8 +2,8 @@
 {
     public enum ScalingStrategy
     {
-        Decibel,
-        Linear,
-        Sqrt
+        Linear = 0,
+        Sqrt = 1,
+        Decibel = 2,
     }
 }

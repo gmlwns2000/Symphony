@@ -16,29 +16,19 @@ namespace Symphony.UI
     {
         public Util.Settings Settings = Util.Settings.Current;
         public List<IVisualizer> Visualizers = new List<IVisualizer>();
-        public bool inited = false;
         public int framems;
         public bool AllowRender { get; set; }
         public bool UseMotionBlur = false;
-
-        public VisualizerParent()
-        {
-            canvas = new VisualCollection(this);
-            AllowRender = true;
-        }
-
+        
         protected override Visual GetVisualChild(int index)
         {
             return canvas[index];
         }
 
-        protected override int VisualChildrenCount
-        {
-            get
-            {
-                return canvas.Count;
-            }
-        }
+        protected override int VisualChildrenCount => canvas.Count;
+
+        protected MainWindow mw;
+        protected bool inited = false;
 
         VisualCollection canvas;
         Queue<float> buffer;
@@ -49,6 +39,18 @@ namespace Symphony.UI
         int buffer_thresold = 0;
         int buffer_frame = 0;
         int buffer_lentancy = 0;
+
+        public VisualizerParent()
+        {
+            canvas = new VisualCollection(this);
+            AllowRender = true;
+        }
+
+        public void Init(MainWindow mw)
+        {
+            this.mw = mw;
+            inited = true;
+        }
 
         public void InitSample(int lentacy, int framems, DSPMaster master)
         {

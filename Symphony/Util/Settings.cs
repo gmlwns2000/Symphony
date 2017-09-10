@@ -68,13 +68,7 @@ namespace Symphony.Util
 
     public class Settings : INotifyPropertyChanged
     {
-        /* TODO: Add more settings
-        case "Waveform.Zoom":
-        case "Visualizer.Use":
-        case "Osilo.Use"
-        case "VU.Use": */
-
-        public static string SettingsLibrary => Path.Combine(Environment.CurrentDirectory, "NewSettings");
+        public static string SettingsLibrary => Path.Combine(Environment.CurrentDirectory, "Settings");
         public static string SettingsSaveFilePath => Path.Combine(SettingsLibrary, "Settings.xml");
         public static string DspChainSaveFilePath => Path.Combine(SettingsLibrary, "Effects.DSPs");
 
@@ -82,12 +76,13 @@ namespace Symphony.Util
 
         public static void Load()
         {
+            //TODO : Impl load
             Current = new Settings();
         }
 
         public static void Save()
         {
-
+            //TODO: Impl save
         }
 
         #region Properties
@@ -96,88 +91,56 @@ namespace Symphony.Util
         private bool _useImageAnimation = true;
         public bool UseImageAnimation
         {
-            get
-            {
-                return _useImageAnimation;
-            }
-            set
-            {
-                _useImageAnimation = value;
-            }
+            get => _useImageAnimation;
+            set { _useImageAnimation = value; OnPropertyChanged(); }
         }
 
         private int _guiUpdate = 66;
         public int GUIUpdate
         {
-            get
-            {
-                return _guiUpdate;
-            }
-            set
-            {
-                _guiUpdate = value;
-            }
+            get => _guiUpdate;
+            set { _guiUpdate = value; OnPropertyChanged(); }
         }
 
         private bool _useFooterInfoText = true;
         public bool UseFooterInfoText
         {
-            get
-            {
-                return _useFooterInfoText;
-            }
-            set
-            {
-                _useFooterInfoText = value;
-            }
+            get =>_useFooterInfoText;
+            set { _useFooterInfoText = value; OnPropertyChanged(); }
         }
 
         private bool _saveWindowMode = true;
         public bool SaveWindowMode
         {
-            get { return _saveWindowMode; }
-            set { _saveWindowMode = value; }
+            get => _saveWindowMode;
+            set { _saveWindowMode = value; OnPropertyChanged(); }
         }
 
         //Player Settings
-        private string[] _playerAlbumArtSearchPathes = Player.Tags.AlbumArtFolders;
+        private string[] _playerAlbumArtSearchPathes = Tags.AlbumArtFolders;
         public string[] PlayerAlbumArtSearchPathes
         {
-            get
-            {
-                return _playerAlbumArtSearchPathes;
-            }
-            set
-            {
-                _playerAlbumArtSearchPathes = value;
-            }
+            get => _playerAlbumArtSearchPathes;
+            set { _playerAlbumArtSearchPathes = value; OnPropertyChanged(); }
         }
 
         private bool _playerUseSearchLocalAlbumArt = Player.Tags.UseLocalAlbumArts;
         public bool PlayerUseSearchLocalAlbumArt
         {
-            get
-            {
-                return _playerUseSearchLocalAlbumArt;
-            }
-            set
-            {
-                _playerUseSearchLocalAlbumArt = value;
-            }
+            get => _playerUseSearchLocalAlbumArt;
+            set { _playerUseSearchLocalAlbumArt = value; OnPropertyChanged(); }
         }
 
         private bool _playerMiniControlShow = false;
         public bool PlayerMiniControlShow
         {
-            get
-            {
-                return _playerMiniControlShow;
-            }
+            get => _playerMiniControlShow;
             set
             {
                 if (_playerMiniControlShow != value)
                 {
                     _playerMiniControlShow = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -185,67 +148,37 @@ namespace Symphony.Util
         private bool _playerMiniControlTopmost = true;
         public bool PlayerMiniControlTopmost
         {
-            get
-            {
-                return _playerMiniControlTopmost;
-            }
-            set
-            {
-                _playerMiniControlTopmost = value;
-            }
+            get => _playerMiniControlTopmost;
+            set { _playerMiniControlTopmost = value; OnPropertyChanged(); }
         }
 
         private bool _playerMiniControlSavePosition = true;
         public bool PlayerMiniControlSavePosition
         {
-            get
-            {
-                return _playerMiniControlSavePosition;
-            }
-            set
-            {
-                _playerMiniControlSavePosition = value;
-            }
+            get => _playerMiniControlSavePosition;
+            set { _playerMiniControlSavePosition = value; OnPropertyChanged(); }
         }
 
         private double _playerMiniControlTop = -1;
         public double PlayerMiniControlTop
         {
-            get
-            {
-                return _playerMiniControlTop;
-            }
-            set
-            {
-                _playerMiniControlTop = value;
-            }
+            get => _playerMiniControlTop;
+            set { _playerMiniControlTop = value; OnPropertyChanged(); }
         }
 
         private double _playerMiniControlLeft = -1;
         public double PlayerMiniControlLeft
         {
-            get
-            {
-                return _playerMiniControlLeft;
-            }
-            set
-            {
-                _playerMiniControlLeft = value;
-            }
+            get => _playerMiniControlLeft;
+            set { _playerMiniControlLeft = value; OnPropertyChanged(); }
         }
 
         //Audio Settings
-        private int _audioDesiredLantency = Player.PlayerCore.DefaultDesiredLatency;
+        private int _audioDesiredLantency = PlayerCore.DefaultDesiredLatency;
         public int AudioDesiredLantency
         {
-            get
-            {
-                return _audioDesiredLantency;
-            }
-            set
-            {
-                _audioDesiredLantency = value;
-            }
+            get => _audioDesiredLantency;
+            set { _audioDesiredLantency = value; OnPropertyChanged(); }
         }
 
         private double _audioVolume = 100;
@@ -254,53 +187,29 @@ namespace Symphony.Util
         /// </summary>
         public double AudioVolume
         {
-            get
-            {
-                return _audioVolume;
-            }
-            set
-            {
-                _audioVolume = value;
-            }
+            get => _audioVolume;
+            set { _audioVolume = value; OnPropertyChanged(); }
         }
 
         private bool _audioUseDspProcessing = true;
         public bool AudioUseDspProcessing
         {
-            get
-            {
-                return _audioUseDspProcessing;
-            }
-            set
-            {
-                _audioUseDspProcessing = value;
-            }
+            get => _audioUseDspProcessing;
+            set { _audioUseDspProcessing = value; OnPropertyChanged(); }
         }
 
         private bool _audioUseDspLimit = true;
         public bool AudioUseDspLimit
         {
-            get
-            {
-                return _audioUseDspLimit;
-            }
-            set
-            {
-                _audioUseDspLimit = value;
-            }
+            get => _audioUseDspLimit;
+            set { _audioUseDspLimit = value; OnPropertyChanged(); }
         }
 
         private int _audioDspLimitSampleRate = 96000;
         public int AudioDspLimitSampleRate
         {
-            get
-            {
-                return _audioDspLimitSampleRate;
-            }
-            set
-            {
-                _audioDspLimitSampleRate = value;
-            }
+            get => _audioDspLimitSampleRate;
+            set { _audioDspLimitSampleRate = value; OnPropertyChanged(); }
         }
 
         //Theme Color Settings
@@ -308,20 +217,18 @@ namespace Symphony.Util
         public string CurrentTheme
         {
             get { return _currentTheme; }
-            set { _currentTheme = value; }
+            set { _currentTheme = value; OnPropertyChanged(); }
         }
 
         //Singer Settings
         private HorizontalAlignment _singerHorizontalAlignment = HorizontalAlignment.Center;
         public HorizontalAlignment SingerHorizontalAlignment
         {
-            get
-            {
-                return _singerHorizontalAlignment;
-            }
+            get => _singerHorizontalAlignment;
             set
             {
                 _singerHorizontalAlignment = value;
+                OnPropertyChanged();
             }
         }
 
@@ -335,8 +242,7 @@ namespace Symphony.Util
             set
             {
                 _singerVerticalAlignment = value;
-
-                
+                OnPropertyChanged();
             }
         }
 
@@ -349,8 +255,8 @@ namespace Symphony.Util
             }
             set
             {
-
                 _singerDefaultFadeInMode = value;
+                OnPropertyChanged();
             }
         }
 
@@ -364,6 +270,7 @@ namespace Symphony.Util
             set
             {
                 _singerDefaultFadeOutMode = value;
+                OnPropertyChanged();
             }
         }
 
@@ -380,6 +287,7 @@ namespace Symphony.Util
             set
             {
                 _singerResetPosition = value;
+                OnPropertyChanged();
             }
         }
 
@@ -393,6 +301,7 @@ namespace Symphony.Util
             set
             {
                 _singerCanDragmove = value;
+                OnPropertyChanged();
             }
         }
 
@@ -403,6 +312,7 @@ namespace Symphony.Util
             set
             {
                 _singerZoom = value;
+                OnPropertyChanged();
             }
         }
 
@@ -416,6 +326,7 @@ namespace Symphony.Util
             set
             {
                 _singerShow = value;
+                OnPropertyChanged();
             }
         }
 
@@ -429,6 +340,7 @@ namespace Symphony.Util
             set
             {
                 _singerOpacity = value;
+                OnPropertyChanged();
             }
         }
 
@@ -444,6 +356,7 @@ namespace Symphony.Util
                 if (_singerWindowMode != value)
                 {
                     _singerWindowMode = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -459,6 +372,7 @@ namespace Symphony.Util
             set
             {
                 _composerTopmost = value;
+                OnPropertyChanged();
             }
         }
 
@@ -472,6 +386,7 @@ namespace Symphony.Util
             set
             {
                 _composerWindowMode = value;
+                OnPropertyChanged();
             }
         }
 
@@ -485,6 +400,7 @@ namespace Symphony.Util
             set
             {
                 _composerUse = value;
+                OnPropertyChanged();
             }
         }
 
@@ -495,6 +411,7 @@ namespace Symphony.Util
             set
             {
                 _composerOpacity = value;
+                OnPropertyChanged();
             }
         }
 
@@ -510,6 +427,7 @@ namespace Symphony.Util
             set
             {
                 _osiloHeight = value;
+                OnPropertyChanged();
             }
         }
 
@@ -523,6 +441,7 @@ namespace Symphony.Util
             set
             {
                 _osiloView = value;
+                OnPropertyChanged();
             }
         }
 
@@ -536,6 +455,7 @@ namespace Symphony.Util
             set
             {
                 _osiloStrength = value;
+                OnPropertyChanged();
             }
         }
 
@@ -549,6 +469,7 @@ namespace Symphony.Util
             set
             {
                 _osiloWidth = value;
+                OnPropertyChanged();
             }
         }
 
@@ -562,6 +483,7 @@ namespace Symphony.Util
             set
             {
                 _osiloDash = value;
+                OnPropertyChanged();
             }
         }
 
@@ -575,6 +497,7 @@ namespace Symphony.Util
             set
             {
                 _osiloTop = value;
+                OnPropertyChanged();
             }
         }
 
@@ -585,6 +508,7 @@ namespace Symphony.Util
             set
             {
                 _osiloOpacity = value;
+                OnPropertyChanged();
             }
         }
 
@@ -598,6 +522,7 @@ namespace Symphony.Util
             set
             {
                 _osiloUseInvert = value;
+                OnPropertyChanged();
             }
         }
 
@@ -611,6 +536,7 @@ namespace Symphony.Util
             set
             {
                 _osiloRenderType = value;
+                OnPropertyChanged();
             }
         }
 
@@ -624,6 +550,7 @@ namespace Symphony.Util
             set
             {
                 _osiloGridShow = value;
+                OnPropertyChanged();
             }
         }
 
@@ -637,6 +564,7 @@ namespace Symphony.Util
             set
             {
                 _osiloGridTextHoritontalAlignment = value;
+                OnPropertyChanged();
             }
         }
 
@@ -649,6 +577,7 @@ namespace Symphony.Util
             set
             {
                 _vuOpacity = value;
+                OnPropertyChanged();
             }
         }
 
@@ -662,6 +591,7 @@ namespace Symphony.Util
             set
             {
                 _vuSenstive = value;
+                OnPropertyChanged();
             }
         }
 
@@ -674,6 +604,7 @@ namespace Symphony.Util
             set
             {
                 _specOpacity = value;
+                OnPropertyChanged();
             }
         }
 
@@ -687,6 +618,7 @@ namespace Symphony.Util
             set
             {
                 _specMinFreq = value;
+                OnPropertyChanged();
             }
         }
 
@@ -700,6 +632,7 @@ namespace Symphony.Util
             set
             {
                 _specMaxFreq = value;
+                OnPropertyChanged();
             }
         }
 
@@ -713,6 +646,7 @@ namespace Symphony.Util
             set
             {
                 _specScalingMode = value;
+                OnPropertyChanged();
             }
         }
 
@@ -726,6 +660,7 @@ namespace Symphony.Util
             set
             {
                 _specDash = value;
+                OnPropertyChanged();
             }
         }
 
@@ -739,6 +674,7 @@ namespace Symphony.Util
             set
             {
                 _specWidth = value;
+                OnPropertyChanged();
             }
         }
 
@@ -752,6 +688,7 @@ namespace Symphony.Util
             set
             {
                 _specHeight = value;
+                OnPropertyChanged();
             }
         }
 
@@ -765,6 +702,7 @@ namespace Symphony.Util
             set
             {
                 _specTop = value;
+                OnPropertyChanged();
             }
         }
 
@@ -778,6 +716,7 @@ namespace Symphony.Util
             set
             {
                 _specUseResampler = value;
+                OnPropertyChanged();
             }
         }
 
@@ -791,6 +730,7 @@ namespace Symphony.Util
             set
             {
                 _specResamplingMode = value;
+                OnPropertyChanged();
             }
         }
 
@@ -804,6 +744,7 @@ namespace Symphony.Util
             set
             {
                 _specInvert = value;
+                OnPropertyChanged();
             }
         }
 
@@ -817,6 +758,7 @@ namespace Symphony.Util
             set
             {
                 _specUseLogScale = value;
+                OnPropertyChanged();
             }
         }
 
@@ -830,6 +772,7 @@ namespace Symphony.Util
             set
             {
                 _specRenderType = value;
+                OnPropertyChanged();
             }
         }
 
@@ -843,6 +786,7 @@ namespace Symphony.Util
             set
             {
                 _specStrength = value;
+                OnPropertyChanged();
             }
         }
 
@@ -856,6 +800,7 @@ namespace Symphony.Util
             set
             {
                 _specGridShow = value;
+                OnPropertyChanged();
             }
         }
 
@@ -869,6 +814,7 @@ namespace Symphony.Util
             set
             {
                 _specGridTextHorizontalAlignment = value;
+                OnPropertyChanged();
             }
         }
 

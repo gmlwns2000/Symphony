@@ -76,7 +76,7 @@ namespace Symphony.UI
                     resizeTimer.Interval = TimeSpan.FromMilliseconds(10);
                     resizeTimer.Tick += delegate
                     {
-                        
+
 
                         resizeTimer.Stop();
                     };
@@ -123,13 +123,13 @@ namespace Symphony.UI
             if (!inited)
                 return;
 
-            presenter.Clear(new Color4(0,0,0,0));
+            presenter.Clear(new Color4(0, 0, 0, 0));
 
             presenter.BeginDraw();
 
             float[] buffer = GetFrameBuffer();
 
-            foreach(IVisualizer v in Visualizers)
+            foreach (IVisualizer v in Visualizers)
             {
                 v.Render(presenter, this, buffer);
             }
@@ -184,7 +184,7 @@ namespace Symphony.UI
         {
             if (inited)
             {
-                framems = mw.GUIUpdate;
+                framems = mw.Setting.GUIUpdate;
                 if (presenter != null)
                     presenter.TargetFPS = 1000 / framems;
             }
