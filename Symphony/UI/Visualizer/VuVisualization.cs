@@ -11,6 +11,7 @@ using Symphony.Player.DSP;
 using DirectCanvas;
 using DirectBrush = DirectCanvas.Brushes.Brush;
 using Converter = DirectCanvas.Misc.Converter;
+using System.Xml;
 
 namespace Symphony.UI
 {
@@ -299,6 +300,16 @@ namespace Symphony.UI
         }
 
         public override void SetOn(bool on)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteXml(XmlWriter writer)
         {
             throw new NotImplementedException();
         }

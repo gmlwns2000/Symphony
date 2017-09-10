@@ -166,7 +166,7 @@ namespace Symphony.UI.Settings
             {
                 try
                 {
-                    DSPChainSaver.Save(sfd.FileName, np.DSPs);
+                    VisualizerChainSaver.Save(sfd.FileName, np.DSPs);
                 }
                 catch ( Exception ex)
                 {

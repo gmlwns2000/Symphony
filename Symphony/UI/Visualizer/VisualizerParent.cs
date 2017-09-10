@@ -14,13 +14,15 @@ namespace Symphony.UI
 {
     public class VisualizerParent : FrameworkElement
     {
-        public Util.Settings Settings = Util.Settings.Current;
+        // List of loaded visualizers
         public List<IVisualizer> Visualizers = new List<IVisualizer>();
+
+        public Util.Settings Settings = Util.Settings.Current;
         public bool inited = false;
         public int framems;
         public bool AllowRender { get; set; }
         public bool UseMotionBlur = false;
-
+        
         public VisualizerParent()
         {
             canvas = new VisualCollection(this);

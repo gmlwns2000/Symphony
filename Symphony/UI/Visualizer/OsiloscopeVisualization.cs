@@ -10,6 +10,8 @@ using Symphony.Player.DSP;
 using DirectBrush = DirectCanvas.Brushes.Brush;
 using DirectPen = DirectCanvas.Brushes.Pen;
 using DirectCanvas.Shapes;
+using System.Xml;
+using Symphony.Util;
 
 namespace Symphony.UI
 {
@@ -31,10 +33,9 @@ namespace Symphony.UI
         public BarRenderTypes RenderType { get; set; } = BarRenderTypes.Rectangle;
 
         public bool RenderGrid { get; set; } = true;
-
         public bool UseInvert { get; set; } = false;
 
-        public double _view = 50;
+        private double _view = 50;
         public double View
         {
             get
@@ -182,6 +183,50 @@ namespace Symphony.UI
                 _top = value;
             }
         }
+
+        #region XML Serialization
+
+        private const string XMLRootNode = "Oscilloscope";
+
+        public override void WriteXml(XmlWriter writer)
+        {
+            writer.WriteStartElement(XMLRootNode);
+
+            writer.WriteAttributeString("GridTextHorizontalAlignement", Enum.GetName(typeof(HorizontalAlignment), GridTextHorizontalAlignment));
+            writer.WriteAttributeString("RenderType", Enum.GetName(typeof(BarRenderTypes), RenderType));
+
+            XmlHelper.WriteBoolAttribute(writer, "RenderGrid", RenderGrid);
+            XmlHelper.WriteBoolAttribute(writer, "UseInvert", UseInvert);
+
+            writer.WriteAttributeString("View",         View.ToString());
+            writer.WriteAttributeString("Strength",     Strength.ToString());
+            writer.WriteAttributeString("Height",       Height.ToString());
+            writer.WriteAttributeString("Opacity",      Opacity.ToString());
+            writer.WriteAttributeString("Width",        Width.ToString());
+            writer.WriteAttributeString("Dash",         Dash.ToString());
+            writer.WriteAttributeString("View",         View.ToString());
+            writer.WriteAttributeString("Top",          Top.ToString());
+        }
+
+        public override void ReadXml(XmlReader reader)
+        {
+            reader.MoveToContent();
+
+            try
+            {
+                GridTextHorizontalAlignment = (HorizontalAlignment)Enum.Parse(typeof(HorizontalAlignment), reader.GetAttribute("GridTextHorizontalAlignement"));
+                RenderType                  = (BarRenderTypes)Enum.Parse(typeof(BarRenderTypes), reader.GetAttribute("RenderType"));
+
+
+            }
+            catch (Exception)
+            {
+            }
+
+        }
+
+
+        #endregion
 
         Queue<float> q = new Queue<float>();
         int q_max = 0;

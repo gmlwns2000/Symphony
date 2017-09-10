@@ -7,6 +7,7 @@ using System.Windows.Media;
 using Symphony.Player;
 using System.Windows;
 using Symphony.Player.DSP;
+using System.Xml;
 
 namespace Symphony.UI
 {
@@ -110,6 +111,16 @@ namespace Symphony.UI
         public override void SetOn(bool on)
         {
             On = on;
+        }
+
+        public override void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteXml(XmlWriter writer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

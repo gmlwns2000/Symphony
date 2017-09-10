@@ -450,6 +450,7 @@
       <DependentUpon>SettingVisualizerVU.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Visualizer\MultiThreadVisualizerParent.cs" />
+    <Compile Include="UI\Visualizer\VisualizerChainSerializer.cs" />
     <Compile Include="UI\Visualizer\VuVisualization.cs" />
     <Compile Include="Util\Decibels.cs" />
     <Compile Include="Util\IO.cs" />
