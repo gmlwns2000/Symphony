@@ -16,7 +16,7 @@ namespace Symphony.UI
     {
         public Util.Settings Settings = Util.Settings.Current;
         public List<IVisualizer> Visualizers = new List<IVisualizer>();
-        public int framems;
+        public double FrameMs;
         public bool AllowRender { get; set; }
         public bool UseMotionBlur = false;
 
@@ -52,11 +52,11 @@ namespace Symphony.UI
             inited = true;
         }
 
-        public void InitSample(int lentacy, int framems, DSPMaster master)
+        public void InitSample(int lentacy, double framems, DSPMaster master)
         {
             sampleRate = master.SampleRate;
             this.lentacy = lentacy;
-            framems = Settings.GUIUpdate;
+            FrameMs = framems;
             channel = master.Channel;
 
             // sampleRate * channel * 3 frame
@@ -117,9 +117,9 @@ namespace Symphony.UI
             return buf;
         }
 
-        public void Update()
+        public virtual void Update()
         {
-            framems = Settings.GUIUpdate;
+            FrameMs = mw.Setting.GUIUpdate;
             if (inited)
             {
                 DrawingVisual visual = new DrawingVisual();

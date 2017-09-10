@@ -10,7 +10,7 @@
         x:Class="Symphony.MainWindow"
         mc:Ignorable="d"
         Title="Symphony Beta 3.1.15" Height="678" Width="1120" UseLayoutRounding="True" AllowDrop="True" AllowsTransparency="False" StateChanged="Load_StateChanged" PreviewMouseLeftButtonDown="Load_PreviewMouseLeftButtonDown"  Background="Black" MinWidth="1090" MinHeight="440" RenderOptions.EdgeMode="Aliased" RenderOptions.CachingHint="Cache" ResizeMode="CanResize" ShowInTaskbar="True" WindowStyle="SingleBorderWindow"
-        KeyboardNavigation.DirectionalNavigation="Once" SizeChanged="Window_SizeChanged" MaxWidth="2000" MaxHeight="2000" Icon="Images/sym_icon_256.ico" Closed="window_Closed" PreviewMouseLeftButtonUp="Load_PreviewMouseLeftButtonUp" PreviewKeyDown="Load_PreviewKeyDown" >
+        KeyboardNavigation.DirectionalNavigation="Once" SizeChanged="Window_SizeChanged" MaxWidth="20000" MaxHeight="20000" Icon="Images/sym_icon_256.ico" Closed="window_Closed" PreviewMouseLeftButtonUp="Load_PreviewMouseLeftButtonUp" PreviewKeyDown="Load_PreviewKeyDown" >
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="0" UseAeroCaptionButtons="False" CornerRadius="0" GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
@@ -153,7 +153,7 @@
 
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="Load">
                     <LinearDoubleKeyFrame KeyTime="0:0:0.1" Value="{Binding MaxHeight, ElementName=Load, Mode=OneWay}"/>
-                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="2000"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="20000"/>
                 </DoubleAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.MinHeight)" Storyboard.TargetName="Load">
                     <LinearDoubleKeyFrame KeyTime="0:0:0.1" Value="{Binding MinHeight, ElementName=Load, Mode=OneWay}"/>
@@ -203,7 +203,7 @@
 
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="Load">
                     <LinearDoubleKeyFrame KeyTime="0:0:0.0" Value="{Binding MaxHeight, ElementName=Load, Mode=OneWay}"/>
-                    <LinearDoubleKeyFrame KeyTime="0:0:0.1" Value="2000"/>
+                    <LinearDoubleKeyFrame KeyTime="0:0:0.1" Value="20000"/>
                 </DoubleAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.MinHeight)" Storyboard.TargetName="Load">
                     <LinearDoubleKeyFrame KeyTime="0:0:0.1" Value="{Binding MinHeight, ElementName=Load, Mode=OneWay}"/>
@@ -363,7 +363,7 @@
                     <BitmapCache/>
                 </Rectangle.CacheMode>
             </Rectangle>
-            <Image Height="92" VerticalAlignment="Bottom" MinWidth="2000" IsHitTestVisible="False">
+            <Image Height="92" VerticalAlignment="Bottom" MinWidth="20000" IsHitTestVisible="False">
                 <Image.Source>
                     <BitmapImage UriSource="Images/sym3_background_bot.png" PresentationOptions:Freeze="true" CacheOption="OnLoad"/>
                 </Image.Source>
@@ -371,7 +371,7 @@
                     <BitmapCache/>
                 </Image.CacheMode>
             </Image>
-            <Image Height="86" VerticalAlignment="Top" MinWidth="2000" IsHitTestVisible="False">
+            <Image Height="86" VerticalAlignment="Top" MinWidth="20000" IsHitTestVisible="False">
                 <Image.Source>
                     <BitmapImage UriSource="Images/sym3_background_top.png" PresentationOptions:Freeze="true" CacheOption="OnLoad"/>
                 </Image.Source>

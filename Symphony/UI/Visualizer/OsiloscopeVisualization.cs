@@ -100,8 +100,6 @@ namespace Symphony.UI
                         _fillBrush = _fillBrush.Clone();
                     }
 
-                    _fillBrush.Opacity = Opacity;
-
                     if (_fillBrush.CanFreeze)
                     {
                         _fillBrush.Freeze();
@@ -131,7 +129,6 @@ namespace Symphony.UI
                     }
                     else
                     {
-                        FillBrush.Opacity = value;
                         FillBrush.Freeze();
                     }
 
@@ -252,7 +249,7 @@ namespace Symphony.UI
             GridProvider.InitRender(Presenter);
         }
 
-        public override void Init(DSPMaster master, int lentacy, int framems)
+        public override void Init(DSPMaster master, int lentacy, double framems)
         {
             sampleRate = master.SampleRate;
 
@@ -493,6 +490,7 @@ namespace Symphony.UI
                     }
 
                     directBrush = DirectCanvas.Misc.Converter.ToBrush(Presenter.Factory, _fillBrush);
+                    directBrush.Opacity = (float)(_fillBrush.Opacity * Opacity);
 
                     if (directPen != null)
                     {

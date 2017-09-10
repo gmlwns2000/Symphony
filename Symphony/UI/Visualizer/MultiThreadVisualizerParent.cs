@@ -180,13 +180,13 @@ namespace Symphony.UI
             return source;
         }
 
-        public new void Update()
+        public override void Update()
         {
             if (inited)
             {
-                framems = mw.Setting.GUIUpdate;
+                FrameMs = mw.Setting.GUIUpdate;
                 if (presenter != null)
-                    presenter.TargetFPS = 1000 / framems;
+                    presenter.TargetFPS = 1000 / FrameMs;
             }
         }
     }

@@ -152,7 +152,7 @@ namespace Symphony.UI
             }
         }
 
-        public override void Init(DSPMaster master, int lentacy, int framems)
+        public override void Init(DSPMaster master, int lentacy, double framems)
         {
             sampleRate = master.SampleRate;
 

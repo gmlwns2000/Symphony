@@ -555,7 +555,7 @@ namespace Symphony
         private void Bt_Title_Exit_Click(object sender, RoutedEventArgs e)
         {
             np.Stop();
-            this.Close();
+            Close();
         }
 
         private void Bt_Title_Max_Click(object sender, RoutedEventArgs e)
@@ -2027,25 +2027,33 @@ namespace Symphony
             if (np != null)
             {
                 np.Dispose();
+                np = null;
             }
+
             if (systemCounter != null)
             {
                 systemCounter.Dispose();
+                systemCounter = null;
             }
         }
 
         private void window_Closed(object sender, EventArgs e)
         {
             StopPipe();
-
+            
             np.Stop();
             np.Dispose();
+
+            if(miniControlWindow != null)
+            {
+                miniControlWindow.Close();
+                miniControlWindow = null;
+            }
             
             if (dlrenderer != null)
             {
                 dlrenderer.Close();
                 dlrenderer = null;
-                MemoryManagement.FlushMemory();
             }
 
             if (singer != null)
@@ -2070,17 +2078,6 @@ namespace Symphony
 
             Environment.Exit(0);
         }
-
-        private void XmlWriteValue(XmlWriter writer, string Name, string Value)
-        {
-            writer.WriteStartElement(Name);
-
-            writer.WriteAttributeString("Value", Value);
-
-            writer.WriteEndElement();
-        }
-
-        private int SavingMaxRetry = 5;
 
         public void SaveSettings()
         {
@@ -2160,8 +2157,6 @@ namespace Symphony
 
             StartPipe();
         }
-        
-        private int LoadingMaxRetry = 5;
 
         private void LoadSettings()
         {
@@ -2171,10 +2166,10 @@ namespace Symphony
             if(!di_setting.Exists)
                 di_setting.Create();
 
-            FileInfo fi_visual = new FileInfo(Settings.SettingsSaveFilePath);
+            FileInfo fi_visual = new FileInfo(Settings.SettingsFilePath);
             LoadSetting(fi_visual, 0);
 
-            FileInfo fi_dsp = new FileInfo(Settings.DspChainSaveFilePath);
+            FileInfo fi_dsp = new FileInfo(Settings.DspChainFilePath);
             if (fi_dsp.Exists)
             {
                 try
@@ -2244,40 +2239,11 @@ namespace Symphony
             settingListener.SettingChanged += OnSettingChanged;
             settingListener.SettingPropertyChanged += OnSettingPropertyChanged;
             UpdateSetting(Setting);
-            return;
 
-            WindowMode wmread = WindowMode.Big;
-
-            using (XmlReader reader = XmlReader.Create(fi.FullName))
+            if(WindowMode != WindowMode.Big && Setting.SaveWindowMode)
             {
-                while (reader.Read())
-                {
-                    switch (reader.NodeType)
-                    {
-                        case XmlNodeType.Element:
-                            switch (reader.Name)
-                            {
-                                case "Player.LanguageFileName":
-                                    LanguageHelper.LanguageFileName = reader.GetAttribute("Value");
-                                    break;
-                            }
-                            break;
-                    }
-                }
-                    
-                reader.Close();
-            }
-
-            //End of Reading.
-            if(WindowMode != wmread && Setting.SaveWindowMode)
-            {
-                WindowMode = wmread;
                 switch (WindowMode)
                 {
-                    case WindowMode.Big:
-                        MidOff.Begin();
-                        //MidOff.SkipToFill();
-                        break;
                     case WindowMode.Mid:
                         MidOn.Begin();
                         //MidOn.SkipToFill();

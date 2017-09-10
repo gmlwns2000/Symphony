@@ -11,12 +11,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Xml.Serialization;
 
 namespace Symphony.Util
 {
     public abstract class BaseSettingListener
     {
-        protected Settings _settings = Settings.Current;
+        protected Settings _settings;
         public virtual Settings Settings
         {
             get => _settings;
@@ -28,17 +29,23 @@ namespace Symphony.Util
                 }
 
                 _settings = value;
-                _settings.PropertyChanged += Settings_PropertyChanged;
+                if(_settings != null)
+                {
+                    _settings.PropertyChanged += Settings_PropertyChanged;
+                }
 
                 OnSettingChanged(_settings);
             }
         }
 
-        public BaseSettingListener()
+        public BaseSettingListener() : this (Settings.Current)
         {
-            _settings.PropertyChanged += Settings_PropertyChanged;
 
-            OnSettingChanged(_settings);
+        }
+
+        public BaseSettingListener(Settings settings)
+        {
+            Settings = settings;
         }
 
         private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -50,10 +57,20 @@ namespace Symphony.Util
         public abstract void OnSettingPropertyChanged(PropertyChangedEventArgs e);
     }
 
-    public class SettingListener : BaseSettingListener
+    public class SettingListener : BaseSettingListener, IDisposable
     {
         public event EventHandler<Settings> SettingChanged;
         public event EventHandler<PropertyChangedEventArgs> SettingPropertyChanged;
+
+        public SettingListener() : base()
+        {
+
+        }
+
+        public SettingListener(Settings settings) : base(settings)
+        {
+
+        }
 
         public override void OnSettingChanged(Settings e)
         {
@@ -64,25 +81,58 @@ namespace Symphony.Util
         {
             SettingPropertyChanged?.Invoke(this, e);
         }
+
+        public void Dispose()
+        {
+            if(Settings != null)
+            {
+                Settings = null;
+            }
+        }
     }
 
     public class Settings : INotifyPropertyChanged
     {
         public static string SettingsLibrary => Path.Combine(Environment.CurrentDirectory, "Settings");
-        public static string SettingsSaveFilePath => Path.Combine(SettingsLibrary, "Settings.xml");
-        public static string DspChainSaveFilePath => Path.Combine(SettingsLibrary, "Effects.DSPs");
+        public static string SettingsFilePath => Path.Combine(SettingsLibrary, "Settings.xml");
+        public static string DspChainFilePath => Path.Combine(SettingsLibrary, "Effects.DSPs");
 
         public static Settings Current { get; private set; }
 
         public static void Load()
         {
-            //TODO : Impl load
-            Current = new Settings();
+            string path = SettingsFilePath;
+            if (File.Exists(path))
+            {
+                try
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(Settings));
+                    using (StreamReader rdr = new StreamReader(path))
+                    {
+                        var decoded = (Settings)xmlSerializer.Deserialize(rdr);
+                        Current = decoded;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("ERRORED WHILE READING SETTING");
+                    Logger.Error(ex);
+                    Current = new Settings();
+                }
+            }
+            else
+            {
+                Current = new Settings();
+            }
         }
 
         public static void Save()
         {
-            //TODO: Impl save
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Settings));
+            using (StreamWriter wr = new StreamWriter(SettingsFilePath))
+            {
+                xmlSerializer.Serialize(wr, Current);
+            }
         }
 
         #region Properties
@@ -95,8 +145,8 @@ namespace Symphony.Util
             set { _useImageAnimation = value; OnPropertyChanged(); }
         }
 
-        private int _guiUpdate = 66;
-        public int GUIUpdate
+        private double _guiUpdate = 66;
+        public double GUIUpdate
         {
             get => _guiUpdate;
             set { _guiUpdate = value; OnPropertyChanged(); }
@@ -124,7 +174,7 @@ namespace Symphony.Util
             set { _playerAlbumArtSearchPathes = value; OnPropertyChanged(); }
         }
 
-        private bool _playerUseSearchLocalAlbumArt = Player.Tags.UseLocalAlbumArts;
+        private bool _playerUseSearchLocalAlbumArt = Tags.UseLocalAlbumArts;
         public bool PlayerUseSearchLocalAlbumArt
         {
             get => _playerUseSearchLocalAlbumArt;
@@ -225,53 +275,29 @@ namespace Symphony.Util
         public HorizontalAlignment SingerHorizontalAlignment
         {
             get => _singerHorizontalAlignment;
-            set
-            {
-                _singerHorizontalAlignment = value;
-                OnPropertyChanged();
-            }
+            set { _singerHorizontalAlignment = value; OnPropertyChanged(); }
         }
 
         private VerticalAlignment _singerVerticalAlignment = VerticalAlignment.Bottom;
         public VerticalAlignment SingerVerticalAlignment
         {
-            get
-            {
-                return _singerVerticalAlignment;
-            }
+            get => _singerVerticalAlignment; 
             set
-            {
-                _singerVerticalAlignment = value;
-                OnPropertyChanged();
-            }
+            { _singerVerticalAlignment = value; OnPropertyChanged(); }
         }
 
         private FadeInMode _singerDefaultFadeInMode = FadeInMode.FadeIn;
         public FadeInMode SingerDefaultFadeInMode
         {
-            get
-            {
-                return _singerDefaultFadeInMode;
-            }
-            set
-            {
-                _singerDefaultFadeInMode = value;
-                OnPropertyChanged();
-            }
+            get => _singerDefaultFadeInMode;
+            set { _singerDefaultFadeInMode = value; OnPropertyChanged(); }
         }
 
         private FadeOutMode _singerDefaultFadeOutMode = FadeOutMode.FadeOut;
         public FadeOutMode SingerDefaultFadeOutMode
         {
-            get
-            {
-                return _singerDefaultFadeOutMode;
-            }
-            set
-            {
-                _singerDefaultFadeOutMode = value;
-                OnPropertyChanged();
-            }
+            get => _singerDefaultFadeOutMode;
+            set { _singerDefaultFadeOutMode = value; OnPropertyChanged(); }
         }
 
         public double SingerTop { get; set; } = double.NegativeInfinity;
@@ -280,77 +306,42 @@ namespace Symphony.Util
         private bool _singerResetPosition = true;
         public bool SingerResetPosition
         {
-            get
-            {
-                return _singerResetPosition;
-            }
-            set
-            {
-                _singerResetPosition = value;
-                OnPropertyChanged();
-            }
+            get => _singerResetPosition;
+            set { _singerResetPosition = value; OnPropertyChanged(); }
         }
 
         private bool _singerCanDragmove = false;
         public bool SingerCanDragmove
         {
-            get
-            {
-                return _singerCanDragmove;
-            }
-            set
-            {
-                _singerCanDragmove = value;
-                OnPropertyChanged();
-            }
+            get => _singerCanDragmove;
+            set { _singerCanDragmove = value; OnPropertyChanged(); }
         }
 
         private double _singerZoom = 1;
         public double SingerZoom
         {
-            get { return _singerZoom; }
-            set
-            {
-                _singerZoom = value;
-                OnPropertyChanged();
-            }
+            get => _singerZoom; 
+            set { _singerZoom = value; OnPropertyChanged(); }
         }
 
         private bool _singerShow = true;
         public bool SingerShow
         {
-            get
-            {
-                return _singerShow;
-            }
-            set
-            {
-                _singerShow = value;
-                OnPropertyChanged();
-            }
+            get => _singerShow;
+            set { _singerShow = value; OnPropertyChanged(); }
         }
 
         private double _singerOpacity = 1;
         public double SingerOpacity
         {
-            get
-            {
-                return _singerOpacity;
-            }
-            set
-            {
-                _singerOpacity = value;
-                OnPropertyChanged();
-            }
+            get => _singerOpacity;
+            set { _singerOpacity = value; OnPropertyChanged(); }
         }
 
         private bool _singerWindowMode = true;
         public bool SingerWindowMode
         {
-            get
-            {
-                return _singerWindowMode;
-            }
+            get => _singerWindowMode;
             set
             {
                 if (_singerWindowMode != value)
@@ -365,43 +356,22 @@ namespace Symphony.Util
         private bool _composerTopmost = false;
         public bool ComposerTopmost
         {
-            get
-            {
-                return _composerTopmost;
-            }
-            set
-            {
-                _composerTopmost = value;
-                OnPropertyChanged();
-            }
+            get => _composerTopmost;
+            set { _composerTopmost = value; OnPropertyChanged(); }
         }
 
         private bool _composerWindowMode = false;
         public bool ComposerWindowMode
         {
-            get
-            {
-                return _composerWindowMode;
-            }
-            set
-            {
-                _composerWindowMode = value;
-                OnPropertyChanged();
-            }
+            get => _composerWindowMode;
+            set { _composerWindowMode = value; OnPropertyChanged(); }
         }
 
         private bool _composerUse = true;
         public bool ComposerUse
         {
-            get
-            {
-                return _composerUse;
-            }
-            set
-            {
-                _composerUse = value;
-                OnPropertyChanged();
-            }
+            get => _composerUse; 
+            set { _composerUse = value; OnPropertyChanged(); }
         }
 
         private double _composerOpacity = 1;
@@ -420,15 +390,8 @@ namespace Symphony.Util
         private double _osiloHeight = 0.317;
         public double OsiloHeight
         {
-            get
-            {
-                return _osiloHeight;
-            }
-            set
-            {
-                _osiloHeight = value;
-                OnPropertyChanged();
-            }
+            get => _osiloHeight;
+            set { _osiloHeight = value; OnPropertyChanged(); }
         }
 
         private float _osiloView = 50;
@@ -793,29 +756,15 @@ namespace Symphony.Util
         private bool _specGridShow = false;
         public bool SpecGridShow
         {
-            get
-            {
-                return _specGridShow;
-            }
-            set
-            {
-                _specGridShow = value;
-                OnPropertyChanged();
-            }
+            get => _specGridShow; 
+            set { _specGridShow = value; OnPropertyChanged(); }
         }
 
         private HorizontalAlignment _specGridTextHorizontalAlignment = HorizontalAlignment.Right;
         public HorizontalAlignment SpecGridTextHorizontalAlignment
         {
-            get
-            {
-                return _specGridTextHorizontalAlignment;
-            }
-            set
-            {
-                _specGridTextHorizontalAlignment = value;
-                OnPropertyChanged();
-            }
+            get => _specGridTextHorizontalAlignment;
+            set { _specGridTextHorizontalAlignment = value; OnPropertyChanged(); }
         }
 
         #endregion Properties

@@ -47,7 +47,7 @@ namespace Symphony.UI
             brush = Presenter.Factory.CreateSolidColorBrush(new DirectCanvas.Color4(255, 0, 0, 0));
         }
 
-        public override void Init(DSPMaster master, int lentacy, int framems)
+        public override void Init(DSPMaster master, int lentacy, double framems)
         {
             sampleRate = master.SampleRate;
             q_max = (int)(sampleRate * ((double)viewerSize / 1000));

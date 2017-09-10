@@ -18,7 +18,7 @@ namespace Symphony.UI
         public DirectCanvas.Presenter Presenter { get; set; }
 
 
-        public abstract void Init(Player.DSP.DSPMaster master, int lentacy, int framems);
+        public abstract void Init(Player.DSP.DSPMaster master, int lentacy, double framems);
 
         public abstract void Render(DirectCanvas.DrawingLayer dc, VisualizerParent vp, float[] frameBuffer);
         public abstract void SetOn(bool on);

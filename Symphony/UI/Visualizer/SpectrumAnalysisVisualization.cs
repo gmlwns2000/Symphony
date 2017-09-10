@@ -190,7 +190,7 @@ namespace Symphony.UI
             GridProvider.InitRender(Presenter);
         }
 
-        public override void Init(DSPMaster master, int lentacy, int framems)
+        public override void Init(DSPMaster master, int lentacy, double framems)
         {
             SpectrumAnalysis = new SpectrumAnalysis();
 

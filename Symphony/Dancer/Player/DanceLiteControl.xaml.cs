@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Symphony.Util;
 
 namespace Symphony.Dancer
 {
@@ -25,10 +26,13 @@ namespace Symphony.Dancer
     /// </summary>
     public partial class DanceLiteControl : UserControl, IDisposable
     {
+        SettingListener settingListener;
+        Thread Loader;
         MainWindow mw;
         PlayerCore np;
         PlotLite pl;
 
+        bool preState = true;
         bool _ar = false;
         bool allowRender
         {
@@ -44,7 +48,6 @@ namespace Symphony.Dancer
             }
         }
 
-        Thread Loader;
         public PMXModelWithPhysics model;
         public IMotionProvider motion;
 
@@ -59,7 +62,10 @@ namespace Symphony.Dancer
             mw.UpdateAllowChanged += Mw_UpdateAllowChanged;
             mw.MovingStateChanged += Mw_MovingStateChanged;
 
-            RenderControl.FPS = 1000 / mw.Setting.GUIUpdate;
+            settingListener = new SettingListener(mw.Setting);
+            settingListener.SettingPropertyChanged += SettingListener_SettingPropertyChanged;
+
+            RenderControl.FPS = (int)(1000 / settingListener.Settings.GUIUpdate);
             RenderControl.AllowRenderingChanged += RenderControl_AllowRenderingChanged;
             allowRender = false;
 
@@ -72,7 +78,14 @@ namespace Symphony.Dancer
             np.PlaySeeked += Np_PlaySeeked;
         }
 
-        bool preState = false;
+        private void SettingListener_SettingPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == nameof(Settings.GUIUpdate))
+            {
+                RenderControl.FPS = (int)(1000 / settingListener.Settings.GUIUpdate);
+            }
+        }
+
         private void RenderControl_AllowRenderingChanged(object sender, EventArgs e)
         {
             if (mw != null)
@@ -170,16 +183,26 @@ namespace Symphony.Dancer
 
         public void Dispose()
         {
-            mw.UpdateAllowChanged -= Mw_UpdateAllowChanged;
-            mw.MovingStateChanged -= Mw_MovingStateChanged;
+            if (np != null)
+            {
+                mw.UpdateAllowChanged -= Mw_UpdateAllowChanged;
+                mw.MovingStateChanged -= Mw_MovingStateChanged;
+                mw = null;
+            }
 
-            mw = null;
+            if (np != null)
+            {
+                np.PlayPaused -= Np_PlayPaused;
+                np.PlayResumed -= Np_PlayResumed;
+                np.PlaySeeked -= Np_PlaySeeked;
+                np = null;
+            }
 
-            np.PlayPaused -= Np_PlayPaused;
-            np.PlayResumed -= Np_PlayResumed;
-            np.PlaySeeked -= Np_PlaySeeked;
-
-            np = null;
+            if(settingListener != null)
+            {
+                settingListener.Dispose();
+                settingListener = null;
+            }
 
             pl = null;
 
@@ -210,20 +233,15 @@ namespace Symphony.Dancer
             if (model != null)
             {
                 RenderControl.WorldSpace.RemoveResource(model);
-
                 model.BufferManager.Dispose();
-
                 model.Dispose();
-
                 model = null;
             }
 
             if (RenderControl != null)
             {
                 RenderControl.WorldSpace.Dispose();
-
                 RenderControl.Dispose();
-
                 RenderControl = null;
             }
 
