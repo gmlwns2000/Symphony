@@ -108,7 +108,7 @@ namespace Symphony.Dancer
             w.WindowStyle = WindowStyle.ToolWindow;
             w.ShowInTaskbar = false;
             w.Show();
-            
+
             w.Hide();
 
             UpdatePlay();
@@ -179,7 +179,7 @@ namespace Symphony.Dancer
 
         private void DragMoveTimer_Tick(object sender, EventArgs e)
         {
-            if(Mouse.LeftButton == MouseButtonState.Released)
+            if (Mouse.LeftButton == MouseButtonState.Released)
             {
                 DragMoveTimer.Stop();
                 //TODO: RENDER RESTART
@@ -195,7 +195,7 @@ namespace Symphony.Dancer
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Point pt = e.GetPosition(Grid_Background);
-            if(pt.X < 0 || pt.X > Grid_Background.ActualWidth ||
+            if (pt.X < 0 || pt.X > Grid_Background.ActualWidth ||
                pt.Y < 0 || pt.Y > Grid_Background.ActualHeight)
             {
                 wr.resizeWindow();
@@ -216,7 +216,7 @@ namespace Symphony.Dancer
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if(np != null && np.isPlay)
+            if (np != null && np.isPlay)
             {
                 Bar_Position.Maximum = np.GetLength(TimeUnit.MilliSecond);
                 Bar_Position.Value = np.GetPosition(TimeUnit.MilliSecond);
@@ -256,7 +256,7 @@ namespace Symphony.Dancer
 
         private void Bt_PreSkip_Click(object sender, RoutedEventArgs e)
         {
-            np.SetPosition((int)Clamp(composer.Renderer.position-3000,0,np.GetLength(TimeUnit.MilliSecond)));
+            np.SetPosition((int)Clamp(composer.Renderer.position - 3000, 0, np.GetLength(TimeUnit.MilliSecond)));
         }
 
         private void Bt_Play_Click(object sender, RoutedEventArgs e)
@@ -287,7 +287,7 @@ namespace Symphony.Dancer
 
         private void UpdatePlay()
         {
-            if(np != null && np.isPlay)
+            if (np != null && np.isPlay)
             {
                 if (np.isPaused)
                 {
@@ -303,7 +303,7 @@ namespace Symphony.Dancer
         }
 
         #endregion Player Control
-        
+
         private void Window_StateChanged(object sender, EventArgs e)
         {
             if (this.WindowState != WindowState.Minimized)
@@ -377,13 +377,13 @@ namespace Symphony.Dancer
 
             UpdateList();
 
-            if(inst != null)
+            if (inst != null)
                 composer.Renderer.AddInstance(inst);
         }
 
         private void Bt_Del_Click(object sender, RoutedEventArgs e)
         {
-            while(Lst_Data.SelectedItems != null && Lst_Data.SelectedItems.Count > 0)
+            while (Lst_Data.SelectedItems != null && Lst_Data.SelectedItems.Count > 0)
             {
                 composer.Renderer.RemoveInstance(Plot.Instances[Lst_Data.SelectedIndex]);
                 Plot.Instances.RemoveAt(Lst_Data.SelectedIndex);

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Symphony.DancerLite
+namespace Symphony.Dancer
 {
     public static class PlSaver
     {

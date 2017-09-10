@@ -18,7 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace Symphony.DancerLite
+namespace Symphony.Dancer
 {
     /// <summary>
     /// DanceLiteControl.xaml에 대한 상호 작용 논리

@@ -123,23 +123,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DancerLite\Player\CameraControl.cs" />
-    <Compile Include="DancerLite\Player\DanceLiteControl.xaml.cs">
+    <Compile Include="Dancer\DanceMain.xaml.cs">
+      <DependentUpon>DanceMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dancer\Player\CameraControl.cs" />
+    <Compile Include="Dancer\Player\DanceLiteControl.xaml.cs">
       <DependentUpon>DanceLiteControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DancerLite\DanceLiteEditor.xaml.cs">
+    <Compile Include="Dancer\DanceLiteEditor.xaml.cs">
       <DependentUpon>DanceLiteEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DancerLite\Player\DanceLiteRenderer.cs" />
-    <Compile Include="DancerLite\Player\DanceLiteWindow.xaml.cs">
+    <Compile Include="Dancer\Player\DanceLiteRenderer.cs" />
+    <Compile Include="Dancer\Player\DanceLiteWindow.xaml.cs">
       <DependentUpon>DanceLiteWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DancerLite\IO\PlHelper.cs" />
-    <Compile Include="DancerLite\IO\PlLoader.cs" />
-    <Compile Include="DancerLite\IO\PlLoaderV1.cs" />
-    <Compile Include="DancerLite\IO\PlotLite.cs" />
-    <Compile Include="DancerLite\IO\PlSaver.cs" />
-    <Compile Include="DancerLite\IO\PlSearch.cs" />
+    <Compile Include="Dancer\IO\PlHelper.cs" />
+    <Compile Include="Dancer\IO\PlLoader.cs" />
+    <Compile Include="Dancer\IO\PlLoaderV1.cs" />
+    <Compile Include="Dancer\IO\PlotLite.cs" />
+    <Compile Include="Dancer\IO\PlSaver.cs" />
+    <Compile Include="Dancer\IO\PlSearch.cs" />
     <Compile Include="Dancer\Composer\CamaraMover.cs" />
     <Compile Include="Dancer\Composer\ComposerRender.xaml.cs">
       <DependentUpon>ComposerRender.xaml</DependentUpon>
@@ -341,9 +344,6 @@
     </Compile>
     <Compile Include="UI\Util\Hsv2Rgb.cs" />
     <Compile Include="Dancer\Popup\SpriteEditor\RoundConverter.cs" />
-    <Compile Include="Dancer\DanceMain.xaml.cs">
-      <DependentUpon>DanceMain.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dancer\Composer\Composer.cs" />
     <Compile Include="Dancer\Plot\Instance.cs" />
     <Compile Include="Dancer\Plot\PlotHelper.cs" />
@@ -557,15 +557,19 @@
     <Compile Include="Util\StringChipher.cs" />
     <Compile Include="Util\TextTool.cs" />
     <Compile Include="Util\XmlHelper.cs" />
-    <Page Include="DancerLite\Player\DanceLiteControl.xaml">
+    <Page Include="Dancer\DanceMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DancerLite\DanceLiteEditor.xaml">
+    <Page Include="Dancer\Player\DanceLiteControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DancerLite\Player\DanceLiteWindow.xaml">
+    <Page Include="Dancer\DanceLiteEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dancer\Player\DanceLiteWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -618,10 +622,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Control\ColorEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dancer\DanceMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

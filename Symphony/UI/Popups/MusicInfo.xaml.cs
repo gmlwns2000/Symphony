@@ -19,7 +19,6 @@ using Symphony.Dancer;
 using Symphony.Lyrics;
 using Symphony.Server;
 using Microsoft.Win32;
-using Symphony.DancerLite;
 using Symphony.Util;
 
 namespace Symphony.UI

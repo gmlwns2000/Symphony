@@ -22,7 +22,6 @@ using Symphony.Lyrics;
 using Symphony.Server;
 using Symphony.UI;
 using Symphony.Util;
-using Symphony.DancerLite;
 using Symphony.Player;
 using Symphony.Player.DSP;
 using Symphony.Player.DSP.CSCore;

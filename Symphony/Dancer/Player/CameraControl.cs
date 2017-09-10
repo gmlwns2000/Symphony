@@ -4,7 +4,7 @@ using SlimDX;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Symphony.DancerLite
+namespace Symphony.Dancer
 {
     class CameraControl : ICameraMotionProvider
     {

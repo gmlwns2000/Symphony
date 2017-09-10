@@ -7,7 +7,7 @@ using Symphony.Dancer;
 using Symphony.Server;
 using System.IO;
 
-namespace Symphony.DancerLite
+namespace Symphony.Dancer
 {
     public static class PlSearch
     {

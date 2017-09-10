@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Symphony.Player;
 using System.Windows.Media;
 
-namespace Symphony.DancerLite
+namespace Symphony.Dancer
 {
     public class DanceLiteRenderer : IDisposable
     {
