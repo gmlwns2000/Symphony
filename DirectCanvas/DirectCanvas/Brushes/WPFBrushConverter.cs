@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using wpf = System.Windows.Media;
 
 namespace DirectCanvas.Brushes
@@ -85,7 +90,32 @@ namespace DirectCanvas.Brushes
 
         public static Brush ConvertFromImageBrush(DirectCanvasFactory factory, wpf.ImageBrush brush)
         {
-            return null;
+            throw new NotImplementedException("This code was not tested. Disable this exception to use it.");
+
+            Stream bmpStream = StreamFromBitmapSource((BitmapSource)brush.ImageSource);
+            var brushImg = new Imaging.Image(bmpStream, factory);
+
+            bmpStream.Dispose();
+
+            var layer = factory.CreateDrawingLayerFromImage(brushImg);
+            brushImg.Dispose();
+
+            var retBrush = factory.CreateDrawingLayerBrush(layer);
+            layer.Dispose();
+
+            return retBrush;
         }
+
+        private static Stream StreamFromBitmapSource(BitmapSource bitmapSrc)
+        {
+            Stream bmpStream = new MemoryStream();
+
+            BitmapEncoder encoder = new BmpBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmapSrc));
+            encoder.Save(bmpStream);
+
+            return bmpStream;
+        }
+
     }
 }

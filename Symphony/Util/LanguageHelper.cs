@@ -1,6 +1,7 @@
 ﻿using Symphony.UI;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -75,6 +76,12 @@ namespace Symphony.Util
 
     public static class LanguageHelper
     {
+        public static CultureInfo DefaultOSLanguage = CultureInfo.CurrentCulture;
+
+        public static string DefaultLanguagePath = DefaultOSLanguage.EnglishName == "English"
+            ? "English.xaml"
+            : "Korean.xaml";
+
         public static event EventHandler LangaugeChanged;
 
         public static string LanguageTitle = "";

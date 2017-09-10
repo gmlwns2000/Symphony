@@ -191,7 +191,7 @@ namespace Symphony.UI
                                 throw new NotImplementedException();
                         }
 
-                        //dc.DrawText(text, text_pt);
+                        dc.DrawText(directBrush, text.Text, (float)text_pt.X, (float)text_pt.Y, (uint)rt.Width, "NanumGothic Light");
                     }
                 }
             }

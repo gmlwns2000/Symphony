@@ -439,13 +439,13 @@
     <Compile Include="UI\Settings\Sound\SettingStereoEnhancer.xaml.cs">
       <DependentUpon>SettingStereoEnhancer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Settings\Visualzier\SettingVisualizerOsilo.xaml.cs">
+    <Compile Include="UI\Settings\Visualizer\SettingVisualizerOsilo.xaml.cs">
       <DependentUpon>SettingVisualizerOsilo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Settings\Visualzier\SettingVisualizerSpec.xaml.cs">
+    <Compile Include="UI\Settings\Visualizer\SettingVisualizerSpec.xaml.cs">
       <DependentUpon>SettingVisualizerSpec.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Settings\Visualzier\SettingVisualizerVU.xaml.cs">
+    <Compile Include="UI\Settings\Visualizer\SettingVisualizerVU.xaml.cs">
       <DependentUpon>SettingVisualizerVU.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Visualizer\MultiThreadVisualizerParent.cs" />
@@ -530,7 +530,7 @@
     <Compile Include="UI\Settings\VisualGeneral\SettingVisualGeneral.xaml.cs">
       <DependentUpon>SettingVisualGeneral.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Settings\Visualzier\SettingVisualizer.xaml.cs">
+    <Compile Include="UI\Settings\Visualizer\SettingVisualizer.xaml.cs">
       <DependentUpon>SettingVisualizer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Util\ThemeHelper.cs" />
@@ -891,19 +891,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Settings\Visualzier\SettingVisualizer.xaml">
+    <Page Include="UI\Settings\Visualizer\SettingVisualizer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Settings\Visualzier\SettingVisualizerOsilo.xaml">
+    <Page Include="UI\Settings\Visualizer\SettingVisualizerOsilo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Settings\Visualzier\SettingVisualizerSpec.xaml">
+    <Page Include="UI\Settings\Visualizer\SettingVisualizerSpec.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Settings\Visualzier\SettingVisualizerVU.xaml">
+    <Page Include="UI\Settings\Visualizer\SettingVisualizerVU.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
