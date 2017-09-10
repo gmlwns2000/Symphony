@@ -1,10 +1,16 @@
-﻿using System;
+﻿using Symphony.Lyrics;
+using Symphony.Player;
+using Symphony.Player.DSP.CSCore;
+using Symphony.UI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Symphony.Util
 {
@@ -62,8 +68,15 @@ namespace Symphony.Util
 
     public class Settings : INotifyPropertyChanged
     {
+        /* TODO: Add more settings
+        case "Waveform.Zoom":
+        case "Visualizer.Use":
+        case "Osilo.Use"
+        case "VU.Use": */
+
         public static string SettingsLibrary => Path.Combine(Environment.CurrentDirectory, "NewSettings");
-        public static string SettingsSavePath => Path.Combine(SettingsLibrary, "Settings.xml");
+        public static string SettingsSaveFilePath => Path.Combine(SettingsLibrary, "Settings.xml");
+        public static string DspChainSaveFilePath => Path.Combine(SettingsLibrary, "Effects.DSPs");
 
         public static Settings Current { get; private set; }
 
@@ -116,14 +129,6 @@ namespace Symphony.Util
             set
             {
                 _useFooterInfoText = value;
-                if (_useFooterInfoText)
-                {
-                    Lb_Footer_Info.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    Lb_Footer_Info.Visibility = Visibility.Hidden;
-                }
             }
         }
 
@@ -135,27 +140,29 @@ namespace Symphony.Util
         }
 
         //Player Settings
+        private string[] _playerAlbumArtSearchPathes = Player.Tags.AlbumArtFolders;
         public string[] PlayerAlbumArtSearchPathes
         {
             get
             {
-                return Tags.AlbumArtFolders;
+                return _playerAlbumArtSearchPathes;
             }
             set
             {
-                Tags.AlbumArtFolders = value;
+                _playerAlbumArtSearchPathes = value;
             }
         }
 
+        private bool _playerUseSearchLocalAlbumArt = Player.Tags.UseLocalAlbumArts;
         public bool PlayerUseSearchLocalAlbumArt
         {
             get
             {
-                return Tags.UseLocalAlbumArts;
+                return _playerUseSearchLocalAlbumArt;
             }
             set
             {
-                Tags.UseLocalAlbumArts = value;
+                _playerUseSearchLocalAlbumArt = value;
             }
         }
 
@@ -171,15 +178,6 @@ namespace Symphony.Util
                 if (_playerMiniControlShow != value)
                 {
                     _playerMiniControlShow = value;
-
-                    if (value)
-                    {
-                        OpenMiniControl();
-                    }
-                    else
-                    {
-                        CloseMiniControl();
-                    }
                 }
             }
         }
@@ -194,13 +192,6 @@ namespace Symphony.Util
             set
             {
                 _playerMiniControlTopmost = value;
-
-                if (miniControlWindow != null)
-                {
-                    miniControlWindow.Topmost = value;
-
-                    miniControlWindow.Update();
-                }
             }
         }
 
@@ -217,8 +208,6 @@ namespace Symphony.Util
             }
         }
 
-        private bool _playerMiniControlSetPosition = false;
-
         private double _playerMiniControlTop = -1;
         public double PlayerMiniControlTop
         {
@@ -229,11 +218,6 @@ namespace Symphony.Util
             set
             {
                 _playerMiniControlTop = value;
-
-                if (_playerMiniControlSetPosition && miniControlWindow != null)
-                {
-                    miniControlWindow.Top = value;
-                }
             }
         }
 
@@ -247,27 +231,24 @@ namespace Symphony.Util
             set
             {
                 _playerMiniControlLeft = value;
-
-                if (_playerMiniControlSetPosition && miniControlWindow != null)
-                {
-                    miniControlWindow.Left = value;
-                }
             }
         }
 
         //Audio Settings
+        private int _audioDesiredLantency = Player.PlayerCore.DefaultDesiredLatency;
         public int AudioDesiredLantency
         {
             get
             {
-                return np.DesiredLatency;
+                return _audioDesiredLantency;
             }
             set
             {
-                np.DesiredLatency = value;
+                _audioDesiredLantency = value;
             }
         }
 
+        private double _audioVolume = 100;
         /// <summary>
         /// Volume: 0.0 ~ 100.0
         /// </summary>
@@ -275,81 +256,54 @@ namespace Symphony.Util
         {
             get
             {
-                return Sld_Footer_Volume.Value;
+                return _audioVolume;
             }
             set
             {
-                Sld_Footer_Volume_ValueChanged(this, new RoutedPropertyChangedEventArgs<double>(AudioVolume, value));
-
-                Sld_Footer_Volume.Value = value;
+                _audioVolume = value;
             }
         }
 
+        private bool _audioUseDspProcessing = true;
         public bool AudioUseDspProcessing
         {
             get
             {
-                return np.UseDspProcessing;
+                return _audioUseDspProcessing;
             }
             set
             {
-                np.UseDspProcessing = value;
+                _audioUseDspProcessing = value;
             }
         }
 
+        private bool _audioUseDspLimit = true;
         public bool AudioUseDspLimit
         {
             get
             {
-                return np.DspUseSampleRateLimit;
+                return _audioUseDspLimit;
             }
             set
             {
-                np.DspUseSampleRateLimit = value;
+                _audioUseDspLimit = value;
             }
         }
 
+        private int _audioDspLimitSampleRate = 96000;
         public int AudioDspLimitSampleRate
         {
             get
             {
-                return np.DspSampleRateLimit;
+                return _audioDspLimitSampleRate;
             }
             set
             {
-                np.DspSampleRateLimit = value;
+                _audioDspLimitSampleRate = value;
             }
         }
 
         //Theme Color Settings
-        private Color _waveformForeground = Color.FromRgb(76, 215, 255);
-        public Color WaveformForeground
-        {
-            get
-            {
-                return _waveformForeground;
-            }
-            set
-            {
-                _waveformForeground = value;
-                Sld_Big_Position.ForegroundColor = _waveformForeground;
-            }
-        }
-
-        private Color _waveformHighlight = Color.FromRgb(255, 255, 255);
-        public Color WaveformHighlight
-        {
-            get
-            {
-                return _waveformHighlight;
-            }
-            set
-            {
-                _waveformHighlight = value;
-                Sld_Big_Position.HighlightColor = _waveformHighlight;
-            }
-        }
-
         private string _currentTheme = "Default Theme";
         public string CurrentTheme
         {
@@ -368,11 +322,6 @@ namespace Symphony.Util
             set
             {
                 _singerHorizontalAlignment = value;
-
-                if (singer != null)
-                {
-                    singer.HorizontalAlignment = _singerHorizontalAlignment;
-                }
             }
         }
 
@@ -387,10 +336,7 @@ namespace Symphony.Util
             {
                 _singerVerticalAlignment = value;
 
-                if (singer != null)
-                {
-                    singer.VerticalAlignment = _singerVerticalAlignment;
-                }
+                
             }
         }
 
@@ -404,7 +350,6 @@ namespace Symphony.Util
             set
             {
 
-                LyricLineRenderer.DefaultFadeIn = value;
                 _singerDefaultFadeInMode = value;
             }
         }
@@ -418,13 +363,12 @@ namespace Symphony.Util
             }
             set
             {
-                LyricLineRenderer.DefaultFadeOut = value;
                 _singerDefaultFadeOutMode = value;
             }
         }
 
-        private double SingerTop = double.NegativeInfinity;
-        private double SingerLeft = double.NegativeInfinity;
+        public double SingerTop { get; set; } = double.NegativeInfinity;
+        public double SingerLeft { get; set; } = double.NegativeInfinity;
 
         private bool _singerResetPosition = true;
         public bool SingerResetPosition
@@ -436,18 +380,6 @@ namespace Symphony.Util
             set
             {
                 _singerResetPosition = value;
-
-                if (singer != null)
-                {
-                    if (SingerCanDragmove || !SingerResetPosition)
-                    {
-                        singer.ResetPosition = false;
-                    }
-                    else
-                    {
-                        singer.ResetPosition = true;
-                    }
-                }
             }
         }
 
@@ -461,23 +393,6 @@ namespace Symphony.Util
             set
             {
                 _singerCanDragmove = value;
-
-                if (singer != null && Lyric != null)
-                {
-                    SingerTop = singer.Top;
-                    SingerLeft = singer.Left;
-
-                    singer.Dispose();
-                    singer = null;
-
-                    bool resetpos = _singerResetPosition;
-
-                    _singerResetPosition = false;
-                    CreateSinger(Lyric);
-                    _singerResetPosition = resetpos;
-
-                    singer.Refresh();
-                }
             }
         }
 
@@ -488,11 +403,6 @@ namespace Symphony.Util
             set
             {
                 _singerZoom = value;
-                if (singer != null)
-                {
-                    singer.Zoom = _singerZoom;
-                    singer.Refresh();
-                }
             }
         }
 
@@ -505,12 +415,6 @@ namespace Symphony.Util
             }
             set
             {
-                if (!value && singer != null)
-                {
-                    singer.Dispose();
-                    singer = null;
-                }
-
                 _singerShow = value;
             }
         }
@@ -524,10 +428,6 @@ namespace Symphony.Util
             }
             set
             {
-                if (singer != null)
-                {
-                    singer.Opacity = value;
-                }
                 _singerOpacity = value;
             }
         }
@@ -544,16 +444,6 @@ namespace Symphony.Util
                 if (_singerWindowMode != value)
                 {
                     _singerWindowMode = value;
-
-                    if (singer != null && Lyric != null)
-                    {
-                        singer.Dispose();
-                        singer = null;
-
-                        CreateSinger(Lyric);
-
-                        singer.Refresh();
-                    }
                 }
             }
         }
@@ -568,10 +458,6 @@ namespace Symphony.Util
             }
             set
             {
-                if (dlrenderer != null)
-                {
-                    dlrenderer.Topmost = value;
-                }
                 _composerTopmost = value;
             }
         }
@@ -586,11 +472,6 @@ namespace Symphony.Util
             set
             {
                 _composerWindowMode = value;
-
-                if (dlrenderer != null)
-                {
-                    dlrenderer.WindowMode = value;
-                }
             }
         }
 
@@ -604,15 +485,6 @@ namespace Symphony.Util
             set
             {
                 _composerUse = value;
-                if (!value)
-                {
-                    if (dlrenderer != null)
-                    {
-                        dlrenderer.Close();
-                        dlrenderer = null;
-                        Util.MemoryManagement.FlushMemory();
-                    }
-                }
             }
         }
 
@@ -623,32 +495,10 @@ namespace Symphony.Util
             set
             {
                 _composerOpacity = value;
-                if (dlrenderer != null)
-                {
-                    dlrenderer.Opacity = value;
-                }
             }
         }
 
         //Osiloscope
-
-        private Brush _osilo_fill;
-        public Brush OsiloFill
-        {
-            get
-            {
-                return _osilo_fill;
-            }
-            set
-            {
-                _osilo_fill = value;
-
-                if (osVisualizer != null)
-                {
-                    osVisualizer.FillBrush = _osilo_fill;
-                }
-            }
-        }
 
         private double _osiloHeight = 0.317;
         public double OsiloHeight
@@ -660,10 +510,6 @@ namespace Symphony.Util
             set
             {
                 _osiloHeight = value;
-                if (osVisualizer != null)
-                {
-                    osVisualizer.Height = value;
-                }
             }
         }
 
@@ -677,10 +523,6 @@ namespace Symphony.Util
             set
             {
                 _osiloView = value;
-                if (osVisualizer != null)
-                {
-                    osVisualizer.View = value;
-                }
             }
         }
 
@@ -694,10 +536,6 @@ namespace Symphony.Util
             set
             {
                 _osiloStrength = value;
-                if (osVisualizer != null)
-                {
-                    osVisualizer.Strength = value;
-                }
             }
         }
 
@@ -711,10 +549,6 @@ namespace Symphony.Util
             set
             {
                 _osiloWidth = value;
-                if (osVisualizer != null)
-                {
-                    osVisualizer.Width = value;
-                }
             }
         }
 
@@ -728,10 +562,6 @@ namespace Symphony.Util
             set
             {
                 _osiloDash = value;
-                if (osVisualizer != null)
-                {
-                    osVisualizer.Dash = value;
-                }
             }
         }
 
@@ -745,10 +575,6 @@ namespace Symphony.Util
             set
             {
                 _osiloTop = value;
-                if (osVisualizer != null)
-                {
-                    osVisualizer.Top = value;
-                }
             }
         }
 
@@ -759,11 +585,6 @@ namespace Symphony.Util
             set
             {
                 _osiloOpacity = value;
-
-                if (osVisualizer != null)
-                {
-                    osVisualizer.Opacity = value;
-                }
             }
         }
 
@@ -777,10 +598,6 @@ namespace Symphony.Util
             set
             {
                 _osiloUseInvert = value;
-                if (osVisualizer != null)
-                {
-                    osVisualizer.UseInvert = value;
-                }
             }
         }
 
@@ -794,11 +611,6 @@ namespace Symphony.Util
             set
             {
                 _osiloRenderType = value;
-
-                if (osVisualizer != null)
-                {
-                    osVisualizer.RenderType = value;
-                }
             }
         }
 
@@ -812,11 +624,6 @@ namespace Symphony.Util
             set
             {
                 _osiloGridShow = value;
-
-                if (osVisualizer != null)
-                {
-                    osVisualizer.RenderGrid = value;
-                }
             }
         }
 
@@ -830,66 +637,23 @@ namespace Symphony.Util
             set
             {
                 _osiloGridTextHoritontalAlignment = value;
-
-                if (osVisualizer != null)
-                {
-                    osVisualizer.GridTextHorizontalAlignment = value;
-                }
             }
         }
 
         //VU meter
-        private Brush _brushVUDark;
-        public Brush Brush_VU_Dark
-        {
-            get
-            {
-                return _brushVUDark;
-            }
-            set
-            {
-                _brushVUDark = value;
-                if (vuVisualizer != null)
-                {
-                    vuVisualizer.DarkBrush = _brushVUDark;
-                }
-            }
-        }
-
-        private Brush _brushVUWhite;
-        public Brush Brush_VU_White
-        {
-            get
-            {
-                return _brushVUWhite;
-            }
-            set
-            {
-                _brushVUWhite = value;
-                if (vuVisualizer != null)
-                {
-                    vuVisualizer.WhiteBrush = _brushVUWhite;
-                }
-            }
-        }
 
         private double _vuOpacity = 1;
-        public double VU_Opacity
+        public double VUOpacity
         {
             get { return _vuOpacity; }
             set
             {
                 _vuOpacity = value;
-
-                if (vuVisualizer != null)
-                {
-                    vuVisualizer.Opacity = value * Grid_Mid.Opacity;
-                }
             }
         }
 
         private double _vuSenstive = 150;
-        public double VU_Senstive
+        public double VUSenstive
         {
             get
             {
@@ -898,184 +662,122 @@ namespace Symphony.Util
             set
             {
                 _vuSenstive = value;
-                if (vuVisualizer != null)
-                {
-                    vuVisualizer.Senstive = value;
-                }
             }
         }
 
         //Spectrum Analyser
-        private Brush _spec_fill;
-        public Brush SpecFill
-        {
-            get
-            {
-                return _spec_fill;
-            }
-            set
-            {
-                _spec_fill = value;
 
-                if (specVisualizer != null)
-                {
-                    specVisualizer.Brush = _spec_fill;
-                }
-            }
-        }
-
-        private double _spec_opacity = 0.528;
+        private double _specOpacity = 0.528;
         public double SpecOpacity
         {
-            get { return _spec_opacity; }
+            get { return _specOpacity; }
             set
             {
-                _spec_opacity = value;
-
-                if (specVisualizer != null)
-                {
-                    specVisualizer.Opacity = value;
-                }
+                _specOpacity = value;
             }
         }
 
-        private int _spec_MinFreq = 32;
+        private int _specMinFreq = 32;
         public int SpecMinFreq
         {
             get
             {
-                return _spec_MinFreq;
+                return _specMinFreq;
             }
             set
             {
-                _spec_MinFreq = value;
-
-                if (np != null && np.DSPMaster != null && specVisualizer.SpectrumAnalysis != null)
-                {
-                    specVisualizer.SpectrumAnalysis.MinimumFrequency = value;
-                }
+                _specMinFreq = value;
             }
         }
 
-        private int _spec_MaxFreq = 22050;
+        private int _specMaxFreq = 22050;
         public int SpecMaxFreq
         {
             get
             {
-                return _spec_MaxFreq;
+                return _specMaxFreq;
             }
             set
             {
-                _spec_MaxFreq = value;
-
-                if (np != null && np.DSPMaster != null && specVisualizer.SpectrumAnalysis != null)
-                {
-                    specVisualizer.SpectrumAnalysis.MaximumFrequency = value;
-                }
+                _specMaxFreq = value;
             }
         }
 
-        private ScalingStrategy _spec_ScalingMode = ScalingStrategy.Decibel;
-        public ScalingStrategy Spec_ScalingMode
+        private ScalingStrategy _specScalingMode = ScalingStrategy.Decibel;
+        public ScalingStrategy SpecScalingMode
         {
             get
             {
-                return _spec_ScalingMode;
+                return _specScalingMode;
             }
             set
             {
-                _spec_ScalingMode = value;
-
-                if (np != null && np.DSPMaster != null && specVisualizer.SpectrumAnalysis != null)
-                {
-                    specVisualizer.SpectrumAnalysis.ScalingStrategy = value;
-                }
+                _specScalingMode = value;
             }
         }
 
-        private double _spec_dash = 1;
-        public double Spec_Dash
+        private double _specDash = 1;
+        public double SpecDash
         {
             get
             {
-                return _spec_dash;
+                return _specDash;
             }
             set
             {
-                _spec_dash = value;
-
-                if (specVisualizer != null)
-                {
-                    specVisualizer.Dash = value;
-                }
+                _specDash = value;
             }
         }
 
-        private double _spec_width = 15;
-        public double Spec_Width
+        private double _specWidth = 15;
+        public double SpecWidth
         {
             get
             {
-                return _spec_width;
+                return _specWidth;
             }
             set
             {
-                _spec_width = value;
-
-                if (specVisualizer != null)
-                    specVisualizer.Width = value;
+                _specWidth = value;
             }
         }
 
-        private double _spec_height = -0.375;
+        private double _specHeight = -0.375;
         public double SpecHeight
         {
             get
             {
-                return _spec_height;
+                return _specHeight;
             }
             set
             {
-                _spec_height = value;
-
-                if (specVisualizer != null)
-                    specVisualizer.Height = value;
+                _specHeight = value;
             }
         }
 
-        private double _spec_top = 0.52;
+        private double _specTop = 0.52;
         public double SpecTop
         {
             get
             {
-                return _spec_top;
+                return _specTop;
             }
             set
             {
-                _spec_top = value;
-
-                if (specVisualizer != null)
-                {
-                    specVisualizer.Top = value;
-                }
+                _specTop = value;
             }
         }
 
-        private bool _spec_useResampler = false;
+        private bool _specUseResampler = false;
         public bool SpecUseResampler
         {
             get
             {
-                return _spec_useResampler;
+                return _specUseResampler;
             }
             set
             {
-                _spec_useResampler = value;
-
-                if (np != null && np.DSPMaster != null && specVisualizer.SpectrumAnalysis != null)
-                {
-                    specVisualizer.SpectrumAnalysis.UseResampling = value;
-                }
+                _specUseResampler = value;
             }
         }
 
@@ -1089,47 +791,32 @@ namespace Symphony.Util
             set
             {
                 _specResamplingMode = value;
-
-                if (specVisualizer.SpectrumAnalysis != null)
-                {
-                    specVisualizer.SpectrumAnalysis.ResamplingMode = value;
-                }
             }
         }
 
-        private bool _spec_invert = false;
+        private bool _specInvert = false;
         public bool SpecInvert
         {
             get
             {
-                return _spec_invert;
+                return _specInvert;
             }
             set
             {
-                _spec_invert = value;
-
-                if (specVisualizer != null)
-                {
-                    specVisualizer.UseInvert = value;
-                }
+                _specInvert = value;
             }
         }
 
-        private bool _spec_UseLogScale = true;
+        private bool _specUseLogScale = true;
         public bool SpecUseLogScale
         {
             get
             {
-                return _spec_UseLogScale;
+                return _specUseLogScale;
             }
             set
             {
-                _spec_UseLogScale = value;
-
-                if (np != null && np.DSPMaster != null && specVisualizer.SpectrumAnalysis != null)
-                {
-                    specVisualizer.SpectrumAnalysis.IsXLogScale = value;
-                }
+                _specUseLogScale = value;
             }
         }
 
@@ -1143,10 +830,6 @@ namespace Symphony.Util
             set
             {
                 _specRenderType = value;
-                if (specVisualizer != null)
-                {
-                    specVisualizer.RenderType = value;
-                }
             }
         }
 
@@ -1160,10 +843,6 @@ namespace Symphony.Util
             set
             {
                 _specStrength = value;
-                if (specVisualizer != null)
-                {
-                    specVisualizer.Strength = value;
-                }
             }
         }
 
@@ -1177,11 +856,6 @@ namespace Symphony.Util
             set
             {
                 _specGridShow = value;
-
-                if (specVisualizer != null)
-                {
-                    specVisualizer.RenderGrid = value;
-                }
             }
         }
 
@@ -1195,11 +869,6 @@ namespace Symphony.Util
             set
             {
                 _specGridTextHorizontalAlignment = value;
-
-                if (specVisualizer != null)
-                {
-                    specVisualizer.GridTextHorizontalAlignment = value;
-                }
             }
         }
 

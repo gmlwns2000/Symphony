@@ -342,6 +342,7 @@
     <Compile Include="UI\Settings\Skin\SkinValueEditor.xaml.cs">
       <DependentUpon>SkinValueEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Util\Converters.cs" />
     <Compile Include="UI\Util\Hsv2Rgb.cs" />
     <Compile Include="Dancer\Popup\SpriteEditor\RoundConverter.cs" />
     <Compile Include="Dancer\Composer\Composer.cs" />
@@ -972,6 +973,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Style\ToolTip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Util\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

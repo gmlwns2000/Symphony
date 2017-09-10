@@ -212,7 +212,7 @@ namespace Symphony.Player
             }
         }
 
-        public readonly int DefaultDesiredLatency = 100;
+        public const int DefaultDesiredLatency = 100;
         public int DesiredLatency = 100;
 
         public delegate void RuntimeError(string msg);

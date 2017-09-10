@@ -99,11 +99,12 @@ namespace Symphony.UI
 
         public static ResourceDictionary LoadTheme(DirectoryInfo di, MainWindow mw)
         {
+            Util.Settings settings = Util.Settings.Current;
             ResourceDictionary myResourceDictionary;
 
             if (!di.Exists || !File.Exists(Path.Combine(di.FullName, "skin.xaml")))
             {
-                myResourceDictionary = CreateTheme(mw.CurrentTheme);
+                myResourceDictionary = CreateTheme(settings.CurrentTheme);
             }
             else
             {
@@ -135,7 +136,7 @@ namespace Symphony.UI
                 {
                     Logger.Error("ThemeHelper", e);
 
-                    myResourceDictionary = CreateTheme(mw.CurrentTheme);
+                    myResourceDictionary = CreateTheme(settings.CurrentTheme);
                 }
             }
 
@@ -256,6 +257,8 @@ namespace Symphony.UI
 
         public string ThemeName { get; private set; }
 
+        public Util.Settings Settings { get; set; } = Util.Settings.Current;
+
         public event EventHandler Updated;
 
         MainWindow mw;
@@ -323,7 +326,7 @@ namespace Symphony.UI
 
         public void Update()
         {
-            mw.CurrentTheme = ThemeName;
+            Settings.CurrentTheme = ThemeName;
 
             Application.Current.Resources.MergedDictionaries[0] = Dictionary;
 
@@ -334,7 +337,7 @@ namespace Symphony.UI
 
         public void Save()
         {
-            mw.CurrentTheme = ThemeName;
+            Settings.CurrentTheme = ThemeName;
 
             SaveTheme(DirectoryInfo);
         }

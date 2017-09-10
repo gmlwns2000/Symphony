@@ -181,7 +181,8 @@ namespace Symphony
 
         public static string versionText = "Symphony Beta 3.1.16";
 
-        Settings setting => settingListener.Settings;
+        public Settings Setting => settingListener.Settings;
+
         SettingListener settingListener;
         ShadowWindow shadowWindow;
         PlayerCore np;
@@ -189,6 +190,109 @@ namespace Symphony
         bool StopUpdateWhenScrollPlaylist = true;
         bool isDebug;
         bool showFpsLogger = false;
+
+        private Color _waveformForeground = Color.FromRgb(76, 215, 255);
+        public Color WaveformForeground
+        {
+            get
+            {
+                return _waveformForeground;
+            }
+            set
+            {
+                _waveformForeground = value;
+                Sld_Big_Position.ForegroundColor = _waveformForeground;
+            }
+        }
+
+        private Color _waveformHighlight = Color.FromRgb(255, 255, 255);
+        public Color WaveformHighlight
+        {
+            get
+            {
+                return _waveformHighlight;
+            }
+            set
+            {
+                _waveformHighlight = value;
+                Sld_Big_Position.HighlightColor = _waveformHighlight;
+            }
+        }
+
+        private Brush _osilo_fill = new LinearGradientBrush(new GradientStopCollection()
+        {
+            new GradientStop((Color)ColorConverter.ConvertFromString("#AAFFFFFF"), 0),
+            new GradientStop((Color) ColorConverter.ConvertFromString("#FFFFFFFF"), 0.85),
+            new GradientStop((Color) ColorConverter.ConvertFromString("#55FFFFFF"), 0.85),
+            new GradientStop((Color) ColorConverter.ConvertFromString("#55FFFFFF"), 1),
+        }, new Point(0.5, 1), new Point(0.5, 0));
+        public Brush OsiloFill
+        {
+            get
+            {
+                return _osilo_fill;
+            }
+            set
+            {
+                _osilo_fill = value;
+                if (osVisualizer != null)
+                    osVisualizer.FillBrush = value;
+            }
+        }
+
+        private Brush _brushVUDark = new SolidColorBrush(Color.FromArgb(80, 100, 100, 100));
+        public Brush Brush_VU_Dark
+        {
+            get
+            {
+                return _brushVUDark;
+            }
+            set
+            {
+                _brushVUDark = value;
+                if (vuVisualizer != null)
+                    vuVisualizer.DarkBrush = value;
+            }
+        }
+
+        private Brush _brushVUWhite = new SolidColorBrush(Color.FromArgb(80, 160, 160, 160));
+        public Brush Brush_VU_White
+        {
+            get
+            {
+                return _brushVUWhite;
+            }
+            set
+            {
+                _brushVUWhite = value;
+                if (vuVisualizer != null)
+                    vuVisualizer.WhiteBrush = value;
+            }
+        }
+
+        private Brush _spec_fill = new LinearGradientBrush(new GradientStopCollection()
+        {
+            new GradientStop(Color.FromArgb(244, 255, 255, 255), 0),
+            new GradientStop(Color.FromArgb(244, 255, 255, 255), 0.72),
+            new GradientStop(Color.FromArgb(95, 255, 255, 255), 0.72),
+            new GradientStop(Color.FromArgb(95, 255, 255, 255), 0.90),
+            new GradientStop(Color.FromArgb(30, 255, 255, 255), 0.90),
+            new GradientStop(Color.FromArgb(30, 255, 255, 255), 0.98),
+            new GradientStop(Color.FromArgb(0, 255, 255, 255), 1.0),
+        }, new Point(0.5, 0), new Point(0.5, 1));
+        public Brush SpecFill
+        {
+            get
+            {
+                return _spec_fill;
+            }
+            set
+            {
+                _spec_fill = value;
+                if (specVisualizer != null)
+                    specVisualizer.Brush = value;
+            }
+        }
 
         public MainWindow(SplashWindow splash)
         {
@@ -295,9 +399,6 @@ namespace Symphony
 
             systemCounter = new System.Timers.Timer(1000);
             systemCounter.Elapsed += SystemCounter_Elapsed;
-
-            Init_VU();
-            Init_Visualizer();
 
             VisualParent.Init(this);
 
@@ -648,7 +749,7 @@ namespace Symphony
 
         private void MovieUpdater_Tick(object sender, EventArgs e)
         {
-            VU_Opacity = VU_Opacity;
+            Setting.VUOpacity = Setting.VUOpacity;
         }
 
         private void MovieOn_Completed(object sender, EventArgs e)
@@ -657,7 +758,7 @@ namespace Symphony
             {
                 movieUpdater.Stop();
             }
-            VU_Opacity = VU_Opacity;
+            Setting.VUOpacity = Setting.VUOpacity;
         }
 
         private void MovieOff_Completed(object sender, EventArgs e)
@@ -666,7 +767,7 @@ namespace Symphony
             {
                 movieUpdater.Stop();
             }
-            VU_Opacity = VU_Opacity;
+            Setting.VUOpacity = Setting.VUOpacity;
         }
 
         #endregion
@@ -737,7 +838,7 @@ namespace Symphony
                     case Key.F9:
                         if (!e.IsRepeat)
                         {
-                            PlayerMiniControlShow = !PlayerMiniControlShow;
+                            Setting.PlayerMiniControlShow = !Setting.PlayerMiniControlShow;
                             e.Handled = true;
                         }
                         break;
@@ -1141,7 +1242,7 @@ namespace Symphony
         Thread UpdateMetaThread;
         private void Np_PlayStarted()
         {
-            VisualParent.InitSample(AudioDesiredLantency, GUIUpdate, np.DSPMaster);
+            VisualParent.InitSample(Setting.AudioDesiredLantency, Setting.GUIUpdate, np.DSPMaster);
 
             if (!isEditor)
             {
@@ -1151,12 +1252,13 @@ namespace Symphony
 
             if (specVisualizer.SpectrumAnalysis != null)
             {
-                specVisualizer.SpectrumAnalysis.MaximumFrequency = SpecMaxFreq;
-                specVisualizer.SpectrumAnalysis.MinimumFrequency = SpecMinFreq;
-                specVisualizer.SpectrumAnalysis.IsXLogScale = SpecUseLogScale;
-                specVisualizer.SpectrumAnalysis.UseResampling = SpecUseResampler;
-                specVisualizer.SpectrumAnalysis.ResamplingMode = SpecResampleMode;
-                specVisualizer.SpectrumAnalysis.ScalingStrategy = Spec_ScalingMode;
+                //TODO: UpdateSetting
+                specVisualizer.SpectrumAnalysis.MaximumFrequency = Setting.SpecMaxFreq;
+                specVisualizer.SpectrumAnalysis.MinimumFrequency = Setting.SpecMinFreq;
+                specVisualizer.SpectrumAnalysis.IsXLogScale = Setting.SpecUseLogScale;
+                specVisualizer.SpectrumAnalysis.UseResampling = Setting.SpecUseResampler;
+                specVisualizer.SpectrumAnalysis.ResamplingMode = Setting.SpecResampleMode;
+                specVisualizer.SpectrumAnalysis.ScalingStrategy = Setting.SpecScalingMode;
             }
 
             barAvailable = true;
@@ -1263,7 +1365,7 @@ namespace Symphony
                     }
                 }
 
-                if (!NowStateChanging && isFrameUpadteAllowed && !isMoving && stemp_UI < clock.ElapsedMilliseconds - GUIUpdate)
+                if (!NowStateChanging && isFrameUpadteAllowed && !isMoving && stemp_UI < clock.ElapsedMilliseconds - Setting.GUIUpdate)
                 {
                     stemp_UI = clock.ElapsedMilliseconds;
 
@@ -1646,6 +1748,7 @@ namespace Symphony
 
         private void OpenMiniControl()
         {
+            // TODO: SettingUpdate
             if (miniControlWindow == null)
             {
                 RemoteControllerWindow r = new RemoteControllerWindow(this, np);
@@ -1661,17 +1764,17 @@ namespace Symphony
                     if (miniControlWindow != null && miniControlWindow.UID == wd.UID)
                     {
                         miniControlWindow = null;
-                        _playerMiniControlShow = false;
+                        Setting.PlayerMiniControlShow = false;
                     }
                 };
 
                 r.Show();
 
-                r.Topmost = PlayerMiniControlTopmost;
-                if (PlayerMiniControlSavePosition && PlayerMiniControlTop != -1)
+                r.Topmost = Setting.PlayerMiniControlTopmost;
+                if (Setting.PlayerMiniControlSavePosition && Setting.PlayerMiniControlTop != -1)
                 {
-                    r.Top = PlayerMiniControlTop;
-                    r.Left = PlayerMiniControlLeft;
+                    r.Top = Setting.PlayerMiniControlTop;
+                    r.Left = Setting.PlayerMiniControlLeft;
                 }
 
                 r.LocationChanged += delegate (object obj, EventArgs arg)
@@ -1679,8 +1782,8 @@ namespace Symphony
                     if (_playerMiniControlSetPosition)
                         return;
 
-                    PlayerMiniControlTop = r.Top;
-                    PlayerMiniControlLeft = r.Left;
+                    Setting.PlayerMiniControlTop = r.Top;
+                    Setting.PlayerMiniControlLeft = r.Left;
                 };
 
                 r.Update();
@@ -1696,66 +1799,18 @@ namespace Symphony
             if(miniControlWindow != null)
             {
                 miniControlWindow.Close();
-
                 miniControlWindow = null;
+
+                Setting.PlayerMiniControlShow = false;
             }
-            _playerMiniControlShow = false;
         }
 
         #endregion RemoteControl
-
-        #region VU Meter
-
-        private void Init_VU()
-        {
-            if(Brush_VU_Dark == null)
-            {
-                Brush_VU_Dark = new SolidColorBrush(Color.FromArgb(80, 100, 100, 100));
-            }
-            if (Brush_VU_White == null)
-            {
-                Brush_VU_White = new SolidColorBrush(Color.FromArgb(80, 160, 160, 160));
-            }
-        }
-
-        #endregion VU Meter
 
         #region Osilo
 
         int q_index = 0;
         List<double> osilo_samples = new List<double>();
-
-        private void Init_Visualizer()
-        {
-            if (OsiloFill == null) 
-            {
-                GradientStopCollection osilo_gradient_stops = new GradientStopCollection();
-                
-                osilo_gradient_stops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#AAFFFFFF"), 0));
-                osilo_gradient_stops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FFFFFFFF"), 0.85));
-                osilo_gradient_stops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#55FFFFFF"), 0.85));
-                osilo_gradient_stops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#55FFFFFF"), 1));
-
-                OsiloFill = new LinearGradientBrush(osilo_gradient_stops, new Point(0.5, 1), new Point(0.5, 0));
-            }
-            
-            if(SpecFill == null)
-            {
-                GradientStopCollection spec_gradient_stops = new GradientStopCollection();
-
-                spec_gradient_stops.Add(new GradientStop(Color.FromArgb(244, 255, 255, 255), 0));
-                spec_gradient_stops.Add(new GradientStop(Color.FromArgb(244, 255, 255, 255), 0.72));
-
-                spec_gradient_stops.Add(new GradientStop(Color.FromArgb(95, 255, 255, 255), 0.72));
-                spec_gradient_stops.Add(new GradientStop(Color.FromArgb(95, 255, 255, 255), 0.90));
-
-                spec_gradient_stops.Add(new GradientStop(Color.FromArgb(30, 255, 255, 255), 0.90));
-                spec_gradient_stops.Add(new GradientStop(Color.FromArgb(30, 255, 255, 255), 0.98));
-                spec_gradient_stops.Add(new GradientStop(Color.FromArgb(0, 255, 255, 255), 1.0));
-
-                SpecFill = new LinearGradientBrush(spec_gradient_stops, new Point(0.5, 0), new Point(0.5, 1));
-            }
-        }
 
         #endregion Osilo
 
@@ -1800,7 +1855,8 @@ namespace Symphony
                     miniControlWindow.UpdateAlbumArt(Img_AlbumArt);
                 }
 
-                if (UseImageAnimation)
+                // TODO: update setting
+                if (Setting.UseImageAnimation)
                 {
                     ImageOff.Begin();
                 }
@@ -1813,7 +1869,8 @@ namespace Symphony
 
         private void ImageOnBegin()
         {
-            if (UseImageAnimation)
+            // TODO: update setting
+            if (Setting.UseImageAnimation)
             {
                 ImageOn.Begin();
             }
@@ -2027,380 +2084,15 @@ namespace Symphony
 
         public void SaveSettings()
         {
-            DirectoryInfo di_setting = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings"));
+            DirectoryInfo di_setting = new DirectoryInfo(Settings.SettingsLibrary);
             if (!di_setting.Exists)
             {
                 di_setting.Create();
             }
 
-            SaveSetting(di_setting, 0);
+            Settings.Save();
 
             DSPChainSaver.Save(Path.Combine(di_setting.FullName, "Effects.DSPs"), np.DSPs);
-        }
-
-        private void SaveSetting(DirectoryInfo di, int retry)
-        {
-            if(retry > SavingMaxRetry)
-            {
-                return;
-            }
-
-            try
-            {
-                string xmlFile = Path.Combine(di.FullName, "Settings.xml");
-
-                XmlWriterSettings wsetting = new XmlWriterSettings();
-                wsetting.Indent = true;
-                wsetting.IndentChars = "\t";
-
-                using (XmlWriter writer = XmlWriter.Create(xmlFile, wsetting))
-                {
-                    writer.WriteStartElement("Visual");
-
-                    /*
-                    TODO LISTS!
-
-                    case "Waveform.Zoom":
-                    case "Visualizer.Use":
-                    case "Osilo.Use"
-                    case "VU.Use":
-                    */
-
-                    //Theme Data Fields
-                    writer.WriteStartElement("Theme");
-
-                    XmlWriteValue(writer, "CurrentTheme", CurrentTheme);
-
-                    writer.WriteEndElement();
-
-                    //GUI Data Fields
-                    writer.WriteStartElement("GUI");
-
-                    if (UseImageAnimation) XmlWriteValue(writer, "UseImageAnimation", "true");
-                    else XmlWriteValue(writer, "UseImageAnimation", "false");
-
-                    XmlWriteValue(writer, "GUIUpdate", GUIUpdate.ToString());
-
-                    if (UseFooterInfoText) XmlWriteValue(writer, "UseFooterInfoText", "true");
-                    else XmlWriteValue(writer, "UseFooterInfoText", "false");
-
-                    if (SaveWindowMode) XmlWriteValue(writer, "SaveWindowMode", "true");
-                    else XmlWriteValue(writer, "SaveWindowMode", "false");
-
-                    switch (WindowMode)
-                    {
-                        case WindowMode.Big:
-                            XmlWriteValue(writer, "WindowMode", "Big");
-                            break;
-                        case WindowMode.Mid:
-                            XmlWriteValue(writer, "WindowMode", "Mid");
-                            break;
-                        case WindowMode.Small:
-                            XmlWriteValue(writer, "WindowMode", "Small");
-                            break;
-                        default:
-                            throw new ArgumentNullException();
-                    }
-
-                    writer.WriteEndElement();
-
-                    //Player Data Field
-                    writer.WriteStartElement("Player");
-
-                    if (PlayerUseSearchLocalAlbumArt) XmlWriteValue(writer, "Player.UseSearchLocalAlbumArt", "true");
-                    else XmlWriteValue(writer, "Player.UseSearchLocalAlbumArt", "false");
-
-                    writer.WriteStartElement("Player.AlbumArtSearchPaths");
-
-                    foreach(string path in PlayerAlbumArtSearchPathes)
-                    {
-                        XmlWriteValue(writer, "Player.AlbumArtSearchPath", path);
-                    }
-
-                    writer.WriteEndElement();
-
-                    XmlWriteValue(writer, "Player.LanguageFileName", LanguageHelper.LanguageFileName);
-
-                    XmlWriteValue(writer, "Player.MiniControlShow", XmlHelper.Bool2String(PlayerMiniControlShow));
-
-                    XmlWriteValue(writer, "Player.MiniControlSavePosition", XmlHelper.Bool2String(PlayerMiniControlSavePosition));
-
-                    XmlWriteValue(writer, "Player.MiniControlTopmost", XmlHelper.Bool2String(PlayerMiniControlTopmost));
-
-                    XmlWriteValue(writer, "Player.MiniControlTop", PlayerMiniControlTop.ToString("0.00"));
-
-                    XmlWriteValue(writer, "Player.MiniControlLeft", PlayerMiniControlLeft.ToString("0.00"));
-
-                    writer.WriteEndElement();
-
-                    //Audio Data Field
-                    writer.WriteStartElement("Audio");
-
-                    XmlWriteValue(writer, "Audio.DesiredLantency", AudioDesiredLantency.ToString());
-
-                    XmlWriteValue(writer, "Audio.Volume", AudioVolume.ToString());
-
-                    if (AudioUseDspProcessing) XmlWriteValue(writer, "Audio.UseDspProcessing", "true");
-                    else XmlWriteValue(writer, "Audio.UseDspProcessing", "false");
-
-                    if (AudioUseDspLimit) XmlWriteValue(writer, "Audio.UseDspLimit", "true");
-                    else XmlWriteValue(writer, "Audio.UseDspLimit", "false");
-
-                    XmlWriteValue(writer, "Audio.DspLimitSampleRate", AudioDspLimitSampleRate.ToString());
-
-                    writer.WriteEndElement();
-
-                    //Singer Data Fields
-                    writer.WriteStartElement("Singer");
-
-                    switch (SingerHorizontalAlignment)
-                    {
-                        case HorizontalAlignment.Left:
-                            XmlWriteValue(writer, "Singer.HorizontalAlignment", "Left");
-                            break;
-                        case HorizontalAlignment.Center:
-                            XmlWriteValue(writer, "Singer.HorizontalAlignment", "Center");
-                            break;
-                        case HorizontalAlignment.Right:
-                            XmlWriteValue(writer, "Singer.HorizontalAlignment", "Right");
-                            break;
-                        case HorizontalAlignment.Stretch:
-                            XmlWriteValue(writer, "Singer.HorizontalAlignment", "Stretch");
-                            break;
-                        default:
-                            break;
-                    }
-
-                    switch (SingerVerticalAlignment)
-                    {
-                        case VerticalAlignment.Top:
-                            XmlWriteValue(writer, "Singer.VerticalAlignment", "Top");
-                            break;
-                        case VerticalAlignment.Center:
-                            XmlWriteValue(writer, "Singer.VerticalAlignment", "Center");
-                            break;
-                        case VerticalAlignment.Bottom:
-                            XmlWriteValue(writer, "Singer.VerticalAlignment", "Bottom");
-                            break;
-                        case VerticalAlignment.Stretch:
-                            XmlWriteValue(writer, "Singer.VerticalAlignment", "Stretch");
-                            break;
-                        default:
-                            break;
-                    }
-
-                    switch (SingerDefaultFadeInMode)
-                    {
-                        case FadeInMode.Auto:
-                            throw new NullReferenceException("Unknown SingerDefaultFadeInMode. MainWindow.1908");
-                        case FadeInMode.None:
-                            XmlWriteValue(writer, "Singer.DefaultFadeInMode", "None");
-                            break;
-                        case FadeInMode.FadeIn:
-                            XmlWriteValue(writer, "Singer.DefaultFadeInMode", "FadeIn");
-                            break;
-                        case FadeInMode.BlurIn:
-                            XmlWriteValue(writer, "Singer.DefaultFadeInMode", "BlurIn");
-                            break;
-                        case FadeInMode.ZoomIn:
-                            XmlWriteValue(writer, "Singer.DefaultFadeInMode", "ZoomIn");
-                            break;
-                        case FadeInMode.ZoomOut:
-                            XmlWriteValue(writer, "Singer.DefaultFadeInMode", "ZoomOut");
-                            break;
-                        case FadeInMode.SlideFromLeft:
-                            XmlWriteValue(writer, "Singer.DefaultFadeInMode", "SlideFromLeft");
-                            break;
-                        case FadeInMode.SlideFromRight:
-                            XmlWriteValue(writer, "Singer.DefaultFadeInMode", "SlideFromRight");
-                            break;
-                        case FadeInMode.SlideFromTop:
-                            XmlWriteValue(writer, "Singer.DefaultFadeInMode", "SlideFromTop");
-                            break;
-                        case FadeInMode.SlideFromBottom:
-                            XmlWriteValue(writer, "Singer.DefaultFadeInMode", "SlideFromBottom");
-                            break;
-                        default:
-                            throw new NullReferenceException("Unknown SingerDefaultFadeInMode. MainWindow.1937");
-                    }
-
-                    switch (SingerDefaultFadeOutMode)
-                    {
-                        case FadeOutMode.Auto:
-                            throw new NullReferenceException("Unknown SingerDefaultFadeOutMode. MainWindow.1943");
-                        case FadeOutMode.None:
-                            XmlWriteValue(writer, "Singer.DefaultFadeOutMode", "None");
-                            break;
-                        case FadeOutMode.FadeOut:
-                            XmlWriteValue(writer, "Singer.DefaultFadeOutMode", "FadeOut");
-                            break;
-                        case FadeOutMode.BlurOut:
-                            XmlWriteValue(writer, "Singer.DefaultFadeOutMode", "BlurOut");
-                            break;
-                        case FadeOutMode.ZoomIn:
-                            XmlWriteValue(writer, "Singer.DefaultFadeOutMode", "ZoomIn");
-                            break;
-                        case FadeOutMode.ZoomOut:
-                            XmlWriteValue(writer, "Singer.DefaultFadeOutMode", "ZoomOut");
-                            break;
-                        case FadeOutMode.SlideToLeft:
-                            XmlWriteValue(writer, "Singer.DefaultFadeOutMode", "SlideToLeft");
-                            break;
-                        case FadeOutMode.SlideToRight:
-                            XmlWriteValue(writer, "Singer.DefaultFadeOutMode", "SlideToRight");
-                            break;
-                        case FadeOutMode.SlideToTop:
-                            XmlWriteValue(writer, "Singer.DefaultFadeOutMode", "SlideToTop");
-                            break;
-                        case FadeOutMode.SlideToBottom:
-                            XmlWriteValue(writer, "Singer.DefaultFadeOutMode", "SlideToBottom");
-                            break;
-                        default:
-                            throw new NullReferenceException("Unknown SingerDefaultFadeOutMode. MainWindow.1972");
-                    }
-
-                    XmlWriteValue(writer, "Singer.Top", SingerTop.ToString());
-
-                    XmlWriteValue(writer, "Singer.Left", SingerLeft.ToString());
-
-                    if (SingerResetPosition) XmlWriteValue(writer, "Singer.ResetPosition", "true");
-                    else XmlWriteValue(writer, "Singer.ResetPosition", "false");
-
-                    if (SingerCanDragmove) XmlWriteValue(writer, "Singer.CanDragmove", "true");
-                    else XmlWriteValue(writer, "Singer.CanDragmove", "false");
-
-                    XmlWriteValue(writer, "Singer.Zoom", SingerZoom.ToString());
-
-                    if (SingerShow) XmlWriteValue(writer, "Singer.Show", "true");
-                    else XmlWriteValue(writer, "Singer.Show", "false");
-
-                    if (SingerWindowMode) XmlWriteValue(writer, "Singer.WindowMode", "true");
-                    else XmlWriteValue(writer, "Singer.WindowMode", "false");
-
-                    XmlWriteValue(writer, "Singer.Opacity", SingerOpacity.ToString());
-
-                    writer.WriteEndElement();
-
-                    //Composer Data Fields
-                    writer.WriteStartElement("Composer");
-
-                    if (ComposerTopmost) XmlWriteValue(writer, "Composer.Topmost", "true");
-                    else XmlWriteValue(writer, "Composer.Topmost", "false");
-
-                    if (ComposerUse) XmlWriteValue(writer, "Composer.Use", "true");
-                    else XmlWriteValue(writer, "Composer.Use", "false");
-
-                    XmlWriteValue(writer, "Composer.Opacity", ComposerOpacity.ToString());
-
-                    XmlWriteValue(writer, "Composer.WindowMode", XmlHelper.Bool2String(ComposerWindowMode));
-
-                    writer.WriteEndElement();
-                    
-                    //Osilo Data Fields
-                    writer.WriteStartElement("Osilo");
-
-                    XmlWriteValue(writer, "Osilo.RenderType", XmlHelper.BarRenderType2String(OsiloRenderType));
-
-                    XmlWriteValue(writer, "Osilo.Height", OsiloHeight.ToString());
-
-                    XmlWriteValue(writer, "Osilo.View", OsiloView.ToString());
-
-                    XmlWriteValue(writer, "Osilo.Strength", OsiloStrength.ToString());
-
-                    XmlWriteValue(writer, "Osilo.Width", OsiloWidth.ToString());
-
-                    XmlWriteValue(writer, "Osilo.Dash", OsiloDash.ToString());
-
-                    XmlWriteValue(writer, "Osilo.Top", OsiloTop.ToString());
-
-                    XmlWriteValue(writer, "Osilo.Opacity", OsiloOpacity.ToString());
-
-                    XmlWriteValue(writer, "Osilo.UseInvert", XmlHelper.Bool2String(OsiloUseInvert));
-
-                    XmlWriteValue(writer, "Osilo.GridShow", XmlHelper.Bool2String(OsiloGridShow));
-
-                    XmlWriteValue(writer, "Osilo.GridTextHorizontalAlignment", XmlHelper.HorizontalAlignment2String(OsiloGridTextHorizontalAlignment));
-
-                    writer.WriteEndElement();
-
-                    //Vu Data Fields
-                    writer.WriteStartElement("VU");
-
-                    XmlWriteValue(writer, "VU.Opacity", VU_Opacity.ToString());
-
-                    XmlWriteValue(writer, "VU.Senstive", VU_Senstive.ToString());
-
-                    writer.WriteEndElement();
-
-                    //Spec Data Fields
-                    writer.WriteStartElement("Spec");
-
-                    XmlWriteValue(writer, "Spec.RenderType", XmlHelper.BarRenderType2String(SpecRenderType));
-
-                    XmlWriteValue(writer, "Spec.Top", SpecTop.ToString());
-
-                    XmlWriteValue(writer, "Spec.Height", SpecHeight.ToString());
-
-                    if (SpecInvert) XmlWriteValue(writer, "Spec.Invert", "true");
-                    else XmlWriteValue(writer, "Spec.Invert", "false");
-
-                    if (SpecUseLogScale) XmlWriteValue(writer, "Spec.UseLogScale", "true");
-                    else XmlWriteValue(writer, "Spec.UseLogScale", "false");
-
-                    XmlWriteValue(writer, "Spec.MaxFreq", SpecMaxFreq.ToString());
-
-                    XmlWriteValue(writer, "Spec.MinFreq", SpecMinFreq.ToString());
-
-                    XmlWriteValue(writer, "Spec.Opacity", SpecOpacity.ToString());
-
-                    XmlWriteValue(writer, "Spec.Strength", SpecStrength.ToString());
-
-                    if (SpecUseResampler) XmlWriteValue(writer, "Spec.UseResampler", "true");
-                    else XmlWriteValue(writer, "Spec.UseResampler", "false");
-
-                    XmlWriteValue(writer, "Spec.ResamplingMode", XmlHelper.ResamplingMode2String(SpecResampleMode));
-
-                    string strSpecScalingMode = "";
-                    switch (Spec_ScalingMode)
-                    {
-                        case ScalingStrategy.Decibel:
-                            strSpecScalingMode = "Decibel";
-                            break;
-                        case ScalingStrategy.Linear:
-                            strSpecScalingMode = "Linear";
-                            break;
-                        case ScalingStrategy.Sqrt:
-                            strSpecScalingMode = "Sqrt";
-                            break;
-                        default:
-                            strSpecScalingMode = "Decibel";
-                            break;
-                    }
-                    XmlWriteValue(writer, "Spec.ScalingMode", strSpecScalingMode);
-
-                    XmlWriteValue(writer, "Spec.Width", Spec_Width.ToString());
-
-                    XmlWriteValue(writer, "Spec.Dash", Spec_Dash.ToString());
-
-                    XmlWriteValue(writer, "Spec.GridShow", XmlHelper.Bool2String(SpecGridShow));
-
-                    XmlWriteValue(writer, "Spec.GridTextHorizontalAlignment", XmlHelper.HorizontalAlignment2String(SpecGridTextHorizontalAlignment));
-
-                    writer.WriteEndElement();
-
-                    writer.WriteEndElement();
-
-                    writer.Flush();
-
-                    writer.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.Error(e.ToString());
-
-                SaveSetting(di, retry + 1);
-            }
         }
 
         private string Color2String(Color c)
@@ -2475,13 +2167,14 @@ namespace Symphony
         {
             _playerMiniControlSetPosition = true;
 
-            DirectoryInfo di_setting = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings"));
-            di_setting.Create();
+            DirectoryInfo di_setting = new DirectoryInfo(Settings.SettingsLibrary);
+            if(!di_setting.Exists)
+                di_setting.Create();
 
-            FileInfo fi_visual = new FileInfo(Path.Combine(di_setting.FullName, "Settings.xml"));
+            FileInfo fi_visual = new FileInfo(Settings.SettingsSaveFilePath);
             LoadSetting(fi_visual, 0);
 
-            FileInfo fi_dsp = new FileInfo(Path.Combine(di_setting.FullName, "Effects.DSPs"));
+            FileInfo fi_dsp = new FileInfo(Settings.DspChainSaveFilePath);
             if (fi_dsp.Exists)
             {
                 try
@@ -2499,23 +2192,22 @@ namespace Symphony
                 }
             }
 
-            if (Util.TextTool.StringEmpty(CurrentTheme))
+            if (TextTool.StringEmpty(Setting.CurrentTheme))
             {
-                CurrentTheme = "";
+                Setting.CurrentTheme = "";
             }
 
-            if (Util.TextTool.StringEmpty(LanguageHelper.LanguageFileName))
+            if (TextTool.StringEmpty(LanguageHelper.LanguageFileName))
             {
                 LanguageHelper.LanguageFileName = "";
             }
 
-            DirectoryInfo di_theme = new DirectoryInfo(Path.Combine(di_setting.FullName, CurrentTheme));
+            DirectoryInfo di_theme = new DirectoryInfo(Path.Combine(di_setting.FullName, Setting.CurrentTheme));
             ThemeHelper.LoadTheme(di_theme, this);
 
             FileInfo fi_lang = new FileInfo(Path.Combine(LanguageHelper.LibraryDirectory, LanguageHelper.LanguageFileName));
             LoadLanguagePack(fi_lang, 0);
-
-            //fix Lang Mute
+            
             if(Sld_Footer_Volume.Value == 0)
             {
                 Sld_Footer_Volume.Value = 0.001;
@@ -2551,466 +2243,339 @@ namespace Symphony
             settingListener = new SettingListener();
             settingListener.SettingChanged += OnSettingChanged;
             settingListener.SettingPropertyChanged += OnSettingPropertyChanged;
+            UpdateSetting(Setting);
             return;
 
-            if(retry > LoadingMaxRetry || !fi.Exists)
+            WindowMode wmread = WindowMode.Big;
+
+            using (XmlReader reader = XmlReader.Create(fi.FullName))
             {
-                return;
-            }
-
-            try {
-                WindowMode wmread = WindowMode.Big;
-
-                using (XmlReader reader = XmlReader.Create(fi.FullName))
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    switch (reader.NodeType)
                     {
-                        switch (reader.NodeType)
-                        {
-                            case XmlNodeType.Element:
-                                switch (reader.Name)
-                                {
-                                    //Theme Data Fields
-                                    case "Visual":
-                                        break;
-                                    case "Theme":
-                                        break;
-                                    case "GUI":
-                                        break;
-                                    case "CurrentTheme":
-                                        CurrentTheme = reader.GetAttribute("Value");
-                                        break;
-                                    case "UseImageAnimation":
-                                        string strUseImageAnimation = reader.GetAttribute("Value");
-                                        if (strUseImageAnimation.ToLower() == "true") UseImageAnimation = true;
-                                        else UseImageAnimation = false;
-                                        break;
-                                    case "GUIUpdate":
-                                        GUIUpdate = (int)Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "UseFooterInfoText":
-                                        string strUseFooterInfoText = reader.GetAttribute("Value");
-                                        if (strUseFooterInfoText.ToLower() == "true") UseFooterInfoText = true;
-                                        else UseFooterInfoText = false;
-                                        break;
-                                    case "SaveWindowMode":
-                                        if (XmlHelper.String2Bool(reader.GetAttribute("Value")))
-                                        {
-                                            SaveWindowMode = true;
-                                        }
-                                        else
-                                        {
-                                            SaveWindowMode = false;
-                                        }
-                                        break;
-                                    case "WindowMode":
-                                        string wmtxt = reader.GetAttribute("Value").ToLower();
-                                        switch (wmtxt)
-                                        {
-                                            case "big":
-                                                wmread = WindowMode.Big;
-                                                break;
-                                            case "small":
-                                                wmread = WindowMode.Small;
-                                                break;
-                                            case "mid":
-                                                wmread = WindowMode.Mid;
-                                                break;
-                                        }
-                                        break;
-                                    case "Waveform.Zoom":
-                                        break;
-
-                                    //Audio Data Fields
-                                    case "Audio":
-                                        break;
-                                    case "Audio.DesiredLantency":
-                                        AudioDesiredLantency = (int)Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Audio.Volume":
-                                        AudioVolume = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Audio.UseDspProcessing":
-                                        AudioUseDspProcessing = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Audio.UseDspLimit":
-                                        AudioUseDspLimit = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Audio.DspLimitSampleRate":
-                                        AudioDspLimitSampleRate = (int)Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-
-                                    //Player Data Fields
-                                    case "Player":
-                                        break;
-                                    case "Player.AlbumArtSearchPaths":
-                                        List<string> playerAlbumArtPath = new List<string>();
-                                        while (reader.Read())
-                                        {
-                                            if(reader.NodeType == XmlNodeType.Element && reader.Name == "Player.AlbumArtSearchPath")
-                                            {
-                                                playerAlbumArtPath.Add(reader.GetAttribute("Value"));
-                                            }
-                                            else if(reader.NodeType == XmlNodeType.EndElement && reader.Name == "Player.AlbumArtSearchPaths")
-                                            {
-                                                break;
-                                            }
-                                        }
-                                        PlayerAlbumArtSearchPathes = playerAlbumArtPath.ToArray();
-                                        break;
-                                    case "Player.UseSearchLocalAlbumArt":
-                                        PlayerUseSearchLocalAlbumArt = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Player.LanguageFileName":
-                                        LanguageHelper.LanguageFileName = reader.GetAttribute("Value");
-                                        break;
-                                    case "Player.MiniControlShow":
-                                        PlayerMiniControlShow = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Player.MiniControlSavePosition":
-                                        PlayerMiniControlSavePosition = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Player.MiniControlTopmost":
-                                        PlayerMiniControlTopmost = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Player.MiniControlTop":
-                                        PlayerMiniControlTop = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Player.MiniControlLeft":
-                                        PlayerMiniControlLeft = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    //Visualizer Data Fields
-                                    case "Visualizer.Use":
-                                        break;
-
-                                    //Osilo Data Fields
-                                    case "Osilo":
-                                        break;
-                                    case "Osilo.RenderType":
-                                        OsiloRenderType = XmlHelper.String2BarRenderType(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Osilo.View":
-                                        OsiloView = (int)Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Osilo.Use":
-                                        break;
-                                    case "Osilo.Height":
-                                        OsiloHeight = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Osilo.Opacity":
-                                        OsiloOpacity = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Osilo.Width":
-                                        OsiloWidth = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Osilo.Dash":
-                                        OsiloDash = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Osilo.Top":
-                                        OsiloTop = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Osilo.Strength":
-                                        OsiloStrength = (float)Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Osilo.UseInvert":
-                                        OsiloUseInvert = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Osilo.GridShow":
-                                        OsiloGridShow = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Osilo.GridTextHorizontalAlignment":
-                                        OsiloGridTextHorizontalAlignment = XmlHelper.String2HorizontalAlignment(reader.GetAttribute("Value"));
-                                        break;
-
-                                    //VU Data Fields
-                                    case "VU":
-                                        break;
-                                    case "VU.Opacity":
-                                        VU_Opacity = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "VU.Senstive":
-                                        VU_Senstive = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "VU.Use":
-                                        break;
-
-                                    //Spectrum Data Fields
-                                    case "Spec":
-                                        break;
-                                    case "Spec.RenderType":
-                                        SpecRenderType = XmlHelper.String2BarRenderType(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.Top":
-                                        SpecTop = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.Height":
-                                        SpecHeight = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.Invert":
-                                        SpecInvert = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.UseLogScale":
-                                        SpecUseLogScale = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.MaxFreq":
-                                        SpecMaxFreq = (int)Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.MinFreq":
-                                        SpecMinFreq = (int)Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.Opacity":
-                                        SpecOpacity = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.Strength":
-                                        SpecStrength = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.UseResampler":
-                                        SpecUseResampler = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.ResamplingMode":
-                                        SpecResampleMode = XmlHelper.String2ResamplingMode(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.ScalingMode":
-                                        string strSpecScalingMode = reader.GetAttribute("Value").ToLower();
-                                        switch (strSpecScalingMode)
-                                        {
-                                            case "decibel":
-                                                Spec_ScalingMode = ScalingStrategy.Decibel;
-                                                break;
-                                            case "linear":
-                                                Spec_ScalingMode = ScalingStrategy.Linear;
-                                                break;
-                                            case "sqrt":
-                                                Spec_ScalingMode = ScalingStrategy.Sqrt;
-                                                break;
-                                            default:
-                                                throw new NotImplementedException();
-                                        }
-                                        break;
-                                    case "Spec.Width":
-                                        Spec_Width = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.Dash":
-                                        Spec_Dash = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.GridShow":
-                                        SpecGridShow = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Spec.GridTextHorizontalAlignment":
-                                        SpecGridTextHorizontalAlignment = XmlHelper.String2HorizontalAlignment(reader.GetAttribute("Value"));
-                                        break;
-
-                                    //Singer Data Fields
-                                    case "Singer":
-                                        break;
-                                    case "Singer.HorizontalAlignment":
-                                        string strSingerHorizontalAlignment = reader.GetAttribute("Value");
-                                        switch (strSingerHorizontalAlignment)
-                                        {
-                                            case "Left":
-                                                SingerHorizontalAlignment = HorizontalAlignment.Left;
-                                                break;
-                                            case "Center":
-                                                SingerHorizontalAlignment = HorizontalAlignment.Center;
-                                                break;
-                                            case "Right":
-                                                SingerHorizontalAlignment = HorizontalAlignment.Right;
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                        break;
-                                    case "Singer.VerticalAlignment":
-                                        string strSingerVerticalAlignment = reader.GetAttribute("Value");
-                                        switch (strSingerVerticalAlignment)
-                                        {
-                                            case "Top":
-                                                SingerVerticalAlignment = VerticalAlignment.Top;
-                                                break;
-                                            case "Center":
-                                                SingerVerticalAlignment = VerticalAlignment.Center;
-                                                break;
-                                            case "Bottom":
-                                                SingerVerticalAlignment = VerticalAlignment.Bottom;
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                        break;
-                                    case "Singer.DefaultFadeInMode":
-                                        string strSingerDefaultFadeInMode = reader.GetAttribute("Value");
-                                        switch (strSingerDefaultFadeInMode)
-                                        {
-                                            case "None":
-                                                SingerDefaultFadeInMode = FadeInMode.None;
-                                                break;
-                                            case "FadeIn":
-                                                SingerDefaultFadeInMode = FadeInMode.FadeIn;
-                                                break;
-                                            case "BlurIn":
-                                                SingerDefaultFadeInMode = FadeInMode.BlurIn;
-                                                break;
-                                            case "ZoomIn":
-                                                SingerDefaultFadeInMode = FadeInMode.ZoomIn;
-                                                break;
-                                            case "ZoomOut":
-                                                SingerDefaultFadeInMode = FadeInMode.ZoomOut;
-                                                break;
-                                            case "SlideFromLeft":
-                                                SingerDefaultFadeInMode = FadeInMode.SlideFromLeft;
-                                                break;
-                                            case "SlideFromRight":
-                                                SingerDefaultFadeInMode = FadeInMode.SlideFromRight;
-                                                break;
-                                            case "SlideFromBottom":
-                                                SingerDefaultFadeInMode = FadeInMode.SlideFromBottom;
-                                                break;
-                                            case "SlideFromTop":
-                                                SingerDefaultFadeInMode = FadeInMode.SlideFromTop;
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                        break;
-                                    case "Singer.DefaultFadeOutMode":
-                                        string strSingerDefaultFadeOutMode = reader.GetAttribute("Value");
-                                        switch (strSingerDefaultFadeOutMode)
-                                        {
-                                            case "None":
-                                                SingerDefaultFadeOutMode = FadeOutMode.None;
-                                                break;
-                                            case "FadeOut":
-                                                SingerDefaultFadeOutMode = FadeOutMode.FadeOut;
-                                                break;
-                                            case "BlurOut":
-                                                SingerDefaultFadeOutMode = FadeOutMode.BlurOut;
-                                                break;
-                                            case "ZoomIn":
-                                                SingerDefaultFadeOutMode = FadeOutMode.ZoomIn;
-                                                break;
-                                            case "ZoomOut":
-                                                SingerDefaultFadeOutMode = FadeOutMode.ZoomOut;
-                                                break;
-                                            case "SlideToLeft":
-                                                SingerDefaultFadeOutMode = FadeOutMode.SlideToLeft;
-                                                break;
-                                            case "SlideToRight":
-                                                SingerDefaultFadeOutMode = FadeOutMode.SlideToRight;
-                                                break;
-                                            case "SlideToTop":
-                                                SingerDefaultFadeOutMode = FadeOutMode.SlideToTop;
-                                                break;
-                                            case "SlideToBottom":
-                                                SingerDefaultFadeOutMode = FadeOutMode.SlideToBottom;
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                        break;
-                                    case "Singer.ResetPosition":
-                                        string strSingerResetPosition = reader.GetAttribute("Value");
-                                        if(strSingerResetPosition.ToLower() == "true")
-                                        {
-                                            SingerResetPosition = true;
-                                        }
-                                        else
-                                        {
-                                            SingerResetPosition = false;
-                                        }
-                                        break;
-                                    case "Singer.Top":
-                                        SingerTop = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Singer.Left":
-                                        SingerLeft = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Singer.CanDragmove":
-                                        string strSingerCanDragMove = reader.GetAttribute("Value");
-                                        if (strSingerCanDragMove.ToLower() == "true") SingerCanDragmove = true;
-                                        else SingerCanDragmove = false;
-                                        break;
-                                    case "Singer.Show":
-                                        string strSingerShow = reader.GetAttribute("Value");
-                                        if (strSingerShow.ToLower() == "true") SingerShow = true;
-                                        else SingerShow = false;
-                                        break;
-                                    case "Singer.Opacity":
-                                        SingerOpacity = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Singer.Zoom":
-                                        SingerZoom = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Singer.WindowMode":
-                                        SingerWindowMode = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-
-                                    //Composer Data Fields
-                                    case "Composer":
-                                        break;
-                                    case "Composer.Topmost":
-                                        string strComposerTopmost = reader.GetAttribute("Value");
-                                        if (strComposerTopmost.ToLower() == "true") ComposerTopmost = true;
-                                        else ComposerTopmost = false;
-                                        break;
-                                    case "Composer.Use":
-                                        string strComposerUse = reader.GetAttribute("Value");
-                                        if (strComposerUse.ToLower() == "true") ComposerUse = true;
-                                        else ComposerUse = false;
-                                        break;
-                                    case "Composer.Opacity":
-                                        ComposerOpacity = Convert.ToDouble(reader.GetAttribute("Value"));
-                                        break;
-                                    case "Composer.WindowMode":
-                                        ComposerWindowMode = XmlHelper.String2Bool(reader.GetAttribute("Value"));
-                                        break;
-                                    default:
-                                        Logger.Log("Unknown Name in Setting file. Is it not implemented? (" + reader.Name + ")");
-                                        break;
-                                }
-                                break;
-                        }
+                        case XmlNodeType.Element:
+                            switch (reader.Name)
+                            {
+                                case "Player.LanguageFileName":
+                                    LanguageHelper.LanguageFileName = reader.GetAttribute("Value");
+                                    break;
+                            }
+                            break;
                     }
+                }
                     
-                    reader.Close();
-                }
-
-                //End of Reading.
-                if(WindowMode != wmread && SaveWindowMode)
-                {
-                    WindowMode = wmread;
-                    switch (WindowMode)
-                    {
-                        case WindowMode.Big:
-                            MidOff.Begin();
-                            //MidOff.SkipToFill();
-                            break;
-                        case WindowMode.Mid:
-                            MidOn.Begin();
-                            //MidOn.SkipToFill();
-                            //MidOn.Stop();
-                            break;
-                        case WindowMode.Small:
-                            SmallOn.Begin();
-                            //SmallOn.SkipToFill();
-                            //SmallOn.Stop();
-                            break;
-                    }
-                }
+                reader.Close();
             }
-            catch
+
+            //End of Reading.
+            if(WindowMode != wmread && Setting.SaveWindowMode)
             {
-                LoadSetting(fi, retry + 1);
+                WindowMode = wmread;
+                switch (WindowMode)
+                {
+                    case WindowMode.Big:
+                        MidOff.Begin();
+                        //MidOff.SkipToFill();
+                        break;
+                    case WindowMode.Mid:
+                        MidOn.Begin();
+                        //MidOn.SkipToFill();
+                        //MidOn.Stop();
+                        break;
+                    case WindowMode.Small:
+                        SmallOn.Begin();
+                        //SmallOn.SkipToFill();
+                        //SmallOn.Stop();
+                        break;
+                }
             }
         }
 
         private void OnSettingPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            UpdateSettingProperty(e.PropertyName);
         }
-
+        
         private void OnSettingChanged(object sender, Settings e)
         {
-            throw new NotImplementedException();
+            UpdateSetting(e);
+        }
+
+        private bool _playerMiniControlSetPosition = false;
+        private void UpdateSettingProperty(string name)
+        {
+            var e = Setting;
+            switch (name)
+            {
+                case nameof(Settings.UseFooterInfoText):
+                    if (e.UseFooterInfoText)
+                        Lb_Footer_Info.Visibility = Visibility.Visible;
+                    else
+                        Lb_Footer_Info.Visibility = Visibility.Hidden;
+                    break;
+                case nameof(Settings.PlayerAlbumArtSearchPathes):
+                    Tags.AlbumArtFolders = e.PlayerAlbumArtSearchPathes;
+                    break;
+                case nameof(Settings.PlayerUseSearchLocalAlbumArt):
+                    Tags.UseLocalAlbumArts = e.PlayerUseSearchLocalAlbumArt;
+                    break;
+                case nameof(Settings.PlayerMiniControlShow):
+                    if (e.PlayerMiniControlShow)
+                        OpenMiniControl();
+                    else
+                        CloseMiniControl();
+                    break;
+                case nameof(Settings.PlayerMiniControlTopmost):
+                    if (miniControlWindow != null)
+                    {
+                        miniControlWindow.Topmost = e.PlayerMiniControlTopmost;
+                        miniControlWindow.Update();
+                    }
+                    break;
+                case nameof(Settings.PlayerMiniControlTop):
+                    if (_playerMiniControlSetPosition && miniControlWindow != null)
+                        miniControlWindow.Top = e.PlayerMiniControlTop;
+                    break;
+                case nameof(Settings.PlayerMiniControlLeft):
+                    if (_playerMiniControlSetPosition && miniControlWindow != null)
+                        miniControlWindow.Left = e.PlayerMiniControlLeft;
+                    break;
+                case nameof(Settings.AudioDesiredLantency):
+                    np.DesiredLatency = e.AudioDesiredLantency;
+                    break;
+                case nameof(Settings.AudioVolume):
+                    Sld_Footer_Volume_ValueChanged(this, new RoutedPropertyChangedEventArgs<double>(e.AudioVolume, e.AudioVolume));
+                    Sld_Footer_Volume.Value = e.AudioVolume;
+                    break;
+                case nameof(Settings.AudioUseDspProcessing):
+                    np.UseDspProcessing = e.AudioUseDspProcessing;
+                    break;
+                case nameof(Settings.AudioUseDspLimit):
+                    np.DspUseSampleRateLimit = e.AudioUseDspLimit;
+                    break;
+                case nameof(Settings.AudioDspLimitSampleRate):
+                    np.DspSampleRateLimit = e.AudioDspLimitSampleRate;
+                    break;
+                case nameof(Settings.SingerHorizontalAlignment):
+                    if (singer != null)
+                        singer.HorizontalAlignment = e.SingerHorizontalAlignment;
+                    break;
+                case nameof(Settings.SingerVerticalAlignment):
+                    if (singer != null)
+                        singer.VerticalAlignment = e.SingerVerticalAlignment;
+                    break;
+                case nameof(Settings.SingerDefaultFadeInMode):
+                    LyricLineRenderer.DefaultFadeIn = e.SingerDefaultFadeInMode;
+                    break;
+                case nameof(Settings.SingerDefaultFadeOutMode):
+                    LyricLineRenderer.DefaultFadeOut = e.SingerDefaultFadeOutMode;
+                    break;
+                case nameof(Settings.SingerResetPosition):
+                    if (singer != null)
+                    {
+                        if (e.SingerCanDragmove || !e.SingerResetPosition)
+                            singer.ResetPosition = false;
+                        else
+                            singer.ResetPosition = true;
+                    }
+                    break;
+                case nameof(Settings.SingerCanDragmove):
+                    if (singer != null && Lyric != null)
+                    {
+                        e.SingerTop = singer.Top;
+                        e.SingerLeft = singer.Left;
+
+                        singer.Dispose();
+                        singer = null;
+
+                        bool resetpos = e.SingerResetPosition;
+
+                        e.SingerResetPosition = false;
+                        CreateSinger(Lyric);
+                        e.SingerResetPosition = resetpos;
+
+                        singer.Refresh();
+                    }
+                    break;
+                case nameof(Settings.SingerZoom):
+                    if (singer != null)
+                    {
+                        singer.Zoom = e.SingerZoom;
+                        singer.Refresh();
+                    }
+                    break;
+                case nameof(Settings.SingerShow):
+                    if (!e.SingerShow && singer != null)
+                    {
+                        singer.Dispose();
+                        singer = null;
+                    }
+                    break;
+                case nameof(Settings.SingerOpacity):
+                    if (singer != null)
+                        singer.Opacity = e.SingerOpacity;
+                    break;
+                case nameof(Settings.SingerWindowMode):
+                    if (singer != null && Lyric != null)
+                    {
+                        singer.Dispose();
+                        singer = null;
+
+                        CreateSinger(Lyric);
+
+                        singer.Refresh();
+                    }
+                    break;
+                case nameof(Settings.ComposerTopmost):
+                    if (dlrenderer != null)
+                        dlrenderer.Topmost = e.ComposerTopmost;
+                    break;
+                case nameof(Settings.ComposerWindowMode):
+                    if (dlrenderer != null)
+                        dlrenderer.WindowMode = e.ComposerTopmost;
+                    break;
+                case nameof(Settings.ComposerUse):
+                    if (!e.ComposerUse && dlrenderer != null)
+                    {
+                        dlrenderer.Close();
+                        dlrenderer = null;
+                        MemoryManagement.FlushMemory();
+                    }
+                    break;
+                case nameof(Settings.ComposerOpacity):
+                    if (dlrenderer != null)
+                        dlrenderer.Opacity = e.ComposerOpacity;
+                    break;
+                case nameof(Settings.OsiloHeight):
+                    if (osVisualizer != null)
+                        osVisualizer.Height = e.OsiloHeight;
+                    break;
+                case nameof(Settings.OsiloView):
+                    if (osVisualizer != null)
+                        osVisualizer.View = e.OsiloView;
+                    break;
+                case nameof(Settings.OsiloStrength):
+                    if (osVisualizer != null)
+                        osVisualizer.Strength = e.OsiloStrength;
+                    break;
+                case nameof(Settings.OsiloWidth):
+                    if (osVisualizer != null)
+                        osVisualizer.Width = e.OsiloWidth;
+                    break;
+                case nameof(Settings.OsiloDash):
+                    if (osVisualizer != null)
+                        osVisualizer.Dash = e.OsiloDash;
+                    break;
+                case nameof(Settings.OsiloTop):
+                    if (osVisualizer != null)
+                        osVisualizer.Top = e.OsiloTop;
+                    break;
+                case nameof(Settings.OsiloOpacity):
+                    if (osVisualizer != null)
+                        osVisualizer.Opacity = e.OsiloOpacity;
+                    break;
+                case nameof(Settings.OsiloUseInvert):
+                    if (osVisualizer != null)
+                        osVisualizer.UseInvert = e.OsiloUseInvert;
+                    break;
+                case nameof(Settings.OsiloRenderType):
+                    if (osVisualizer != null)
+                        osVisualizer.RenderType = e.OsiloRenderType;
+                    break;
+                case nameof(Settings.OsiloGridShow):
+                    if (osVisualizer != null)
+                        osVisualizer.RenderGrid = e.OsiloGridShow;
+                    break;
+                case nameof(Settings.OsiloGridTextHorizontalAlignment):
+                    if (osVisualizer != null)
+                        osVisualizer.GridTextHorizontalAlignment = e.OsiloGridTextHorizontalAlignment;
+                    break;
+                case nameof(Settings.VUOpacity):
+                    if (vuVisualizer != null)
+                        vuVisualizer.Opacity = e.VUOpacity * Grid_Mid.Opacity;
+                    break;
+                case nameof(Settings.VUSenstive):
+                    if (vuVisualizer != null)
+                        vuVisualizer.Senstive = e.VUSenstive;
+                    break;
+                case nameof(Settings.SpecOpacity):
+                    if (specVisualizer != null)
+                        specVisualizer.Opacity = e.SpecOpacity;
+                    break;
+                case nameof(Settings.SpecMinFreq):
+                    if (np != null && np.DSPMaster != null && specVisualizer.SpectrumAnalysis != null)
+                        specVisualizer.SpectrumAnalysis.MinimumFrequency = e.SpecMinFreq;
+                    break;
+                case nameof(Settings.SpecMaxFreq):
+                    if (np != null && np.DSPMaster != null && specVisualizer.SpectrumAnalysis != null)
+                        specVisualizer.SpectrumAnalysis.MaximumFrequency = e.SpecMaxFreq;
+                    break;
+                case nameof(Settings.SpecScalingMode):
+                    if (np != null && np.DSPMaster != null && specVisualizer.SpectrumAnalysis != null)
+                        specVisualizer.SpectrumAnalysis.ScalingStrategy = e.SpecScalingMode;
+                    break;
+                case nameof(Settings.SpecDash):
+                    if (specVisualizer != null)
+                        specVisualizer.Dash = e.SpecDash;
+                    break;
+                case nameof(Settings.SpecWidth):
+                    if (specVisualizer != null)
+                        specVisualizer.Width = e.SpecWidth;
+                    break;
+                case nameof(Settings.SpecHeight):
+                    if (specVisualizer != null)
+                        specVisualizer.Height = e.SpecHeight;
+                    break;
+                case nameof(Settings.SpecTop):
+                    if (specVisualizer != null)
+                        specVisualizer.Top = e.SpecTop;
+                    break;
+                case nameof(Settings.SpecUseResampler):
+                    if (np != null && np.DSPMaster != null && specVisualizer.SpectrumAnalysis != null)
+                        specVisualizer.SpectrumAnalysis.UseResampling = e.SpecUseResampler;
+                    break;
+                case nameof(Settings.SpecResampleMode):
+                    if (specVisualizer.SpectrumAnalysis != null)
+                        specVisualizer.SpectrumAnalysis.ResamplingMode = e.SpecResampleMode;
+                    break;
+                case nameof(Settings.SpecInvert):
+                    if (specVisualizer != null)
+                        specVisualizer.UseInvert = e.SpecInvert;
+                    break;
+                case nameof(Settings.SpecUseLogScale):
+                    if (np != null && np.DSPMaster != null && specVisualizer.SpectrumAnalysis != null)
+                        specVisualizer.SpectrumAnalysis.IsXLogScale = e.SpecUseLogScale;
+                    break;
+                case nameof(Settings.SpecRenderType):
+                    if (specVisualizer != null)
+                        specVisualizer.RenderType = e.SpecRenderType;
+                    break;
+                case nameof(Settings.SpecStrength):
+                    if (specVisualizer != null)
+                        specVisualizer.Strength = e.SpecStrength;
+                    break;
+                case nameof(Settings.SpecGridShow):
+                    if (specVisualizer != null)
+                        specVisualizer.RenderGrid = e.SpecGridShow;
+                    break;
+                case nameof(Settings.SpecGridTextHorizontalAlignment):
+                    if (specVisualizer != null)
+                        specVisualizer.GridTextHorizontalAlignment = e.SpecGridTextHorizontalAlignment;
+                    break;
+                default:
+                    Logger.Error($"Uknown Property {name}");
+                    break;
+            }
+        }
+
+        private void UpdateSetting(Settings e)
+        {
+            var names = typeof(Settings).GetProperties();
+            foreach (var item in names)
+            {
+                UpdateSettingProperty(item.Name);
+            }
         }
 
         public void LoadPlaylists(SplashWindow window)
@@ -3371,10 +2936,11 @@ namespace Symphony
             MusicPlot = null;
             MusicPlot = new PlotLite(path);
 
-            this.Dispatcher.Invoke(
+            Dispatcher.Invoke(
                 new Action(() => 
                 {
-                    if (ComposerUse)
+                    // TODO: Setting Update
+                    if (Setting.ComposerUse)
                     {
                         if (dlrenderer != null)
                         {
@@ -3388,12 +2954,12 @@ namespace Symphony
                         {
                             dlrenderer = new DanceLiteRenderer(this, np, MusicPlot);
                         }
-                        dlrenderer.WindowMode = ComposerWindowMode;
+                        dlrenderer.WindowMode = Setting.ComposerWindowMode;
 
                         dlrenderer.Show();
 
-                        dlrenderer.Topmost = ComposerTopmost;
-                        dlrenderer.Opacity = ComposerOpacity;
+                        dlrenderer.Topmost = Setting.ComposerTopmost;
+                        dlrenderer.Opacity = Setting.ComposerOpacity;
                     }
                     else
                     {
@@ -3474,12 +3040,13 @@ namespace Symphony
 
         private void CreateSinger(Lyric Lyric)
         {
-            if (SingerShow)
+            // TODO: Update Setting
+            if (Setting.SingerShow)
             {
                 if (singer == null)
                 {
-                    singer = new Singer(ref Lyric, np, this, SingerCanDragmove, SingerWindowMode);
-                    singer.Zoom = SingerZoom;
+                    singer = new Singer(ref Lyric, np, this, Setting.SingerCanDragmove, Setting.SingerWindowMode);
+                    singer.Zoom = Setting.SingerZoom;
                     singer.Refresh();
                     singer.Closed += Singer_Closed;
                     singer.Show(DummyToolWindow);
@@ -3487,22 +3054,22 @@ namespace Symphony
                 else
                 {
                     singer.Init(ref Lyric);
-                    singer.Zoom = SingerZoom;
+                    singer.Zoom = Setting.SingerZoom;
                 }
 
                 singer.Optimize = true;
                 singer.Topmost = true;
-                singer.Opacity = SingerOpacity;
-                singer.HorizontalAlignment = SingerHorizontalAlignment;
-                singer.VerticalAlignment = SingerVerticalAlignment;
+                singer.Opacity = Setting.SingerOpacity;
+                singer.HorizontalAlignment = Setting.SingerHorizontalAlignment;
+                singer.VerticalAlignment = Setting.SingerVerticalAlignment;
 
-                if (!SingerResetPosition && SingerTop != double.NegativeInfinity)
+                if (!Setting.SingerResetPosition && Setting.SingerTop != double.NegativeInfinity)
                 {
-                    singer.Top = SingerTop;
-                    singer.Left = SingerLeft;
+                    singer.Top = Setting.SingerTop;
+                    singer.Left = Setting.SingerLeft;
                 }
 
-                if (SingerCanDragmove || !SingerResetPosition)
+                if (Setting.SingerCanDragmove || !Setting.SingerResetPosition)
                 {
                     singer.ResetPosition = false;
                 }
@@ -3511,7 +3078,7 @@ namespace Symphony
                     singer.ResetPosition = true;
                 }
 
-                if (SingerResetPosition)
+                if (Setting.SingerResetPosition)
                 {
                     singer.SetScreen(singer.scrIndex);
                 }
@@ -3528,8 +3095,8 @@ namespace Symphony
 
         private void Singer_Closed(object sender, EventArgs e)
         {
-            SingerTop = singer.Top;
-            SingerLeft = singer.Left;
+            Setting.SingerTop = singer.Top;
+            Setting.SingerLeft = singer.Left;
         }
 
         private void LyricSearchStart(MusicMetadata meta, Song song)
