@@ -13,7 +13,7 @@ using System.Windows;
 [assembly: AssemblyCompany("Ap7 Studio")]
 [assembly: AssemblyProduct("Symphony")]
 [assembly: AssemblyCopyright("Copyright © 2016")]
-[assembly: AssemblyTrademark("AinL, JinkwaN")]
+[assembly: AssemblyTrademark("AinL, Jinkwan, MattMatt")]
 [assembly: AssemblyCulture("")]
 
 // ComVisible을 false로 설정하면 이 어셈블리의 형식이 COM 구성 요소에 
@@ -51,7 +51,7 @@ using System.Windows;
 // 모든 값을 지정하거나 아래와 같이 '*'를 사용하여 빌드 번호 및 수정 번호가 자동으로 
 // 지정되도록 할 수 있습니다.
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.3.1.15")]
-[assembly: AssemblyFileVersion("0.3.1.15")]
+[assembly: AssemblyVersion("0.3.1.16")]
+[assembly: AssemblyFileVersion("0.3.1.16")]
 [assembly: NeutralResourcesLanguage("ko-KR")]
 

@@ -31,7 +31,7 @@ namespace Symphony
 
         public App()
         {
-            
+            Util.Settings.Load();
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)

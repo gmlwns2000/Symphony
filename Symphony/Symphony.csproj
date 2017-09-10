@@ -552,6 +552,7 @@
     <Compile Include="Util\Resource.cs" />
     <Compile Include="Util\ResourcesParent.cs" />
     <Compile Include="Util\RussianRullet.cs" />
+    <Compile Include="Util\Settings.cs" />
     <Compile Include="Util\StreamString.cs" />
     <Compile Include="Util\StringChipher.cs" />
     <Compile Include="Util\TextTool.cs" />
