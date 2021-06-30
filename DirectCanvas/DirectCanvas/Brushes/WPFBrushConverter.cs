@@ -90,27 +90,39 @@ namespace DirectCanvas.Brushes
 
         public static Brush ConvertFromImageBrush(DirectCanvasFactory factory, wpf.ImageBrush brush)
         {
-            throw new NotImplementedException("This code was not tested. Disable this exception to use it.");
+            if (brush.ImageSource == null)
+                return null;
 
-            Stream bmpStream = StreamFromBitmapSource((BitmapSource)brush.ImageSource);
-            var brushImg = new Imaging.Image(bmpStream, factory);
-
-            bmpStream.Dispose();
-
-            var layer = factory.CreateDrawingLayerFromImage(brushImg);
-            brushImg.Dispose();
-
-            var retBrush = factory.CreateDrawingLayerBrush(layer);
-            layer.Dispose();
-
-            return retBrush;
+            using (var bmpStream = StreamFromBitmapSource((BitmapSource)brush.ImageSource))
+            using (var brushImg = new Imaging.Image(bmpStream, factory))
+            using (var layer = factory.CreateDrawingLayerFromImage(brushImg))
+            {
+                var retBrush = factory.CreateDrawingLayerBrush(layer);
+                switch (brush.Stretch)
+                {
+                    case Stretch.None:
+                        retBrush.Alignment = BrushAlignment.GeometryAbsolute;
+                        break;
+                    case Stretch.Fill:
+                        retBrush.Alignment = BrushAlignment.GeometryRelative;
+                        break;
+                    case Stretch.Uniform:
+                        retBrush.Alignment = BrushAlignment.GeometryAbsolute;
+                        break;
+                    case Stretch.UniformToFill:
+                        retBrush.Alignment = BrushAlignment.GeometryAbsolute;
+                        break;
+                }
+                retBrush.Opacity = (float)brush.Opacity;
+                return retBrush;
+            }
         }
 
         private static Stream StreamFromBitmapSource(BitmapSource bitmapSrc)
         {
             Stream bmpStream = new MemoryStream();
 
-            BitmapEncoder encoder = new BmpBitmapEncoder();
+            var encoder = new PngBitmapEncoder() { Interlace = PngInterlaceOption.Off };
             encoder.Frames.Add(BitmapFrame.Create(bitmapSrc));
             encoder.Save(bmpStream);
 
