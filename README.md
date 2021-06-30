@@ -1,6 +1,10 @@
 # Symphony
 
-Anime meets real life
+![main image](Docs/main.jpg)
+
+This project is currently outdated. 
+
+Last update was 2017.
 
 ## #TODO
 
